@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Dreabee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --gradient: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --gradient-dark: linear-gradient(145deg, #043E54 0%, #0a6b73 50%, #34AE93 100%);
+      --bg: #FFFFFF;
+      --surface: #F7FAFA;
+      --border: #E2EDEC;
+      --text-primary: #043E54;
+      --text-secondary: #4A7A84;
+      --tint: #EDF7F5;
+      --error: #dc2626;
+    }
+
+    html,
+    body {
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    /* ── SPLIT LAYOUT ── */
+    .split {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+      .split {
+        flex-direction: row;
+      }
+    }
+
+    /* ── LEFT PANEL ── */
+    .panel-left {
+      position: relative;
+      background: var(--gradient-dark);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 36px 40px;
+      min-height: 260px;
+    }
+
+    @media (min-width: 768px) {
+      .panel-left {
+        width: 50%;
+        min-height: 100vh;
+        padding: 52px 56px;
+        position: sticky;
+        top: 0;
+      }
+    }
+
+    /* Decorative orbs */
+    .panel-left::before {
+      content: '';
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(138, 216, 163, 0.18) 0%, transparent 70%);
+      top: -100px;
+      right: -120px;
+      pointer-events: none;
+    }
+
+    .panel-left::after {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(52, 174, 147, 0.15) 0%, transparent 70%);
+      bottom: -80px;
+      left: -60px;
+      pointer-events: none;
+    }
+
+    /* Noise texture overlay */
+    .panel-noise {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: .4;
+    }
+
+    .panel-left-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Left: top section */
+    .left-top {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .left-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .left-headline {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .left-headline h2 {
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+
+    .left-headline p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.65;
+      max-width: 340px;
+    }
+
+    /* Features */
+    .left-features {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .left-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .feat-check {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feat-check svg {
+      width: 10px;
+      height: 10px;
+    }
+
+    .left-feature span {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Left: bottom section */
+    .left-bottom {
+      position: relative;
+      z-index: 1;
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    @media (max-width: 767px) {
+      .left-bottom {
+        display: none;
+      }
+    }
+
+    .trust-dots {
+      display: flex;
+    }
+
+    .trust-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.8);
+      margin-left: -8px;
+    }
+
+    .trust-dot:first-child {
+      margin-left: 0;
+    }
+
+    .trust-text {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* Grid decoration */
+    .left-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    /* ── RIGHT PANEL ── */
+    .panel-right {
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    @media (min-width: 768px) {
+      .panel-right {
+        width: 50%;
+        overflow-y: auto;
+      }
+    }
+
+    .right-inner {
+      max-width: 440px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 40px 32px 60px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .right-inner {
+        padding: 56px 48px;
+      }
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-bottom: 48px;
+      transition: color .15s;
+      align-self: flex-start;
+    }
+
+    .back-link:hover {
+      color: var(--primary);
+    }
+
+    .back-arrow {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s;
+    }
+
+    .back-link:hover .back-arrow {
+      background: var(--tint);
+      border-color: var(--teal);
+    }
+
+    /* Form header */
+    .form-header {
+      margin-bottom: 36px;
+    }
+
+    .form-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -.02em;
+      margin-bottom: 6px;
+    }
+
+    .form-header p {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+
+    /* Form */
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: .01em;
+    }
+
+    .field-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .field-row label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .forgot-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      text-decoration: none;
+      transition: all .15s;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: inherit;
+      border-bottom: 1.5px dashed rgba(52, 174, 147, .4);
+      padding-bottom: 1px;
+    }
+
+    .forgot-link:hover {
+      color: #1e8a6e;
+      border-bottom-color: #1e8a6e;
+      border-bottom-style: solid;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    .input-wrap input {
+      width: 100%;
+      padding: 12px 14px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--text-primary);
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s, background .15s;
+      -webkit-appearance: none;
+    }
+
+    .input-wrap input::placeholder {
+      color: #9BBDC5;
+    }
+
+    .input-wrap input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(52, 174, 147, 0.12);
+      background: #fff;
+    }
+
+    .input-wrap input.error {
+      border-color: var(--error);
+    }
+
+    .input-wrap input.error:focus {
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+    }
+
+    /* Password toggle */
+    .pw-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      transition: color .15s;
+    }
+
+    .pw-toggle:hover {
+      color: var(--primary);
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--error);
+      font-weight: 500;
+      display: none;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .field-error.show {
+      display: flex;
+    }
+
+    /* Checkbox */
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .checkbox-row input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      accent-color: var(--teal);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .checkbox-row span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    /* Submit */
+    .btn-login {
+      width: 100%;
+      padding: 13px;
+      background: var(--gradient);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform .15s, box-shadow .15s, opacity .15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-login:hover {
+      transform: scale(1.01);
+      box-shadow: 0 5px 18px rgba(52, 174, 147, 0.38);
+    }
+
+    .btn-login:active {
+      transform: scale(0.99);
+    }
+
+    .btn-login.loading {
+      opacity: .75;
+      pointer-events: none;
+    }
+
+    .btn-spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2.5px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+    }
+
+    .btn-login.loading .btn-spinner {
+      display: block;
+    }
+
+    .btn-login.loading .btn-label {
+      opacity: 0;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .divider-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    /* Register link */
+    .register-row {
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .register-row a {
+      color: var(--teal);
+      font-weight: 700;
+      text-decoration: none;
+      transition: color .15s;
+    }
+
+    .register-row a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Alert */
+    .form-alert {
+      padding: 12px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.5;
+      display: none;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .form-alert.error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #b91c1c;
+      display: flex;
+    }
+
+    .form-alert.success {
+      background: var(--tint);
+      border: 1px solid var(--border);
+      color: var(--teal);
+      display: flex;
+    }
+
+    /* Forgot password modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(4, 62, 84, .5);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 24px 80px rgba(4, 62, 84, .22);
+      transform: translateY(16px) scale(.97);
+      transition: transform .28s cubic-bezier(.4, 0, .2, 1), opacity .28s;
+      position: relative;
+      opacity: 0
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+      opacity: 1
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #f2f9f7;
+      border: 1px solid #D5EBE5;
+      border-radius: 8px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #4A7A84;
+      font-size: 18px;
+      line-height: 1;
+      transition: background .12s, color .12s
+    }
+
+    .modal-close:hover {
+      background: #D5EBE5;
+      color: #043E54
+    }
+
+    .modal-icon {
+      width: 52px;
+      height: 52px;
+      background: linear-gradient(135deg, #e8f6f0, #D5EBE5);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px
+    }
+
+    .modal-icon svg {
+      width: 24px;
+      height: 24px
+    }
+
+    .modal h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #043E54;
+      margin-bottom: 8px;
+      letter-spacing: -.02em
+    }
+
+    .modal p {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.65;
+      margin-bottom: 24px
+    }
+
+    .modal .field {
+      margin-bottom: 16px
+    }
+
+    .modal .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #043E54;
+      margin-bottom: 6px
+    }
+
+    .modal .input-wrap {
+      position: relative
+    }
+
+    .modal .input-wrap input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #D5EBE5;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #043E54;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      font-family: inherit
+    }
+
+    .modal .input-wrap input:focus {
+      border-color: #34AE93;
+      box-shadow: 0 0 0 3px rgba(52, 174, 147, .12)
+    }
+
+    .field-error {
+      display: none;
+      font-size: 12px;
+      color: #e53e3e;
+      margin-top: 5px;
+      align-items: center;
+      gap: 4px
+    }
+
+    .field-error.show {
+      display: flex
+    }
+
+    .btn-reset {
+      width: 100%;
+      padding: 13px;
+      background: linear-gradient(140deg, #7ed5a0, #25967a);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Sora', sans-serif;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s;
+      letter-spacing: -.01em
+    }
+
+    .btn-reset:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(52, 174, 147, .38)
+    }
+
+    .modal-success {
+      display: none;
+      text-align: center;
+      padding: 8px 0
+    }
+
+    .modal-success-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #8AD8A3, #34AE93);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px
+    }
+
+    .modal-success h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #043E54;
+      margin-bottom: 10px
+    }
+
+    .modal-success p {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.65;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    .modal-success {
+      display: none;
+      text-align: center;
+      padding: 16px 0 8px;
+    }
+
+    .modal-success-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--gradient);
+      margin: 0 auto 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-success p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+
+    .modal-success strong {
+      display: block;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    /* ──────── GLOBAL NAV ──────── */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* ──────── GLOBAL FOOTER ──────── */
+    .gfoot {
+      background: #F7FAFA;
+      border-top: 1px solid #E2EDEC;
+      padding: 56px 24px 0
+    }
+
+    .gfoot-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px
+    }
+
+    @media(min-width:600px) {
+      .gfoot-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(min-width:960px) {
+      .gfoot-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr 1fr
+      }
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.65;
+      margin-top: 12px;
+      max-width: 200px
+    }
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #043E54;
+      margin-bottom: 12px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: .12s
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding: 20px 0;
+      border-top: 1px solid #E2EDEC;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: .12s
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- MAIN SPLIT LAYOUT -->
+  <div class="split">
+
+    <!-- LEFT PANEL -->
+    <div class="panel-left">
+      <div class="left-grid"></div>
+      <div class="panel-noise"></div>
+
+      <div class="panel-left-content">
+        <div class="left-top">
+          <!-- Logo (white) -->
+          <div class="left-logo">
+            <svg width="140" height="40" viewBox="0 0 140 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="lw" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="rgba(255,255,255,0.9)" />
+                  <stop offset="100%" stop-color="rgba(255,255,255,0.6)" />
+                </linearGradient>
+              </defs>
+              <circle cx="21" cy="21" r="18" fill="url(#lw)" />
+              <text x="21" y="27" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#043E54"
+                text-anchor="middle">db</text>
+              <text x="50" y="27" font-family="Inter,sans-serif" font-size="20" font-weight="700"
+                fill="white">dreabee</text>
+            </svg>
+          </div>
+
+          <!-- Headline -->
+          <div class="left-headline">
+            <h2>Welcome back<br>to Dreabee</h2>
+            <p>The next-generation platform for strategic influencer partnerships.</p>
+          </div>
+
+          <!-- Features -->
+          <div class="left-features">
+            <div class="left-feature">
+              <span class="feat-check">
+                <svg viewBox="0 0 10 10" fill="none">
+                  <path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span>100M+ Influencer Database</span>
+            </div>
+            <div class="left-feature">
+              <span class="feat-check">
+                <svg viewBox="0 0 10 10" fill="none">
+                  <path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span>Real-time Campaign Analytics</span>
+            </div>
+            <div class="left-feature">
+              <span class="feat-check">
+                <svg viewBox="0 0 10 10" fill="none">
+                  <path d="M1.5 5l2.5 2.5 4.5-4.5" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span>AI-Powered Creator Discovery</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom trust -->
+      <div class="left-bottom">
+        <div class="trust-dots">
+          <div class="trust-dot">A</div>
+          <div class="trust-dot">B</div>
+          <div class="trust-dot">C</div>
+          <div class="trust-dot">+</div>
+        </div>
+        <span class="trust-text">Trusted by 350+ brands worldwide</span>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="panel-right">
+      <div class="right-inner">
+
+        <!-- Back link -->
+        <a href="index.html" class="back-link">
+          <span class="back-arrow">
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M6.5 2L3.5 5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </span>
+          Back to dreabee.com
+        </a>
+
+        <!-- Heading -->
+        <div class="form-header">
+          <h2>Login</h2>
+          <p>Sign in to your account</p>
+        </div>
+
+        <!-- Alert -->
+        <div class="form-alert" id="form-alert" role="alert">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" flex-shrink="0" style="flex-shrink:0;margin-top:1px">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 8v4M12 16h.01" />
+          </svg>
+          <span id="form-alert-text"></span>
+        </div>
+
+        <!-- Form -->
+        <form class="login-form" id="login-form" novalidate onsubmit="handleLogin(event)">
+
+          <!-- Email -->
+          <div class="field">
+            <label for="email">Email address</label>
+            <div class="input-wrap">
+              <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email"
+                oninput="clearFieldError('email')">
+            </div>
+            <span class="field-error" id="email-error">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8v4M12 16h.01" />
+              </svg>
+              Please enter a valid email address.
+            </span>
+          </div>
+
+          <!-- Password -->
+          <div class="field">
+            <div class="field-row">
+              <label for="password">Password</label>
+              <button type="button" class="forgot-link" onclick="openForgot()">Forgot password?</button>
+            </div>
+            <div class="input-wrap">
+              <input type="password" id="password" name="password" placeholder="••••••••"
+                autocomplete="current-password" style="padding-right: 42px;" oninput="clearFieldError('password')">
+              <button type="button" class="pw-toggle" id="pw-toggle" onclick="togglePw()"
+                aria-label="Show/hide password">
+                <svg id="eye-show" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+                <svg id="eye-hide" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" style="display:none">
+                  <path
+                    d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                  <line x1="1" y1="1" x2="23" y2="23" />
+                </svg>
+              </button>
+            </div>
+            <span class="field-error" id="password-error">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8v4M12 16h.01" />
+              </svg>
+              Password is required.
+            </span>
+          </div>
+
+          <!-- Remember me -->
+          <label class="checkbox-row">
+            <input type="checkbox" id="remember" name="remember">
+            <span>Remember me for 30 days</span>
+          </label>
+
+          <!-- Submit -->
+          <button type="submit" class="btn-login" id="btn-login">
+            <div class="btn-spinner" id="btn-spinner"></div>
+            <span class="btn-label" id="btn-label">Login →</span>
+          </button>
+
+        </form>
+
+        <!-- Divider -->
+        <div class="divider" style="margin: 24px 0;">
+          <div class="divider-line"></div>
+          <span class="divider-text">Don't have an account?</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <!-- Register -->
+        <p class="register-row">
+          Not a member? <a href="dreabee-register.html">Create an Account</a>
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FORGOT PASSWORD MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModalOverlay(event)">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" onclick="closeForgot()" aria-label="Close">×</button>
+
+      <!-- Form state -->
+      <div id="modal-form-state">
+        <div class="modal-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#34AE93" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+        </div>
+        <h3 id="modal-title">Reset your password</h3>
+        <p>Enter your email and we'll send you a secure link to reset your password.</p>
+        <div class="field">
+          <label for="reset-email">Email address</label>
+          <div class="input-wrap">
+            <input type="email" id="reset-email" placeholder="you@company.com" autocomplete="email">
+          </div>
+          <span class="field-error" id="reset-email-error">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M12 8v4M12 16h.01" />
+            </svg>
+            Please enter a valid email address.
+          </span>
+        </div>
+        <button class="btn-reset" onclick="handleReset()">Send Reset Link →</button>
+      </div>
+
+      <!-- Success state -->
+      <div class="modal-success" id="modal-success-state">
+        <div class="modal-success-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
+        </div>
+        <h3>Check your inbox</h3>
+        <p>We've sent a password reset link to <strong id="reset-email-display"></strong>. Check your spam folder if you
+          don't see it within a minute.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── Password visibility toggle
+    function togglePw() {
+      const input = document.getElementById('password');
+      const show = document.getElementById('eye-show');
+      const hide = document.getElementById('eye-hide');
+      if (input.type === 'password') {
+        input.type = 'text';
+        show.style.display = 'none';
+        hide.style.display = 'block';
+      } else {
+        input.type = 'password';
+        show.style.display = 'block';
+        hide.style.display = 'none';
+      }
+    }
+
+    // ── Field error helpers
+    function clearFieldError(fieldId) {
+      const input = document.getElementById(fieldId);
+      const error = document.getElementById(fieldId + '-error');
+      if (input) input.classList.remove('error');
+      if (error) error.classList.remove('show');
+      // Also clear form-level alert on any input
+      hideAlert();
+    }
+
+    function showFieldError(fieldId) {
+      const input = document.getElementById(fieldId);
+      const error = document.getElementById(fieldId + '-error');
+      if (input) input.classList.add('error');
+      if (error) error.classList.add('show');
+    }
+
+    // ── Form alert
+    function showAlert(msg, type = 'error') {
+      const alert = document.getElementById('form-alert');
+      const text = document.getElementById('form-alert-text');
+      text.textContent = msg;
+      alert.className = 'form-alert ' + type;
+    }
+
+    function hideAlert() {
+      document.getElementById('form-alert').className = 'form-alert';
+    }
+
+    // ── Login handler (demo)
+    function handleLogin(e) {
+      e.preventDefault();
+      hideAlert();
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      let valid = true;
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFieldError('email');
+        valid = false;
+      }
+
+      if (!password) {
+        showFieldError('password');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Loading state
+      const btn = document.getElementById('btn-login');
+      btn.classList.add('loading');
+
+      // Simulate async login
+      setTimeout(() => {
+        btn.classList.remove('loading');
+        // Demo: show error for non-matching credentials
+        showAlert('Invalid email or password. Please try again.');
+        document.getElementById('email').classList.add('error');
+        document.getElementById('password').classList.add('error');
+      }, 1400);
+    }
+
+    // ── Forgot password modal
+    function openForgot() {
+      // Pre-fill email if already entered
+      const loginEmail = document.getElementById('email').value.trim();
+      if (loginEmail) document.getElementById('reset-email').value = loginEmail;
+
+      document.getElementById('modal-form-state').style.display = 'block';
+      document.getElementById('modal-success-state').style.display = 'none';
+      document.getElementById('reset-email-error').classList.remove('show');
+      document.getElementById('reset-email').classList.remove('error');
+
+      document.getElementById('modal-overlay').classList.add('open');
+      document.getElementById('reset-email').focus();
+    }
+
+    function closeForgot() {
+      document.getElementById('modal-overlay').classList.remove('open');
+    }
+
+    function closeModalOverlay(e) {
+      if (e.target === document.getElementById('modal-overlay')) closeForgot();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeForgot();
+    });
+
+    function handleReset() {
+      const email = document.getElementById('reset-email').value.trim();
+      const errorEl = document.getElementById('reset-email-error');
+      const inputEl = document.getElementById('reset-email');
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        inputEl.classList.add('error');
+        errorEl.classList.add('show');
+        return;
+      }
+
+      inputEl.classList.remove('error');
+      errorEl.classList.remove('show');
+
+      // Simulate sending
+      document.getElementById('modal-form-state').style.display = 'none';
+      document.getElementById('modal-success-state').style.display = 'block';
+    }
+  </script>
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+  </script>
+</body>
+
+</html>

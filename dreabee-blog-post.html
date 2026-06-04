@@ -1,0 +1,2470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimum View Guarantees in Influencer Marketing — Dreabee Blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --grad: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --surface: #F7FAFA;
+      --border: #E2EDEC;
+      --tp: #043E54;
+      --ts: #4A7A84;
+      --tint: #EDF7F5;
+      --nav-h: 64px;
+      --s-sm: 0 1px 5px rgba(4, 62, 84, .05);
+      --s-md: 0 4px 18px rgba(4, 62, 84, .08);
+      --s-lg: 0 12px 40px rgba(4, 62, 84, .12);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--tp);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo {
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      /* margin-left: 24px; */
+      flex: 1;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--primary);
+      background: var(--tint);
+    }
+
+    .nav-dd {
+      position: relative;
+    }
+
+    .nav-dd-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      background: none;
+      font-family: inherit;
+      transition: .15s;
+    }
+
+    .nav-dd-btn:hover {
+      color: var(--primary);
+      background: var(--tint);
+    }
+
+    .chev {
+      width: 12px;
+      height: 12px;
+      transition: transform .2s;
+    }
+
+    .nav-dd.open .chev {
+      transform: rotate(180deg);
+    }
+
+    .dd-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--s-lg);
+      min-width: 220px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: .15s;
+    }
+
+    .nav-dd.open .dd-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .dd-item {
+      display: block;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ts);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: .12s;
+    }
+
+    .dd-item:hover {
+      color: var(--primary);
+      background: var(--tint);
+    }
+
+    .nav-actions {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .btn-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 7px;
+    }
+
+    .btn-ghost:hover {
+      color: var(--primary);
+    }
+
+    .btn-pill {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--grad);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: .15s;
+      font-family: inherit;
+    }
+
+    .btn-pill:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 14px rgba(52, 174, 147, .35);
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: auto;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: .25s;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .mob-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 16px;
+      z-index: 999;
+      max-height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+    }
+
+    .mob-menu.open {
+      display: block;
+    }
+
+    .mob-link {
+      display: block;
+      padding: 10px 12px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--tp);
+      text-decoration: none;
+      border-radius: 7px;
+    }
+
+    .mob-link:hover {
+      background: var(--tint);
+    }
+
+    .mob-sec {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ts);
+      padding: 12px 12px 4px;
+    }
+
+    .mob-hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 8px 0;
+    }
+
+    @media (min-width: 768px) {
+
+      .nav-links,
+      .nav-actions {
+        display: flex;
+        justify-content: center;
+      }
+
+      .hamburger {
+        display: none;
+      }
+    }
+
+    /* ── GLOBALS ── */
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--grad);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      padding: 13px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: .15s;
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 22px rgba(52, 174, 147, .42);
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: .15s;
+    }
+
+    .btn-white:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(4, 62, 84, .2);
+    }
+
+    .fi {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+
+    .fi.vis {
+      opacity: 1;
+      transform: none;
+    }
+
+    .d1 {
+      transition-delay: .1s
+    }
+
+    .d2 {
+      transition-delay: .2s
+    }
+
+    .d3 {
+      transition-delay: .3s
+    }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      padding: 18px 24px 0;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .bc-item {
+      font-size: 13px;
+      color: var(--ts);
+      text-decoration: none;
+      transition: color .15s;
+    }
+
+    .bc-item:hover {
+      color: var(--primary);
+    }
+
+    .bc-sep {
+      font-size: 13px;
+      color: var(--border);
+    }
+
+    .bc-current {
+      font-size: 13px;
+      color: var(--tp);
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 300px;
+    }
+
+    /* ── HERO ── */
+    .post-hero {
+      padding: 32px 24px 0;
+    }
+
+    .post-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .post-hero-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .cat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--tint);
+      border: 1px solid rgba(52, 174, 147, .3);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: .15s;
+    }
+
+    .cat-pill:hover {
+      background: rgba(52, 174, 147, .12);
+    }
+
+    .cat-pill::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: var(--teal);
+      border-radius: 50%;
+    }
+
+    .read-time {
+      font-size: 12px;
+      color: var(--ts);
+      font-weight: 500;
+    }
+
+    .post-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4.5vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      color: var(--primary);
+      max-width: 860px;
+      margin-bottom: 20px;
+    }
+
+    .post-desc {
+      font-size: clamp(15px, 1.6vw, 17px);
+      color: var(--ts);
+      line-height: 1.75;
+      max-width: 720px;
+      margin-bottom: 28px;
+    }
+
+    /* Author row */
+    .author-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 18px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .author-av {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--tp);
+    }
+
+    .author-role {
+      font-size: 12px;
+      color: var(--ts);
+    }
+
+    .post-meta-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      font-size: 12px;
+      color: var(--ts);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .meta-item svg {
+      opacity: .6;
+    }
+
+    /* Share buttons */
+    .share-btns {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .share-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      background: #fff;
+      cursor: pointer;
+      transition: .15s;
+      text-decoration: none;
+    }
+
+    .share-btn:hover {
+      border-color: var(--teal);
+      background: var(--tint);
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO IMAGE ── */
+    .post-cover {
+      margin: 32px 0 0;
+    }
+
+    .post-cover-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .cover-img {
+      width: 100%;
+      height: clamp(240px, 36vw, 480px);
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #d4f0e0 0%, #043E54 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .cover-illustration {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cover-caption {
+      font-size: 12px;
+      color: var(--ts);
+      text-align: center;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .post-layout {
+      max-width: 1100px;
+      margin: 48px auto 0;
+      padding: 0 24px 96px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    @media (min-width: 900px) {
+      .post-layout {
+        grid-template-columns: 1fr 300px;
+      }
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-content {
+      min-width: 0;
+    }
+
+    /* Progress reading bar */
+    .read-progress {
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--border);
+      z-index: 999;
+    }
+
+    .read-progress-fill {
+      height: 100%;
+      background: var(--grad);
+      width: 0%;
+      transition: width .1s linear;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* TOC inline (mobile) */
+    .toc-inline {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 36px;
+      display: block;
+    }
+
+    @media (min-width: 900px) {
+      .toc-inline {
+        display: none;
+      }
+    }
+
+    .toc-title {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--ts);
+      margin-bottom: 14px;
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toc-item a {
+      font-size: 13px;
+      color: var(--ts);
+      text-decoration: none;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.4;
+      transition: color .15s;
+    }
+
+    .toc-item a:hover {
+      color: var(--primary);
+    }
+
+    .toc-item a::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    .toc-item.h3 a {
+      padding-left: 16px;
+      font-size: 12px;
+    }
+
+    /* Prose */
+    .prose {
+      color: var(--tp);
+    }
+
+    .prose h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(22px, 2.8vw, 30px);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -.015em;
+      color: var(--primary);
+      margin: 48px 0 16px;
+      scroll-margin-top: calc(var(--nav-h) + 24px);
+    }
+
+    .prose h3 {
+      font-size: clamp(16px, 1.8vw, 19px);
+      font-weight: 800;
+      color: var(--primary);
+      margin: 32px 0 12px;
+      scroll-margin-top: calc(var(--nav-h) + 24px);
+      line-height: 1.3;
+    }
+
+    .prose p {
+      font-size: clamp(15px, 1.5vw, 16.5px);
+      color: #2a5062;
+      line-height: 1.82;
+      margin-bottom: 20px;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    .prose strong {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .prose em {
+      font-style: italic;
+      color: var(--ts);
+    }
+
+    .prose a {
+      color: var(--teal);
+      text-decoration: underline;
+      text-decoration-color: rgba(52, 174, 147, .4);
+      text-underline-offset: 3px;
+      transition: .15s;
+    }
+
+    .prose a:hover {
+      color: var(--primary);
+      text-decoration-color: var(--primary);
+    }
+
+    .prose ul,
+    .prose ol {
+      padding-left: 22px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .prose li {
+      font-size: clamp(15px, 1.5vw, 16.5px);
+      color: #2a5062;
+      line-height: 1.75;
+    }
+
+    .prose li::marker {
+      color: var(--teal);
+    }
+
+    .prose hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    /* Callout / pull quote */
+    .callout {
+      background: var(--tint);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 10px 10px 0;
+      padding: 16px 20px;
+      margin: 28px 0;
+    }
+
+    .callout p {
+      color: var(--tp) !important;
+      font-weight: 500;
+      margin: 0 !important;
+      font-size: 15px !important;
+      line-height: 1.7 !important;
+    }
+
+    .callout-warning {
+      background: #fef9c3;
+      border-left-color: #f59e0b;
+    }
+
+    .callout-warning p {
+      color: #92400e !important;
+    }
+
+    .callout-danger {
+      background: #fef2f2;
+      border-left-color: #ef4444;
+    }
+
+    .callout-danger p {
+      color: #991b1b !important;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      margin: 36px 0;
+      padding: 28px 32px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      position: relative;
+      background: var(--surface);
+    }
+
+    .pull-quote::before {
+      content: '\201C';
+      font-family: 'DM Serif Display', serif;
+      font-size: 80px;
+      line-height: 1;
+      color: var(--mint);
+      position: absolute;
+      top: -8px;
+      left: 20px;
+    }
+
+    .pull-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(18px, 2.2vw, 24px) !important;
+      font-weight: 400;
+      color: var(--primary) !important;
+      line-height: 1.5 !important;
+      margin: 0 0 10px !important;
+      padding-top: 28px;
+    }
+
+    .pull-quote cite {
+      font-size: 13px;
+      color: var(--ts);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* Stat highlight */
+    .stat-highlight {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin: 28px 0;
+    }
+
+    @media (min-width: 560px) {
+      .stat-highlight {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .sh-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 16px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--s-sm);
+    }
+
+    .sh-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--grad);
+    }
+
+    .sh-v {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .sh-l {
+      font-size: 12px;
+      color: var(--ts);
+      font-weight: 600;
+      margin-top: 5px;
+      line-height: 1.4;
+    }
+
+    /* Inline image / chart placeholder */
+    .post-img {
+      margin: 32px 0;
+    }
+
+    .post-img-inner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 80px;
+    }
+
+    .chart-bar {
+      border-radius: 4px 4px 0 0;
+      min-width: 18px;
+      flex: 1;
+    }
+
+    .post-img-caption {
+      font-size: 12px;
+      color: var(--ts);
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* Tag list */
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+    }
+
+    .post-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ts);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 4px 12px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: .15s;
+    }
+
+    .post-tag:hover {
+      color: var(--teal);
+      border-color: rgba(52, 174, 147, .4);
+      background: var(--tint);
+    }
+
+    /* Author bio card */
+    .author-bio {
+      margin-top: 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .author-bio-av {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .author-bio-body {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .author-bio-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .author-bio-role {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+
+    .author-bio-text {
+      font-size: 13px;
+      color: var(--ts);
+      line-height: 1.65;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .sidebar-widget {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--s-sm);
+    }
+
+    .sw-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--ts);
+      margin-bottom: 14px;
+    }
+
+    /* Sticky TOC sidebar */
+    .toc-sticky {
+      position: sticky;
+      top: calc(var(--nav-h) + 20px);
+    }
+
+    .toc-sidebar-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .toc-sidebar-item a {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--ts);
+      text-decoration: none;
+      padding: 5px 8px;
+      border-radius: 7px;
+      line-height: 1.4;
+      transition: .15s;
+    }
+
+    .toc-sidebar-item a:hover,
+    .toc-sidebar-item.active a {
+      color: var(--primary);
+      background: var(--tint);
+    }
+
+    .toc-sidebar-item.active a {
+      font-weight: 600;
+    }
+
+    .toc-sidebar-item a::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+      margin-top: 7px;
+      transition: background .15s;
+    }
+
+    .toc-sidebar-item.active a::before {
+      background: var(--teal);
+    }
+
+    .toc-sidebar-item.h3 a {
+      padding-left: 20px;
+      font-size: 12px;
+    }
+
+    /* Progress widget */
+    .progress-widget {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pw-bar-wrap {
+      background: var(--surface);
+      border-radius: 100px;
+      height: 6px;
+      overflow: hidden;
+    }
+
+    .pw-bar {
+      height: 100%;
+      background: var(--grad);
+      border-radius: 100px;
+      width: 0%;
+      transition: width .2s;
+    }
+
+    .pw-pct {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--tp);
+    }
+
+    .pw-label {
+      font-size: 12px;
+      color: var(--ts);
+    }
+
+    /* Related posts widget */
+    .related-post {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .related-post:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .rp-thumb {
+      width: 52px;
+      height: 44px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .rp-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tp);
+      line-height: 1.35;
+      text-decoration: none;
+      transition: color .15s;
+    }
+
+    .rp-title:hover {
+      color: var(--teal);
+    }
+
+    .rp-meta {
+      font-size: 11px;
+      color: var(--ts);
+      margin-top: 3px;
+    }
+
+    /* CTA widget */
+    .cta-widget {
+      background: var(--primary);
+      border: none;
+      text-align: center;
+    }
+
+    .cta-widget .sw-title {
+      color: rgba(255, 255, 255, .6);
+    }
+
+    .cta-widget-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 19px;
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+
+    .cta-widget-sub {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .7);
+      margin-bottom: 16px;
+      line-height: 1.55;
+    }
+
+    /* Newsletter widget */
+    .nl-input {
+      width: 100%;
+      padding: 10px 13px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      color: var(--tp);
+      margin-bottom: 8px;
+      transition: .15s;
+    }
+
+    .nl-input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(52, 174, 147, .12);
+    }
+
+    .nl-btn {
+      width: 100%;
+      padding: 10px;
+      background: var(--grad);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .15s;
+    }
+
+    .nl-btn:hover {
+      opacity: .9;
+    }
+
+    .nl-note {
+      font-size: 11px;
+      color: var(--ts);
+      text-align: center;
+      margin-top: 7px;
+    }
+
+    /* ── RELATED ARTICLES SECTION ── */
+    #related {
+      padding: 64px 24px 80px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    .related-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .related-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .related-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(22px, 2.8vw, 30px);
+      font-weight: 400;
+      color: var(--primary);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 560px) {
+      .related-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) {
+      .related-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .rel-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--s-sm);
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      transition: .2s;
+    }
+
+    .rel-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--s-md);
+      border-color: rgba(52, 174, 147, .3);
+    }
+
+    .rel-thumb {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rel-thumb-1 {
+      background: linear-gradient(135deg, #d4f0e0, #89d9a8);
+    }
+
+    .rel-thumb-2 {
+      background: linear-gradient(135deg, #dde8f8, #7ba8e8);
+    }
+
+    .rel-thumb-3 {
+      background: linear-gradient(135deg, #fce8d4, #f4a96a);
+    }
+
+    .rel-thumb-4 {
+      background: linear-gradient(135deg, #f0e8fc, #b07be8);
+    }
+
+    .rel-thumb-5 {
+      background: linear-gradient(135deg, #f8f0d4, #e8c56a);
+    }
+
+    .rel-thumb-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, .4);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rel-body {
+      padding: 18px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .rel-cat {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--tint);
+      border: 1px solid rgba(52, 174, 147, .3);
+      color: var(--teal);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 100px;
+      width: fit-content;
+    }
+
+    .rel-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.35;
+      letter-spacing: -.01em;
+      flex: 1;
+    }
+
+    .rel-excerpt {
+      font-size: 12px;
+      color: var(--ts);
+      line-height: 1.55;
+    }
+
+    .rel-link {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: auto;
+      transition: gap .15s;
+    }
+
+    .rel-link:hover {
+      gap: 7px;
+    }
+
+    /* CTA Banner */
+    #cta {
+      background: var(--grad);
+      padding: 64px 24px;
+      text-align: center;
+    }
+
+    #cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    #cta .sub {
+      font-size: 16px;
+      color: rgba(255, 255, 255, .85);
+      max-width: 540px;
+      margin: 0 auto 28px;
+      line-height: 1.7;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 52px 24px 0;
+    }
+
+    .foot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    @media (min-width: 768px) {
+      .foot-inner {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+    }
+
+    .ft-col-t {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .foot-logo {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .foot-tag {
+      font-size: 14px;
+      color: var(--ts);
+      line-height: 1.6;
+      max-width: 220px;
+    }
+
+    .foot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .foot-link {
+      font-size: 14px;
+      color: var(--ts);
+      text-decoration: none;
+      transition: .12s;
+    }
+
+    .foot-link:hover {
+      color: var(--primary);
+    }
+
+    .foot-bot {
+      max-width: 1200px;
+      margin: 36px auto 0;
+      border-top: 1px solid var(--border);
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .foot-copy {
+      font-size: 13px;
+      color: var(--ts);
+    }
+
+    .foot-blinks {
+      display: flex;
+      gap: 20px;
+    }
+
+    .foot-blinks a {
+      font-size: 13px;
+      color: var(--ts);
+      text-decoration: none;
+    }
+
+    .foot-blinks a:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Reading progress bar -->
+  <div class="read-progress">
+    <div class="read-progress-fill" id="read-progress"></div>
+  </div>
+
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="130" height="38" viewBox="0 0 140 42" fill="none">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#8AD8A3" />
+              <stop offset="100%" stop-color="#34AE93" />
+            </linearGradient>
+          </defs>
+          <circle cx="21" cy="21" r="18" fill="url(#lg)" />
+          <text x="21" y="27" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#043E54"
+            text-anchor="middle">db</text>
+          <text x="50" y="27" font-family="Inter,sans-serif" font-size="20" font-weight="700"
+            fill="#043E54">dreabee</text>
+        </svg>
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="nav-dd" id="dd-feat">
+          <button class="nav-dd-btn" onclick="toggleDd('dd-feat')">Features<svg class="chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="dd-menu">
+            <a href="dreabee-influencer-discovery.html" class="dd-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="dd-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="dd-item">📊 Influencer Analytics</a>
+            <hr class="dd-sep">
+            <a href="dreabee-campaign-reports.html" class="dd-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="dd-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="dd-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="dd-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="nav-dd" id="dd-tools">
+          <button class="nav-dd-btn" onclick="toggleDd('dd-tools')">Free Tools<svg class="chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="dd-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="dd-item">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="dd-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="dd-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="dd-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="nav-dd" id="dd-co">
+          <button class="nav-dd-btn" onclick="toggleDd('dd-co')">Company<svg class="chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="dd-menu">
+            <a href="dreabee-about.html" class="dd-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="dd-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="dd-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="dd-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="dd-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="dd-item">🌟 For Creators</a>
+            <hr class="dd-sep">
+            <a href="dreabee-contact.html" class="dd-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="nav-dd" id="dd-dev">
+          <button class="nav-dd-btn" onclick="toggleDd('dd-dev')">Developers<svg class="chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="dd-menu">
+            <a href="dreabee-developers.html" class="dd-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="dd-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="dd-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="dd-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="dd-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="nav-link">Pricing</a>
+      </div>
+      <div class="nav-actions">
+        <a href="dreabee-login.html" class="btn-ghost">Login</a>
+        <a href="dreabee-register.html" class="btn-pill">Get Started →</a>
+      </div>
+      <button class="mob-btn" id="mob-btn" onclick="toggleMob()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu" id="mob-menu">
+    <a href="index.html" class="mob-link">Home</a>
+    <p class="mob-sec">Features</p>
+    <a href="dreabee-influencer-discovery.html" class="mob-link">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="mob-link">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="mob-link">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="mob-link">Campaign Reports</a>
+    <hr class="mob-hr">
+    <p class="mob-sec">Free Tools</p>
+    <a href="dreabee-instagram-fake-followers.html" class="mob-link">Instagram Fake Followers</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="mob-link">YouTube Engagement Rate</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="mob-link">Instagram Engagement Rate</a>
+    <hr class="mob-hr">
+    <a href="dreabee-pricing.html" class="mob-link">Pricing</a>
+    <a href="dreabee-blog.html" class="mob-link" style="color:var(--primary);font-weight:600;">Blog</a>
+    <a href="dreabee-login.html" class="mob-link">Login</a>
+    <div style="padding:12px 0;"><a href="dreabee-register.html" class="btn-pill"
+        style="width:100%;justify-content:center;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+
+  <!-- ── BREADCRUMB ── -->
+  <div class="breadcrumb">
+    <a href="index.html" class="bc-item">Home</a>
+    <span class="bc-sep">›</span>
+    <a href="dreabee-blog.html" class="bc-item">Blog</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">Minimum View Guarantees in Influencer Marketing</span>
+  </div>
+
+  <!-- ── POST HERO ── -->
+  <section class="post-hero">
+    <div class="post-hero-inner fi">
+      <div class="post-hero-top">
+        <a href="dreabee-blog?cat=Influencer+Marketing.html" class="cat-pill">Influencer Marketing</a>
+        <span class="read-time">8 min read</span>
+        <span class="read-time">·</span>
+        <span class="read-time">March 2025</span>
+      </div>
+      <h1 class="post-title">Minimum View Guarantees in Influencer Marketing: Doing It Right (If You Must)</h1>
+      <p class="post-desc">Performance guarantees can feel like a safety net for brands — but misused, they erode
+        creator trust and distort campaign results. Here's when they make sense, how to structure them fairly, and what
+        to do instead.</p>
+
+      <div class="author-row">
+        <div class="author-info">
+          <div class="author-av">SR</div>
+          <div>
+            <div class="author-name">Shreya Rathod</div>
+            <div class="author-role">Head of Content Strategy, Dreabee</div>
+          </div>
+        </div>
+        <div class="post-meta-right">
+          <span class="meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" />
+              <path d="M16 2v4M8 2v4M3 10h18" />
+            </svg>
+            14 March 2025
+          </span>
+          <span class="meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            4,120 reads
+          </span>
+          <div class="share-btns">
+            <a href="#" class="share-btn" title="Share on LinkedIn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ts)" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+              </svg>
+            </a>
+            <a href="#" class="share-btn" title="Share on X">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ts)" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M4 4l16 16M20 4 4 20" />
+              </svg>
+            </a>
+            <a href="#" class="share-btn" title="Copy link" onclick="copyLink(event)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ts)" stroke-width="2"
+                stroke-linecap="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COVER IMAGE ── -->
+  <div class="post-cover">
+    <div class="post-cover-inner fi d1">
+      <div class="cover-img">
+        <div class="cover-illustration">
+          <svg width="100%" height="100%" viewBox="0 0 1100 480" fill="none" xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid slice">
+            <!-- Background gradient fills -->
+            <rect width="1100" height="480" fill="url(#coverGrad)" />
+            <defs>
+              <linearGradient id="coverGrad" x1="0" y1="0" x2="1100" y2="480" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#043E54" />
+                <stop offset="60%" stop-color="#0a5c78" />
+                <stop offset="100%" stop-color="#34AE93" stop-opacity=".6" />
+              </linearGradient>
+            </defs>
+            <!-- Decorative circles -->
+            <circle cx="900" cy="80" r="200" fill="rgba(52,174,147,0.08)" />
+            <circle cx="200" cy="400" r="150" fill="rgba(138,216,163,0.06)" />
+            <!-- Bar chart illustration -->
+            <g transform="translate(120,320)">
+              <rect x="0" y="-60" width="44" height="60" rx="6" fill="rgba(138,216,163,0.3)" />
+              <rect x="56" y="-110" width="44" height="110" rx="6" fill="rgba(52,174,147,0.5)" />
+              <rect x="112" y="-80" width="44" height="80" rx="6" fill="rgba(138,216,163,0.3)" />
+              <rect x="168" y="-140" width="44" height="140" rx="6" fill="#34AE93" fill-opacity=".8" />
+              <rect x="224" y="-95" width="44" height="95" rx="6" fill="rgba(52,174,147,0.4)" />
+              <rect x="280" y="-170" width="44" height="170" rx="6" fill="#8AD8A3" fill-opacity=".9" />
+              <line x1="-10" y1="0" x2="340" y2="0" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
+            </g>
+            <!-- Guarantee icon -->
+            <g transform="translate(680,140)">
+              <circle cx="60" cy="60" r="52" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)"
+                stroke-width="2" />
+              <path d="M60 20 L62 44 L86 44 L68 58 L74 82 L60 68 L46 82 L52 58 L34 44 L58 44 Z"
+                fill="rgba(138,216,163,0.5)" />
+            </g>
+            <!-- Text elements -->
+            <text x="120" y="120" font-family="Georgia,serif" font-size="38" fill="white" font-weight="400"
+              letter-spacing="-1">View Guarantees</text>
+            <text x="120" y="165" font-family="Inter,sans-serif" font-size="16" fill="rgba(255,255,255,0.65)"
+              letter-spacing="0">The data-driven guide to performance-based influencer deals</text>
+            <!-- Decorative lines -->
+            <line x1="120" y1="185" x2="580" y2="185" stroke="rgba(52,174,147,0.4)" stroke-width="1" />
+            <rect x="120" y="195" width="120" height="3" rx="2" fill="#34AE93" fill-opacity=".6" />
+          </svg>
+        </div>
+      </div>
+      <p class="cover-caption">Illustration: Dreabee Design Team · Influencer performance analysis dashboard</p>
+    </div>
+  </div>
+
+  <!-- ── MAIN LAYOUT ── -->
+  <div class="post-layout wrap">
+
+    <!-- ═══════════════════ ARTICLE ═══════════════════ -->
+    <article class="article-content" id="article-content">
+
+      <!-- Mobile TOC -->
+      <nav class="toc-inline" aria-label="Table of contents">
+        <div class="toc-title">In this article</div>
+        <ul class="toc-list">
+          <li class="toc-item"><a href="#what-are-mvgs">What Are Minimum View Guarantees?</a></li>
+          <li class="toc-item"><a href="#why-brands-want-them">Why Brands Want Them</a></li>
+          <li class="toc-item"><a href="#the-problem">The Real Problem with MVGs</a></li>
+          <li class="toc-item h3"><a href="#creator-behaviour">How They Change Creator Behaviour</a></li>
+          <li class="toc-item h3"><a href="#data-signals">The Data Signals That Matter More</a></li>
+          <li class="toc-item"><a href="#when-they-work">When MVGs Actually Work</a></li>
+          <li class="toc-item"><a href="#how-to-structure">How to Structure Them Fairly</a></li>
+          <li class="toc-item"><a href="#better-alternatives">Better Alternatives to MVGs</a></li>
+          <li class="toc-item"><a href="#conclusion">The Bottom Line</a></li>
+        </ul>
+      </nav>
+
+      <div class="prose" id="prose">
+
+        <p>In the past two years, we've seen a sharp rise in brands adding "minimum view guarantees" to influencer
+          contracts. On paper, it sounds reasonable: you're paying for reach, so why not guarantee some baseline level
+          of it? But in practice, MVGs are one of the most misunderstood (and often misused) tactics in influencer
+          marketing.</p>
+
+        <p>This guide breaks down what minimum view guarantees are, why brands reach for them, the hidden costs they
+          create, and how to use them responsibly — or avoid them altogether.</p>
+
+        <!-- STAT HIGHLIGHT -->
+        <div class="stat-highlight">
+          <div class="sh-card">
+            <div class="sh-v">73%</div>
+            <div class="sh-l">of brands now include some form of performance clause in influencer contracts</div>
+          </div>
+          <div class="sh-card">
+            <div class="sh-v">41%</div>
+            <div class="sh-l">of creators say performance clauses negatively affected their content quality</div>
+          </div>
+          <div class="sh-card">
+            <div class="sh-v">2.4×</div>
+            <div class="sh-l">higher ROI from campaigns without MVG clauses, per our 200K+ post analysis</div>
+          </div>
+        </div>
+
+        <h2 id="what-are-mvgs">What Are Minimum View Guarantees?</h2>
+
+        <p>A minimum view guarantee (MVG) is a contractual clause that requires an influencer to achieve a specified
+          number of views — usually within a defined window (e.g., 48 or 72 hours post-publish) — or face financial
+          consequences. These typically manifest in one of two ways:</p>
+
+        <ul>
+          <li><strong>Repayment clauses:</strong> The creator must refund a portion of their fee if views fall below the
+            threshold.</li>
+          <li><strong>Additional content obligations:</strong> The creator is required to produce extra posts (at no
+            charge) to make up the shortfall.</li>
+        </ul>
+
+        <p>Some contracts combine both. A few even include tiered structures where the creator only receives full
+          payment upon hitting a target — essentially making influencer fees partially performance-contingent.</p>
+
+        <div class="callout">
+          <p>📌 <strong>Quick definition:</strong> A minimum view guarantee is any contractual obligation that ties
+            influencer compensation to a minimum reach or viewership threshold.</p>
+        </div>
+
+        <h2 id="why-brands-want-them">Why Brands Want Them</h2>
+
+        <p>The appeal of MVGs is understandable. Influencer marketing can feel nebulous — you're writing a cheque to
+          someone, trusting that their audience will care, and often waiting weeks to see if it worked. Guarantees feel
+          like accountability.</p>
+
+        <p>There are three main reasons brands reach for them:</p>
+
+        <ol>
+          <li><strong>Budget justification:</strong> Finance teams want to know what they're buying. "We're guaranteed X
+            million views" is a clean number to put in a media plan.</li>
+          <li><strong>Risk mitigation:</strong> If a creator has had viral posts but also some underperformers, a
+            guarantee feels like insurance.</li>
+          <li><strong>Past underperformance:</strong> Brands that have been burned by low-performing campaigns often add
+            clauses reactively, without thinking through the consequences.</li>
+        </ol>
+
+        <p>Each of these motivations is legitimate. The problem isn't wanting accountability — it's using view counts as
+          the measure of it.</p>
+
+        <div class="pull-quote">
+          <p>Views are a vanity metric. They measure attention, not intent. A campaign that drives 500,000 views but
+            zero clicks is not a successful campaign.</p>
+          <cite>— Dreabee Platform Research, 2025</cite>
+        </div>
+
+        <h2 id="the-problem">The Real Problem with MVGs</h2>
+
+        <p>Minimum view guarantees sound protective, but they create a set of perverse incentives that can quietly wreck
+          your campaign.</p>
+
+        <h3 id="creator-behaviour">How They Change Creator Behaviour</h3>
+
+        <p>When a creator knows their payment depends on hitting a view threshold, they optimise for views — not
+          conversions, not brand sentiment, not audience quality. This leads to predictable problems:</p>
+
+        <ul>
+          <li>Clickbait-style thumbnails and titles that attract views but attract the wrong audience</li>
+          <li>Broader, blander content designed to appeal to everyone (and therefore converting no one)</li>
+          <li>Posting at algorithmically optimal times rather than when their actual audience is most active</li>
+          <li>In the worst cases, using tactics that inflate view counts artificially — paid traffic, view farms, or
+            loop campaigns</li>
+        </ul>
+
+        <div class="callout callout-warning">
+          <p>⚠️ <strong>Watch out:</strong> A creator who delivers exactly 1.05× the view guarantee every time is likely
+            optimising for the threshold, not for your campaign goals.</p>
+        </div>
+
+        <h3 id="data-signals">The Data Signals That Matter More</h3>
+
+        <p>Our analysis of 200,000+ commercial influencer posts revealed that view count alone has surprisingly weak
+          correlation with campaign conversions. The metrics that actually predicted performance were:</p>
+
+        <!-- Visual chart -->
+        <div class="post-img">
+          <div class="post-img-inner">
+            <div style="font-size:13px;font-weight:700;color:var(--tp);margin-bottom:16px;text-align:center;">
+              Correlation with Conversion Rate (r²)</div>
+            <div style="width:100%;max-width:480px;display:flex;flex-direction:column;gap:10px;">
+              <div>
+                <div
+                  style="display:flex;justify-content:space-between;font-size:12px;color:var(--ts);margin-bottom:4px;">
+                  <span>Audience Quality Score</span><span style="font-weight:700;color:var(--teal);">0.82</span></div>
+                <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+                  <div style="height:100%;width:82%;background:var(--grad);border-radius:4px;"></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="display:flex;justify-content:space-between;font-size:12px;color:var(--ts);margin-bottom:4px;">
+                  <span>Engagement Rate</span><span style="font-weight:700;color:var(--teal);">0.71</span></div>
+                <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+                  <div style="height:100%;width:71%;background:var(--grad);border-radius:4px;"></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="display:flex;justify-content:space-between;font-size:12px;color:var(--ts);margin-bottom:4px;">
+                  <span>Comment Authenticity</span><span style="font-weight:700;color:var(--teal);">0.68</span></div>
+                <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+                  <div style="height:100%;width:68%;background:var(--grad);border-radius:4px;"></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="display:flex;justify-content:space-between;font-size:12px;color:var(--ts);margin-bottom:4px;">
+                  <span>Follower Growth Rate</span><span style="font-weight:700;color:#b45309;">0.54</span></div>
+                <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+                  <div
+                    style="height:100%;width:54%;background:linear-gradient(90deg,#f59e0b,#fbbf24);border-radius:4px;">
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  style="display:flex;justify-content:space-between;font-size:12px;color:var(--ts);margin-bottom:4px;">
+                  <span>View Count</span><span style="font-weight:700;color:#dc2626;">0.21</span></div>
+                <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+                  <div
+                    style="height:100%;width:21%;background:linear-gradient(90deg,#ef4444,#f87171);border-radius:4px;">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post-img-caption" style="margin-top:16px;">Source: Dreabee Platform Research · 200,000+
+              commercial posts · 2024–2025</div>
+          </div>
+        </div>
+
+        <p>Audience Quality Score (a composite measure of follower authenticity, engagement patterns, and comment depth)
+          had four times the predictive power of raw view count. Yet view count is the metric most brands put in
+          contracts.</p>
+
+        <h2 id="when-they-work">When MVGs Actually Work</h2>
+
+        <p>To be fair: minimum view guarantees aren't always wrong. There are specific scenarios where they make sense:
+        </p>
+
+        <ul>
+          <li><strong>Paid media amplification budgets:</strong> If a brand is committing significant spend to boost a
+            creator's post, guaranteeing a minimum reach on the organic side is reasonable.</li>
+          <li><strong>New-to-brand creators:</strong> When working with a creator for the first time and their
+            historical data is limited or inconsistent, a modest MVG can set mutual expectations.</li>
+          <li><strong>Time-sensitive launches:</strong> For product launches or limited-time events where reach within a
+            specific window is genuinely critical.</li>
+          <li><strong>Macro-influencer campaigns where CPM is the primary objective:</strong> If you're buying reach the
+            way you buy display advertising, views matter more than engagement.</li>
+        </ul>
+
+        <div class="callout">
+          <p>✅ <strong>Rule of thumb:</strong> MVGs make sense when reach is your primary campaign objective. If
+            conversion, brand sentiment, or community building is the goal, views are the wrong lever.</p>
+        </div>
+
+        <h2 id="how-to-structure">How to Structure Them Fairly</h2>
+
+        <p>If you've decided an MVG makes sense for your campaign, here's how to structure it without destroying the
+          creator relationship:</p>
+
+        <h3>Set thresholds based on historical data, not aspirations</h3>
+        <p>The guarantee should be pegged to the creator's median performance over their last 10–20 posts — not their
+          best post, and not your desired reach. A 15–20% buffer below median is fair. Setting the bar at their top 10%
+          performance is not.</p>
+
+        <h3>Use a remedy clause, not a penalty clause</h3>
+        <p>Instead of clawbacks, use "make-good" provisions: if views fall below threshold, the creator produces an
+          additional story or post. This keeps the creative relationship intact and focuses everyone on producing more
+          good content rather than fighting over refunds.</p>
+
+        <h3>Define the window clearly</h3>
+        <p>Views at 24 hours, 48 hours, and 7 days can vary enormously — especially on YouTube where search discovery
+          delivers long-tail views for months. Specify the exact measurement window and the platform's native view
+          counting method.</p>
+
+        <h3>Exclude circumstances outside creator control</h3>
+        <p>Algorithm changes, platform outages, and coordinated negative sentiment campaigns can crater view counts on
+          any post. Build in force majeure language so creators aren't penalised for factors outside their control.</p>
+
+        <div class="callout callout-danger">
+          <p>🚫 <strong>Never do this:</strong> Don't set the guarantee threshold higher than the creator's verified
+            median. Don't use view shortfall as grounds for full fee clawback. Don't apply the same threshold across
+            platforms — TikTok and LinkedIn have completely different view norms.</p>
+        </div>
+
+        <h2 id="better-alternatives">Better Alternatives to MVGs</h2>
+
+        <p>The best influencer campaigns we've seen at Dreabee don't rely on view guarantees at all. Instead, they use
+          smarter upfront vetting to select creators likely to perform — eliminating the need for punitive contract
+          clauses.</p>
+
+        <p>Here's what rigorous upfront vetting looks like:</p>
+
+        <ul>
+          <li><strong>Audience Quality Score:</strong> Measure the proportion of real, engaged followers vs. fake
+            accounts, bots, and mass followers before signing any deal.</li>
+          <li><strong>Engagement Rate Benchmarking:</strong> Compare the creator's ER against niche and follower-tier
+            averages — not absolute numbers.</li>
+          <li><strong>Comment Depth Analysis:</strong> Automated spam comments ("Nice post! 🔥") are a red flag. Genuine
+            comments that reference specific content are a green flag.</li>
+          <li><strong>Follower Growth Pattern:</strong> Organic, steady growth is a stronger signal than sudden spikes
+            (which often indicate purchased followers).</li>
+          <li><strong>Conversion Tracking:</strong> Use UTM links, unique discount codes, or pixel events to tie creator
+            content directly to business outcomes — making view counts irrelevant.</li>
+        </ul>
+
+        <div class="pull-quote">
+          <p>The best insurance against underperformance isn't a penalty clause — it's choosing the right creator in the
+            first place.</p>
+          <cite>— Influencer Marketing Best Practices, Dreabee 2025</cite>
+        </div>
+
+        <h2 id="conclusion">The Bottom Line</h2>
+
+        <p>Minimum view guarantees are a blunt instrument in a space that rewards precision. Used thoughtlessly, they
+          incentivise the wrong behaviours, damage creator relationships, and provide false comfort while the metrics
+          that actually drive conversions go unmeasured.</p>
+
+        <p>If you're reaching for an MVG, ask yourself: <em>am I doing this because views matter for this campaign's
+            objective, or am I doing it because views are the number I know how to put in a contract?</em></p>
+
+        <p>In most cases, the answer is the latter. And the fix isn't a better contract clause — it's better creator
+          selection, better measurement, and a clearer definition of what campaign success actually means for your
+          brand.</p>
+
+        <hr>
+
+        <p>Dreabee's platform gives you the audience quality data, engagement benchmarks, and conversion tracking you
+          need to select creators with confidence — without relying on view guarantees as a crutch. <a
+            href="dreabee-register.html">Start for free →</a></p>
+
+      </div><!-- /prose -->
+
+      <!-- Tags -->
+      <div class="post-tags">
+        <a href="dreabee-blog?tag=influencer-marketing.html" class="post-tag">Influencer Marketing</a>
+        <a href="dreabee-blog?tag=campaign-strategy.html" class="post-tag">Campaign Strategy</a>
+        <a href="dreabee-blog?tag=view-guarantees.html" class="post-tag">View Guarantees</a>
+        <a href="dreabee-blog?tag=creator-contracts.html" class="post-tag">Creator Contracts</a>
+        <a href="dreabee-blog?tag=roi.html" class="post-tag">ROI</a>
+        <a href="dreabee-blog?tag=performance-marketing.html" class="post-tag">Performance Marketing</a>
+      </div>
+
+      <!-- Author bio -->
+      <div class="author-bio fi">
+        <div class="author-bio-av">SR</div>
+        <div class="author-bio-body">
+          <div class="author-bio-name">Shreya Rathod</div>
+          <div class="author-bio-role">Head of Content Strategy, Dreabee</div>
+          <div class="author-bio-text">Shreya leads content and research at Dreabee, focusing on data-driven influencer
+            marketing strategy. She's spent 8+ years helping brands and agencies build measurement-first influencer
+            programs across Asia-Pacific and EMEA.</div>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+    <aside class="sidebar">
+
+      <!-- Reading progress -->
+      <div class="sidebar-widget">
+        <div class="sw-title">Reading Progress</div>
+        <div class="progress-widget">
+          <div class="pw-bar-wrap">
+            <div class="pw-bar" id="sidebar-progress"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:4px;">
+            <span class="pw-label">Article progress</span>
+            <span class="pw-pct" id="sidebar-pct">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sticky TOC -->
+      <div class="sidebar-widget toc-sticky">
+        <div class="sw-title">In This Article</div>
+        <ul class="toc-sidebar-list" id="toc-sidebar">
+          <li class="toc-sidebar-item" data-target="what-are-mvgs"><a href="#what-are-mvgs">What Are Minimum View
+              Guarantees?</a></li>
+          <li class="toc-sidebar-item" data-target="why-brands-want-them"><a href="#why-brands-want-them">Why Brands
+              Want Them</a></li>
+          <li class="toc-sidebar-item" data-target="the-problem"><a href="#the-problem">The Real Problem with MVGs</a>
+          </li>
+          <li class="toc-sidebar-item h3" data-target="creator-behaviour"><a href="#creator-behaviour">How They Change
+              Creator Behaviour</a></li>
+          <li class="toc-sidebar-item h3" data-target="data-signals"><a href="#data-signals">Data Signals That Matter
+              More</a></li>
+          <li class="toc-sidebar-item" data-target="when-they-work"><a href="#when-they-work">When MVGs Actually
+              Work</a></li>
+          <li class="toc-sidebar-item" data-target="how-to-structure"><a href="#how-to-structure">How to Structure Them
+              Fairly</a></li>
+          <li class="toc-sidebar-item" data-target="better-alternatives"><a href="#better-alternatives">Better
+              Alternatives</a></li>
+          <li class="toc-sidebar-item" data-target="conclusion"><a href="#conclusion">The Bottom Line</a></li>
+        </ul>
+      </div>
+
+      <!-- CTA widget -->
+      <div class="sidebar-widget cta-widget">
+        <div class="sw-title">Free Tool</div>
+        <div class="cta-widget-title">Check Audience Authenticity in Seconds</div>
+        <div class="cta-widget-sub">Use our free Instagram Fake Followers checker to vet any creator before signing a
+          deal.</div>
+        <a href="dreabee-instagram-fake-followers.html" class="btn-pill"
+          style="width:100%;justify-content:center;font-size:13px;padding:10px 16px;">Try Free Tool →</a>
+      </div>
+
+      <!-- Newsletter widget -->
+      <div class="sidebar-widget">
+        <div class="sw-title">Weekly Insights</div>
+        <p style="font-size:13px;color:var(--ts);margin-bottom:14px;line-height:1.6;">Get the latest influencer
+          marketing research and platform updates in your inbox.</p>
+        <input type="email" class="nl-input" id="sidebar-email" placeholder="you@company.com">
+        <button class="nl-btn" onclick="sidebarSubscribe()">Subscribe →</button>
+        <p class="nl-note" id="sidebar-nl-note">No spam · Unsubscribe any time</p>
+      </div>
+
+      <!-- Related in sidebar -->
+      <div class="sidebar-widget">
+        <div class="sw-title">Related Articles</div>
+        <a href="dreabee-blog-post.html" class="related-post" style="text-decoration:none;">
+          <div class="rp-thumb" style="background:linear-gradient(135deg,#d4f0e0,#89d9a8);">🔍</div>
+          <div>
+            <div class="rp-title">How to Detect Fake Followers Before Signing a Deal</div>
+            <div class="rp-meta">Free Tools · 6 min</div>
+          </div>
+        </a>
+        <a href="dreabee-blog-post.html" class="related-post" style="text-decoration:none;">
+          <div class="rp-thumb" style="background:linear-gradient(135deg,#fce8d4,#f4a96a);">📊</div>
+          <div>
+            <div class="rp-title">Instagram Engagement Rate Benchmarks 2025</div>
+            <div class="rp-meta">Brand Analytics · 7 min</div>
+          </div>
+        </a>
+        <a href="dreabee-blog-post.html" class="related-post" style="text-decoration:none;">
+          <div class="rp-thumb" style="background:linear-gradient(135deg,#f8f0d4,#e8c56a);">📈</div>
+          <div>
+            <div class="rp-title">5 Metrics Every Brand Needs to Track</div>
+            <div class="rp-meta">Brand Analytics · 5 min</div>
+          </div>
+        </a>
+      </div>
+
+    </aside>
+
+  </div><!-- /post-layout -->
+
+  <!-- ── RELATED ARTICLES ── -->
+  <section id="related">
+    <div class="related-inner">
+      <div class="related-header fi">
+        <h2>More from the Blog</h2>
+        <a href="dreabee-blog.html" style="font-size:14px;font-weight:700;color:var(--teal);text-decoration:none;">View
+          all articles →</a>
+      </div>
+      <div class="related-grid">
+
+        <a href="dreabee-blog-post.html" class="rel-card fi">
+          <div class="rel-thumb rel-thumb-1">
+            <div class="rel-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="rgba(4,62,84,0.55)" stroke-width="1.8" stroke-linecap="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg></div>
+          </div>
+          <div class="rel-body">
+            <span class="rel-cat">Free Tools</span>
+            <div class="rel-title">How to Detect Fake Followers Before Signing a Deal</div>
+            <div class="rel-excerpt">The red flags, data signals, and tools you need to vet creators and protect your
+              campaign budget.</div>
+            <span class="rel-link">Read More →</span>
+          </div>
+        </a>
+
+        <a href="dreabee-blog-post.html" class="rel-card fi d1">
+          <div class="rel-thumb rel-thumb-3">
+            <div class="rel-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="rgba(180,80,20,0.55)" stroke-width="1.8" stroke-linecap="round">
+                <path d="M3 17l4-8 4 4 4-6 4 10H3z" />
+              </svg></div>
+          </div>
+          <div class="rel-body">
+            <span class="rel-cat" style="color:#d97706;background:#fef3c7;border-color:#fde68a;">Brand Analytics</span>
+            <div class="rel-title">The Ultimate Guide to Instagram Engagement Rate Benchmarks 2025</div>
+            <div class="rel-excerpt">What good looks like across niches, follower tiers, and content formats on
+              Instagram this year.</div>
+            <span class="rel-link">Read More →</span>
+          </div>
+        </a>
+
+        <a href="dreabee-blog-post.html" class="rel-card fi d2">
+          <div class="rel-thumb rel-thumb-2">
+            <div class="rel-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="rgba(30,70,160,0.55)" stroke-width="1.8" stroke-linecap="round">
+                <polygon points="23 7 16 12 23 17 23 7" />
+                <rect x="1" y="5" width="15" height="14" rx="2" />
+              </svg></div>
+          </div>
+          <div class="rel-body">
+            <span class="rel-cat" style="color:#1d4ed8;background:#eff6ff;border-color:#bfdbfe;">Campaign
+              Strategy</span>
+            <div class="rel-title">YouTube vs TikTok: Which Platform Delivers Better Influencer ROI?</div>
+            <div class="rel-excerpt">A data-driven breakdown of cost, reach, engagement, and conversion across both
+              platforms.</div>
+            <span class="rel-link">Read More →</span>
+          </div>
+        </a>
+
+        <a href="dreabee-blog-post.html" class="rel-card fi">
+          <div class="rel-thumb rel-thumb-4">
+            <div class="rel-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="rgba(100,40,180,0.55)" stroke-width="1.8" stroke-linecap="round">
+                <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+              </svg></div>
+          </div>
+          <div class="rel-body">
+            <span class="rel-cat" style="color:#7c3aed;background:#f5f3ff;border-color:#ddd6fe;">Campaign
+              Strategy</span>
+            <div class="rel-title">How to Run a Successful Brand Ambassador Program</div>
+            <div class="rel-excerpt">From recruitment and onboarding to performance tracking — a step-by-step playbook
+              for brands.</div>
+            <span class="rel-link">Read More →</span>
+          </div>
+        </a>
+
+        <a href="dreabee-blog-post.html" class="rel-card fi d1">
+          <div class="rel-thumb rel-thumb-5">
+            <div class="rel-thumb-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="rgba(160,110,10,0.55)" stroke-width="1.8" stroke-linecap="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M8 12h8M8 8h8M8 16h4" />
+              </svg></div>
+          </div>
+          <div class="rel-body">
+            <span class="rel-cat" style="color:#b45309;background:#fffbeb;border-color:#fde68a;">Brand Analytics</span>
+            <div class="rel-title">5 Metrics Every Brand Needs to Track in Influencer Campaigns</div>
+            <div class="rel-excerpt">Beyond likes and views — the numbers that actually tell you if your influencer
+              spend is working.</div>
+            <span class="rel-link">Read More →</span>
+          </div>
+        </a>
+
+        <!-- Newsletter mini card -->
+        <div class="rel-card fi d2" style="background:var(--primary);cursor:default;">
+          <div style="padding:28px;display:flex;flex-direction:column;gap:14px;flex:1;">
+            <div
+              style="width:44px;height:44px;border-radius:12px;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--mint)" stroke-width="1.8"
+                stroke-linecap="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </div>
+            <div>
+              <div
+                style="font-family:'DM Serif Display',serif;font-size:18px;color:#fff;margin-bottom:8px;line-height:1.3;">
+                Stay Ahead of Influencer Marketing</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:16px;">Weekly
+                insights on strategy, data, and platform changes. No spam.</div>
+            </div>
+            <input type="email" placeholder="you@company.com"
+              style="padding:10px 13px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);border-radius:8px;font-size:13px;color:#fff;font-family:inherit;outline:none;width:100%;">
+            <button class="btn-pill" style="justify-content:center;font-size:13px;padding:10px;">Subscribe Free
+              →</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section id="cta">
+    <div class="wrap" style="text-align:center;">
+      <h2>Ready to Choose Creators with Confidence?</h2>
+      <p class="sub">Dreabee gives you audience quality scores, engagement benchmarks, and fake follower detection —
+        everything you need to find the right influencers without view guarantees.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="dreabee-register.html" class="btn-white">Get Started Free →</a>
+        <a href="dreabee-instagram-fake-followers.html" class="btn-pill">Try Free Tool</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-logo">
+        <a href="index.html" style="text-decoration:none;">
+          <svg width="120" height="34" viewBox="0 0 140 42" fill="none">
+            <defs>
+              <linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#8AD8A3" />
+                <stop offset="100%" stop-color="#34AE93" />
+              </linearGradient>
+            </defs>
+            <circle cx="21" cy="21" r="18" fill="url(#lg2)" />
+            <text x="21" y="27" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#043E54"
+              text-anchor="middle">db</text>
+            <text x="50" y="27" font-family="Inter,sans-serif" font-size="20" font-weight="700"
+              fill="#043E54">dreabee</text>
+          </svg>
+        </a>
+        <p class="foot-tag">Reimagining influencer marketing from the ground up.</p>
+      </div>
+      <div>
+        <p class="ft-col-t">Product</p>
+        <div class="foot-links">
+          <a href="dreabee-influencer-discovery.html" class="foot-link">Influencer Discovery</a>
+          <a href="dreabee-search-influencer.html" class="foot-link">Search Influencer</a>
+          <a href="dreabee-influencer-analytics.html" class="foot-link">Influencer Analytics</a>
+          <a href="dreabee-campaign-reports.html" class="foot-link">Campaign Reports</a>
+        </div>
+      </div>
+      <div>
+        <p class="ft-col-t">Free Tools</p>
+        <div class="foot-links">
+          <a href="dreabee-instagram-fake-followers.html" class="foot-link">Instagram Fake Followers</a>
+          <a href="dreabee-youtube-engagement-rate.html" class="foot-link">YouTube ER Tool</a>
+          <a href="dreabee-instagram-engagement-rate.html" class="foot-link">Instagram ER Tool</a>
+          <a href="dreabee-tiktok-engagement-rate.html" class="foot-link">TikTok ER Tool</a>
+        </div>
+      </div>
+      <div>
+        <p class="ft-col-t">Company</p>
+        <div class="foot-links">
+          <a href="dreabee-pricing.html" class="foot-link">Pricing</a>
+          <a href="dreabee-blog.html" class="foot-link" style="color:var(--primary);font-weight:600;">Blog</a>
+          <a href="dreabee-login.html" class="foot-link">Login</a>
+          <a href="dreabee-register.html" class="foot-link">Sign Up Free</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span class="foot-copy">© 2025 Dreabee. All rights reserved.</span>
+      <div class="foot-blinks"><a href="dreabee-pricing.html">Pricing</a><a href="dreabee-blog.html">Blog</a><a
+          href="dreabee-login.html">Login</a></div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Nav ── */
+    function toggleDD(id) {
+      const el = document.getElementById(id), open = el.classList.contains('open');
+      document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open'));
+      if (!open) el.classList.add('open');
+    }
+    document.addEventListener('click', e => { if (!e.target.closest('.nav-dd')) document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open')); });
+    function toggleMob() { document.getElementById('hamburger').classList.toggle('open'); document.getElementById('mob-menu').classList.toggle('open'); }
+
+    /* ── Fade-in observer ── */
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } }), { threshold: 0.06 });
+    document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+    /* ── Reading progress + TOC highlight ── */
+    const progressFill = document.getElementById('read-progress');
+    const sidebarProgress = document.getElementById('sidebar-progress');
+    const sidebarPct = document.getElementById('sidebar-pct');
+    const tocItems = document.querySelectorAll('.toc-sidebar-item[data-target]');
+    const headings = Array.from(document.querySelectorAll('.prose h2[id], .prose h3[id]'));
+
+    function updateProgress() {
+      const article = document.getElementById('prose');
+      if (!article) return;
+      const rect = article.getBoundingClientRect();
+      const total = article.offsetHeight;
+      const scrolled = Math.max(0, -rect.top + window.innerHeight * 0.15);
+      const pct = Math.min(100, Math.round(scrolled / total * 100));
+
+      progressFill.style.width = pct + '%';
+      sidebarProgress.style.width = pct + '%';
+      sidebarPct.textContent = pct + '%';
+
+      // Active TOC item
+      let activeId = null;
+      headings.forEach(h => {
+        const top = h.getBoundingClientRect().top;
+        if (top < window.innerHeight * 0.35) activeId = h.id;
+      });
+      tocItems.forEach(item => {
+        item.classList.toggle('active', item.dataset.target === activeId);
+      });
+    }
+
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    /* ── Copy link ── */
+    function copyLink(e) {
+      e.preventDefault();
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        const btn = e.currentTarget;
+        btn.style.borderColor = 'var(--teal)';
+        btn.style.background = 'var(--tint)';
+        setTimeout(() => { btn.style.borderColor = ''; btn.style.background = ''; }, 1500);
+      });
+    }
+
+    /* ── Sidebar newsletter ── */
+    function sidebarSubscribe() {
+      const email = document.getElementById('sidebar-email').value.trim();
+      const note = document.getElementById('sidebar-nl-note');
+      if (!email || !email.includes('@')) {
+        note.textContent = 'Please enter a valid email address.';
+        note.style.color = '#ef4444';
+        return;
+      }
+      note.textContent = '✓ You\'re subscribed! Welcome aboard.';
+      note.style.color = 'var(--teal)';
+      document.getElementById('sidebar-email').value = '';
+    }
+  </script>
+  <script>
+    function toggleDd(id) {
+      var el = document.getElementById(id);
+      var open = el.classList.contains('open');
+      document.querySelectorAll('.nav-dd.open').forEach(function (d) { d.classList.remove('open') });
+      if (!open) el.classList.add('open');
+    }
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav-dd')) document.querySelectorAll('.nav-dd.open').forEach(function (d) { d.classList.remove('open') });
+    });
+    function toggleMob() {
+      document.getElementById('mob-btn').classList.toggle('open');
+      document.getElementById('mob-menu').classList.toggle('open');
+    }
+  </script>
+</body>
+
+</html>

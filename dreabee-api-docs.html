@@ -1,0 +1,2722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Reference — Dreabee Developers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --primary: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --grad: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --surface: #F7FAFA;
+      --border: #E2EDEC;
+      --tp: #043E54;
+      --ts: #4A7A84;
+      --tint: #EDF7F5;
+      --dark: #0A1628;
+      --dark2: #0F1F35;
+      --dark3: #162540;
+      --dark-border: rgba(255, 255, 255, .07);
+      --db2: rgba(52, 174, 147, .25);
+      --code-bg: #0D1B2A;
+      --s-sm: 0 2px 8px rgba(4, 62, 84, .06);
+      --s-md: 0 6px 24px rgba(4, 62, 84, .1);
+      --nav-h: 52px;
+      --sb-w: 240px;
+      --ex-w: 360px;
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--tp);
+      overflow-x: hidden
+    }
+
+    /* ── TOP NAV (compact for docs) ── */
+    .docs-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 300;
+      height: var(--nav-h);
+      background: var(--dark);
+      border-bottom: 1px solid var(--dark-border);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      gap: 12px;
+    }
+
+    .docs-nav-logo {
+      text-decoration: none;
+      flex-shrink: 0
+    }
+
+    .docs-nav-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--dark-border);
+      flex-shrink: 0
+    }
+
+    .docs-nav-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .5)
+    }
+
+    .docs-nav-version {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      background: rgba(52, 174, 147, .15);
+      color: var(--teal);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-weight: 500
+    }
+
+    .docs-nav-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto
+    }
+
+    .dns-btn {
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .5);
+      text-decoration: none;
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--dark-border);
+      transition: .15s
+    }
+
+    .dns-btn:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, .15)
+    }
+
+    .dns-key {
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--grad);
+      color: #fff;
+      padding: 5px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px
+    }
+
+    /* ── DOCS LAYOUT ── */
+    .docs-wrap {
+      display: grid;
+      grid-template-columns: var(--sb-w) 1fr;
+      min-height: 100vh;
+      padding-top: var(--nav-h);
+    }
+
+    @media(min-width:1100px) {
+      .docs-wrap {
+        grid-template-columns: var(--sb-w) 1fr var(--ex-w)
+      }
+    }
+
+    /* ── LEFT SIDEBAR ── */
+    .docs-sidebar {
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+      background: var(--dark);
+      border-right: 1px solid var(--dark-border);
+      padding: 24px 0 40px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, .1) transparent;
+    }
+
+    .docs-sidebar::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .docs-sidebar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, .1);
+      border-radius: 2px
+    }
+
+    .sb-section {
+      margin-bottom: 8px
+    }
+
+    .sb-section-title {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      color: rgba(255, 255, 255, .25);
+      padding: 14px 20px 6px;
+      display: block
+    }
+
+    .sb-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, .5);
+      text-decoration: none;
+      padding: 7px 20px;
+      transition: .12s;
+      border-left: 2px solid transparent;
+      cursor: pointer
+    }
+
+    .sb-link:hover {
+      color: rgba(255, 255, 255, .85);
+      background: rgba(255, 255, 255, .04)
+    }
+
+    .sb-link.active {
+      color: #fff;
+      background: rgba(52, 174, 147, .08);
+      border-left-color: var(--teal);
+      font-weight: 600
+    }
+
+    .sb-method {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      flex-shrink: 0
+    }
+
+    .m-get {
+      background: rgba(22, 163, 74, .2);
+      color: #4ade80
+    }
+
+    .m-post {
+      background: rgba(59, 130, 246, .2);
+      color: #93c5fd
+    }
+
+    .m-delete {
+      background: rgba(239, 68, 68, .2);
+      color: #fca5a5
+    }
+
+    .m-patch {
+      background: rgba(245, 158, 11, .2);
+      color: #fcd34d
+    }
+
+    /* ── MAIN CONTENT ── */
+    .docs-content {
+      min-width: 0;
+      padding: 40px 48px 96px;
+      background: #fff;
+    }
+
+    @media(max-width:900px) {
+      .docs-content {
+        padding: 32px 20px 80px
+      }
+    }
+
+    /* Section anchors */
+    .doc-section {
+      margin-bottom: 64px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid var(--border);
+      scroll-margin-top: calc(var(--nav-h) + 20px)
+    }
+
+    .doc-section:last-child {
+      border-bottom: none
+    }
+
+    .ds-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block
+    }
+
+    .ds-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(22px, 2.5vw, 30px);
+      font-weight: 400;
+      color: var(--primary);
+      margin-bottom: 12px;
+      line-height: 1.2
+    }
+
+    .ds-desc {
+      font-size: 14.5px;
+      color: #2a5062;
+      line-height: 1.82;
+      margin-bottom: 24px
+    }
+
+    .ds-desc p {
+      margin-bottom: 12px
+    }
+
+    .ds-desc p:last-child {
+      margin-bottom: 0
+    }
+
+    /* Endpoint block */
+    .endpoint-block {
+      margin-bottom: 28px;
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden
+    }
+
+    .eb-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 18px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: .15s
+    }
+
+    .eb-header:hover {
+      background: var(--tint)
+    }
+
+    .eb-method {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 5px;
+      flex-shrink: 0
+    }
+
+    .get {
+      background: #d1fae5;
+      color: #065f46
+    }
+
+    .post {
+      background: #dbeafe;
+      color: #1e40af
+    }
+
+    .delete-m {
+      background: #fee2e2;
+      color: #991b1b
+    }
+
+    .patch {
+      background: #fef3c7;
+      color: #92400e
+    }
+
+    .eb-path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--primary)
+    }
+
+    .eb-desc {
+      font-size: 13px;
+      color: var(--ts);
+      margin-left: auto
+    }
+
+    .eb-chevron {
+      color: var(--ts);
+      transition: transform .2s;
+      flex-shrink: 0
+    }
+
+    .endpoint-block.open .eb-chevron {
+      transform: rotate(180deg)
+    }
+
+    .eb-body {
+      display: none;
+      padding: 20px 20px 24px;
+      background: #fff
+    }
+
+    .endpoint-block.open .eb-body {
+      display: block
+    }
+
+    /* Parameter table */
+    .param-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin: 16px 0
+    }
+
+    .param-table th {
+      background: var(--surface);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--ts);
+      padding: 8px 12px;
+      text-align: left;
+      border: 1px solid var(--border)
+    }
+
+    .param-table td {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      vertical-align: top;
+      line-height: 1.5;
+      color: #2a5062
+    }
+
+    .param-table tr:nth-child(even) td {
+      background: var(--surface)
+    }
+
+    .param-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600
+    }
+
+    .param-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #7c3aed;
+      background: #f5f3ff;
+      padding: 1px 6px;
+      border-radius: 4px
+    }
+
+    .param-req {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: #fee2e2;
+      color: #991b1b
+    }
+
+    .param-opt {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: var(--surface);
+      color: var(--ts);
+      border: 1px solid var(--border)
+    }
+
+    /* inline code */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--primary)
+    }
+
+    /* response badge */
+    .res-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 5px;
+      margin-bottom: 10px
+    }
+
+    .r200 {
+      background: #d1fae5;
+      color: #065f46
+    }
+
+    .r400 {
+      background: #fef3c7;
+      color: #92400e
+    }
+
+    .r401 {
+      background: #fee2e2;
+      color: #991b1b
+    }
+
+    .r429 {
+      background: #fce7f3;
+      color: #9d174d
+    }
+
+    /* Auth callout */
+    .auth-callout {
+      background: linear-gradient(135deg, rgba(52, 174, 147, .07), rgba(138, 216, 163, .05));
+      border: 1.5px solid rgba(52, 174, 147, .2);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 20px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px
+    }
+
+    .auth-callout-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      margin-top: 2px
+    }
+
+    .auth-callout-text {
+      font-size: 13.5px;
+      color: var(--tp);
+      line-height: 1.65
+    }
+
+    .auth-callout-text strong {
+      color: var(--primary)
+    }
+
+    /* Warning callout */
+    .warn-callout {
+      background: #fffbeb;
+      border: 1.5px solid #fde68a;
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin: 20px 0;
+      font-size: 13px;
+      color: #78350f;
+      line-height: 1.65
+    }
+
+    /* ── RIGHT CODE PANEL ── */
+    .docs-examples {
+      background: var(--code-bg);
+      border-left: 1px solid rgba(255, 255, 255, .06);
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+      display: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255, 255, 255, .1) transparent;
+    }
+
+    @media(min-width:1100px) {
+      .docs-examples {
+        display: block
+      }
+    }
+
+    .docs-examples::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .docs-examples::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, .1);
+      border-radius: 2px
+    }
+
+    .ex-section {
+      padding: 32px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, .05)
+    }
+
+    .ex-section:last-child {
+      border-bottom: none
+    }
+
+    .ex-lang-tabs {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 14px;
+      background: rgba(255, 255, 255, .04);
+      border-radius: 7px;
+      padding: 3px
+    }
+
+    .ex-tab {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .4);
+      padding: 4px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit
+    }
+
+    .ex-tab:hover {
+      color: rgba(255, 255, 255, .7)
+    }
+
+    .ex-tab.active {
+      background: rgba(255, 255, 255, .1);
+      color: #fff
+    }
+
+    .ex-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: rgba(255, 255, 255, .3);
+      margin-bottom: 10px
+    }
+
+    .code-ex {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.75;
+      color: rgba(255, 255, 255, .85);
+      white-space: pre;
+      overflow-x: auto;
+      position: relative;
+    }
+
+    .code-ex::-webkit-scrollbar {
+      height: 4px
+    }
+
+    .code-ex::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, .1)
+    }
+
+    .ex-copy {
+      position: sticky;
+      left: calc(100% - 58px);
+      top: 0;
+      display: inline-block;
+      float: right;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .1);
+      color: rgba(255, 255, 255, .4);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .15s;
+      margin-bottom: 6px;
+    }
+
+    .ex-copy:hover {
+      background: rgba(255, 255, 255, .12);
+      color: #fff
+    }
+
+    .t-k {
+      color: #7dd3fc
+    }
+
+    .t-s {
+      color: #86efac
+    }
+
+    .t-n {
+      color: #fbbf24
+    }
+
+    .t-c {
+      color: rgba(255, 255, 255, .3)
+    }
+
+    .t-m {
+      color: var(--mint)
+    }
+
+    .t-u {
+      color: rgba(255, 255, 255, .75)
+    }
+
+    .t-r {
+      color: #a78bfa
+    }
+
+    .t-pr {
+      color: var(--teal)
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid var(--dark-border);
+      padding: 32px 24px
+    }
+
+    .foot-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px
+    }
+
+    .foot-copy {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .3)
+    }
+
+    .foot-links {
+      display: flex;
+      gap: 20px
+    }
+
+    .foot-links a {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .3);
+      text-decoration: none;
+      transition: .12s
+    }
+
+    .foot-links a:hover {
+      color: rgba(255, 255, 255, .65)
+    }
+
+    /* ──────── GLOBAL NAV ──────── */
+    :root {
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bdr: #D5EBE5;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* ──────── GLOBAL FOOTER ──────── */
+
+
+    /* ── GLOBAL RESPONSIVE SAFETY NET ── */
+    @media(max-width:1024px) {
+      .gnav-links {
+        gap: 2px
+      }
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 6px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-grid {
+        grid-template-columns: 1fr !important
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+      }
+    }
+
+    /* ──────── REDESIGNED FOOTER ──────── */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    .gfoot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4A7A84;
+      margin-bottom: 16px
+    }
+
+    .gfoot-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #34AE93;
+      border-radius: 50%
+    }
+  </style>
+  <style id="dreabee-nav-css">
+    /* ── Dreabee Unified Nav & Footer — hardcoded, no CSS var deps ── */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: #ECF7F3;
+      color: #043E54
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: #D5EBE5;
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: #043E54
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #043E54;
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid #D5EBE5
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #043E54;
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid #D5EBE5;
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: #34AE93
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #4A7A84;
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* Footer */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%) !important;
+      border-top: 1px solid #D5EBE5 !important;
+      padding: 64px 0 0 !important
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* Responsive */
+    @media(max-width:1024px) {
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 5px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-inner {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" id="gnav-logo" href="index.html">
+        <img
+        src="/assets/logo.webp"
+        alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <a href="dreabee-influencer-profile.html" class="gnav-item">👤 Influencer Profile</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
+      </div>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost" id="gnav-login">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
+      </div>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-influencer-profile.html" class="gnav-mlink">Influencer Profile</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink" id="gnav-mob-login">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+  </div>
+  <div class="docs-wrap">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="docs-sidebar">
+
+      <div class="sb-section">
+        <span class="sb-section-title">Getting Started</span>
+        <a class="sb-link active" onclick="scrollTo('intro')">Introduction</a>
+        <a class="sb-link" onclick="scrollTo('authentication')">Authentication</a>
+        <a class="sb-link" onclick="scrollTo('errors')">Errors & Codes</a>
+        <a class="sb-link" onclick="scrollTo('rate-limits')">Rate Limits</a>
+        <a class="sb-link" onclick="scrollTo('pagination')">Pagination</a>
+      </div>
+
+      <div class="sb-section">
+        <span class="sb-section-title">Influencers</span>
+        <a class="sb-link" onclick="scrollTo('ep-search')"><span class="sb-method m-post">POST</span> Search</a>
+        <a class="sb-link" onclick="scrollTo('ep-get')"><span class="sb-method m-get">GET</span> Get Profile</a>
+        <a class="sb-link" onclick="scrollTo('ep-analytics')"><span class="sb-method m-get">GET</span> Analytics</a>
+        <a class="sb-link" onclick="scrollTo('ep-quality')"><span class="sb-method m-post">POST</span> Quality Score</a>
+      </div>
+
+      <div class="sb-section">
+        <span class="sb-section-title">Campaigns</span>
+        <a class="sb-link" onclick="scrollTo('ep-campaigns-list')"><span class="sb-method m-get">GET</span> List
+          Campaigns</a>
+        <a class="sb-link" onclick="scrollTo('ep-campaigns-create')"><span class="sb-method m-post">POST</span> Create
+          Campaign</a>
+        <a class="sb-link" onclick="scrollTo('ep-campaigns-metrics')"><span class="sb-method m-get">GET</span> Campaign
+          Metrics</a>
+      </div>
+
+      <div class="sb-section">
+        <span class="sb-section-title">Brands</span>
+        <a class="sb-link" onclick="scrollTo('ep-brand-get')"><span class="sb-method m-get">GET</span> Brand Profile</a>
+        <a class="sb-link" onclick="scrollTo('ep-brand-compare')"><span class="sb-method m-post">POST</span> Compare
+          Brands</a>
+      </div>
+
+      <div class="sb-section">
+        <span class="sb-section-title">Webhooks</span>
+        <a class="sb-link" onclick="scrollTo('ep-webhooks')"><span class="sb-method m-post">POST</span> Create
+          Webhook</a>
+        <a class="sb-link" onclick="scrollTo('webhook-events')">Event Types</a>
+        <a class="sb-link" onclick="scrollTo('webhook-verify')">Signature Verify</a>
+      </div>
+
+      <div class="sb-section">
+        <span class="sb-section-title">SDKs</span>
+        <a class="sb-link" onclick="scrollTo('sdk-node')" id="sdk-node">Node.js</a>
+        <a class="sb-link" onclick="scrollTo('sdk-python')" id="sdk-python">Python</a>
+        <a class="sb-link" onclick="scrollTo('sdk-php')" id="sdk-php">PHP</a>
+        <a class="sb-link" onclick="scrollTo('sdk-go')" id="sdk-go">Go</a>
+      </div>
+
+    </aside>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="docs-content">
+
+      <!-- INTRO -->
+      <div class="doc-section" id="intro">
+        <span class="ds-tag">// Getting Started</span>
+        <h1 class="ds-title">Dreabee API Reference</h1>
+        <div class="ds-desc">
+          <p>The Dreabee API is a RESTful HTTP API that gives you programmatic access to the full Dreabee influencer
+            intelligence platform. All requests are made over HTTPS. All request and response bodies are JSON.</p>
+          <p>The base URL for all API requests is:</p>
+        </div>
+        <div
+          style="background:var(--code-bg);border-radius:10px;padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--mint);margin-bottom:20px">
+          https://api.dreabee.com/v1
+        </div>
+        <div class="auth-callout">
+          <div class="auth-callout-icon">💡</div>
+          <div class="auth-callout-text"><strong>New here?</strong> Head to the <a href="dreabee-developers.html"
+              style="color:var(--teal)">Developer overview</a> for a 4-step quickstart, or <a
+              href="dreabee-register.html" style="color:var(--teal)">create a free account</a> to get your API key.
+          </div>
+        </div>
+      </div>
+
+      <!-- AUTHENTICATION -->
+      <div class="doc-section" id="authentication">
+        <span class="ds-tag">// Authentication</span>
+        <h2 class="ds-title">API Key Authentication</h2>
+        <div class="ds-desc">
+          <p>All API requests require authentication using your API key. Pass your key in the <code>X-API-Key</code>
+            request header. Never expose your key in client-side code.</p>
+          <p>You can generate, rotate, and revoke keys from your <a href="dreabee-dashboard.html"
+              style="color:var(--teal)">account dashboard</a>. Each key can have scoped permissions (read-only, write,
+            admin).</p>
+        </div>
+        <div class="auth-callout">
+          <div class="auth-callout-icon">🔑</div>
+          <div class="auth-callout-text">
+            <strong>Required header on every request:</strong><br>
+            <code>X-API-Key: db_live_xxxxxxxxxxxxxxxxxxxx</code><br><br>
+            Test keys use the prefix <code>db_test_</code> and only return mock data. Live keys use
+            <code>db_live_</code>.
+          </div>
+        </div>
+        <div class="warn-callout">
+          ⚠️ <strong>Never commit your API key to version control.</strong> Store it in environment variables or a
+          secrets manager. If a key is compromised, rotate it immediately from your dashboard — compromised keys will be
+          automatically revoked.
+        </div>
+      </div>
+
+      <!-- ERRORS -->
+      <div class="doc-section" id="errors">
+        <span class="ds-tag">// Errors</span>
+        <h2 class="ds-title">Error Codes</h2>
+        <div class="ds-desc">
+          <p>Dreabee uses standard HTTP status codes. All error responses include a JSON body with
+            <code>error.code</code> (machine-readable) and <code>error.message</code> (human-readable).</p>
+        </div>
+        <table class="param-table">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="res-badge r200">200</span></td>
+              <td><code>ok</code></td>
+              <td>Request succeeded</td>
+            </tr>
+            <tr>
+              <td><span class="res-badge r400">400</span></td>
+              <td><code>invalid_params</code></td>
+              <td>One or more request parameters are invalid or missing</td>
+            </tr>
+            <tr>
+              <td><span class="res-badge r401">401</span></td>
+              <td><code>unauthorized</code></td>
+              <td>API key missing, invalid, or revoked</td>
+            </tr>
+            <tr>
+              <td><span class="res-badge r400">403</span></td>
+              <td><code>forbidden</code></td>
+              <td>Your plan does not include access to this endpoint</td>
+            </tr>
+            <tr>
+              <td><span class="res-badge r400">404</span></td>
+              <td><code>not_found</code></td>
+              <td>The requested resource does not exist</td>
+            </tr>
+            <tr>
+              <td><span class="res-badge r429">429</span></td>
+              <td><code>rate_limited</code></td>
+              <td>Too many requests — see <code>X-RateLimit-Reset</code> header</td>
+            </tr>
+            <tr>
+              <td><span class="res-badge r401">500</span></td>
+              <td><code>server_error</code></td>
+              <td>Unexpected server error — our team is automatically alerted</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- RATE LIMITS -->
+      <div class="doc-section" id="rate-limits">
+        <span class="ds-tag">// Rate Limits</span>
+        <h2 class="ds-title">Rate Limiting</h2>
+        <div class="ds-desc">
+          <p>Rate limits are enforced per API key. When exceeded, requests return <code>429 Too Many Requests</code>.
+            Three headers are returned on every response to help you manage limits proactively.</p>
+        </div>
+        <table class="param-table">
+          <thead>
+            <tr>
+              <th>Header</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>X-RateLimit-Limit</code></td>
+              <td>Maximum requests allowed in the current window</td>
+            </tr>
+            <tr>
+              <td><code>X-RateLimit-Remaining</code></td>
+              <td>Requests remaining in the current window</td>
+            </tr>
+            <tr>
+              <td><code>X-RateLimit-Reset</code></td>
+              <td>Unix timestamp when the window resets</td>
+            </tr>
+            <tr>
+              <td><code>Retry-After</code></td>
+              <td>Seconds to wait before retrying (only on 429 responses)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PAGINATION -->
+      <div class="doc-section" id="pagination">
+        <span class="ds-tag">// Pagination</span>
+        <h2 class="ds-title">Cursor-based Pagination</h2>
+        <div class="ds-desc">
+          <p>All list endpoints use cursor-based pagination. Pass <code>cursor</code> from the previous response's
+            <code>next_cursor</code> field to get the next page. Use <code>limit</code> to control page size (default:
+            20, max: 100).</p>
+        </div>
+        <table class="param-table">
+          <thead>
+            <tr>
+              <th>Parameter</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="param-name">limit</span></td>
+              <td><span class="param-type">integer</span></td>
+              <td>Results per page. Default: <code>20</code>, max: <code>100</code></td>
+            </tr>
+            <tr>
+              <td><span class="param-name">cursor</span></td>
+              <td><span class="param-type">string</span></td>
+              <td>Opaque cursor from previous response's <code>next_cursor</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SEARCH ENDPOINT -->
+      <div class="doc-section" id="ep-search">
+        <span class="ds-tag">// Influencers</span>
+        <h2 class="ds-title">Search Influencers</h2>
+        <div class="ds-desc">
+          <p>Search the Dreabee creator database with filters. Returns a paginated list of creator profiles with summary
+            analytics.</p>
+        </div>
+
+        <div class="endpoint-block open">
+          <div class="eb-header" onclick="toggleEndpoint(this)">
+            <span class="eb-method post">POST</span>
+            <span class="eb-path">/influencers/search</span>
+            <span class="eb-desc">Filter &amp; search creators</span>
+            <svg class="eb-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M18 15l-6-6-6 6" />
+            </svg>
+          </div>
+          <div class="eb-body">
+            <p style="font-size:13px;color:var(--ts);margin-bottom:16px">All parameters are optional. Passing none
+              returns the top 20 creators by quality score.</p>
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Type</th>
+                  <th>Required</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">platform</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td><code>instagram</code> · <code>youtube</code> · <code>tiktok</code> · <code>linkedin</code></td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">niche</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Content niche e.g. <code>fashion</code>, <code>fitness</code>, <code>tech</code></td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">min_quality_score</span></td>
+                  <td><span class="param-type">integer</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Minimum audience quality score (0–100). Recommended: <code>75</code></td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">followers.min</span></td>
+                  <td><span class="param-type">integer</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Minimum follower count</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">followers.max</span></td>
+                  <td><span class="param-type">integer</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Maximum follower count</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">location</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Country code e.g. <code>IN</code>, <code>US</code>, <code>GB</code></td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">language</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>ISO 639-1 language code e.g. <code>en</code>, <code>hi</code></td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">min_er</span></td>
+                  <td><span class="param-type">float</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Minimum engagement rate percentage</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">limit</span></td>
+                  <td><span class="param-type">integer</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Page size. Default <code>20</code>, max <code>100</code></td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">cursor</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Pagination cursor from previous response</td>
+                </tr>
+              </tbody>
+            </table>
+            <div style="margin-top:12px">
+              <span class="res-badge r200">200 OK</span>
+              <p style="font-size:13px;color:var(--ts);margin-top:6px">Returns
+                <code>{ results: Creator[], total: number, next_cursor: string | null }</code></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GET PROFILE -->
+      <div class="doc-section" id="ep-get">
+        <h2 class="ds-title">Get Creator Profile</h2>
+        <div class="ds-desc">
+          <p>Retrieve full profile data for a single creator by their platform handle.</p>
+        </div>
+        <div class="endpoint-block">
+          <div class="eb-header" onclick="toggleEndpoint(this)">
+            <span class="eb-method get">GET</span>
+            <span class="eb-path">/influencers/{platform}/{handle}</span>
+            <span class="eb-desc">Get full profile</span>
+            <svg class="eb-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M18 15l-6-6-6 6" />
+            </svg>
+          </div>
+          <div class="eb-body">
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Type</th>
+                  <th>Required</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">platform</span></td>
+                  <td><span class="param-type">path</span></td>
+                  <td><span class="param-req">required</span></td>
+                  <td>Platform: <code>instagram</code>, <code>youtube</code>, <code>tiktok</code>, <code>linkedin</code>
+                  </td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">handle</span></td>
+                  <td><span class="param-type">path</span></td>
+                  <td><span class="param-req">required</span></td>
+                  <td>Creator's username (without @)</td>
+                </tr>
+              </tbody>
+            </table>
+            <span class="res-badge r200">200 OK</span>
+            <span class="res-badge r400" style="margin-left:6px">404 Not Found</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- QUALITY SCORE -->
+      <div class="doc-section" id="ep-quality">
+        <h2 class="ds-title">Get Audience Quality Score</h2>
+        <div class="ds-desc">
+          <p>Run the Dreabee fake follower analysis on any public creator. Returns a breakdown of follower categories
+            and an overall quality score.</p>
+        </div>
+        <div class="endpoint-block">
+          <div class="eb-header" onclick="toggleEndpoint(this)">
+            <span class="eb-method post">POST</span>
+            <span class="eb-path">/quality/analyse</span>
+            <span class="eb-desc">Fake follower analysis</span>
+            <svg class="eb-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M18 15l-6-6-6 6" />
+            </svg>
+          </div>
+          <div class="eb-body">
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Type</th>
+                  <th>Required</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">platform</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="param-req">required</span></td>
+                  <td>Social platform</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">handle</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="param-req">required</span></td>
+                  <td>Creator username (without @)</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">refresh</span></td>
+                  <td><span class="param-type">boolean</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Force re-analysis instead of returning cached result. Default: <code>false</code></td>
+                </tr>
+              </tbody>
+            </table>
+            <p style="font-size:13px;color:var(--ts);margin-top:12px">Response includes: <code>quality_score</code>,
+              <code>real_pct</code>, <code>suspicious_pct</code>, <code>mass_follower_pct</code>, <code>bot_pct</code>,
+              <code>analysed_at</code></p>
+            <span class="res-badge r200">200 OK</span>
+            <span class="res-badge r400" style="margin-left:6px">400 Private Account</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEBHOOKS -->
+      <div class="doc-section" id="ep-webhooks">
+        <span class="ds-tag">// Webhooks</span>
+        <h2 class="ds-title">Create a Webhook</h2>
+        <div class="ds-desc">
+          <p>Subscribe to real-time events. Dreabee sends a signed POST request to your endpoint when an event fires.
+            All payloads are signed using HMAC-SHA256 with your webhook secret.</p>
+        </div>
+        <div class="endpoint-block">
+          <div class="eb-header" onclick="toggleEndpoint(this)">
+            <span class="eb-method post">POST</span>
+            <span class="eb-path">/webhooks</span>
+            <span class="eb-desc">Subscribe to events</span>
+            <svg class="eb-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M18 15l-6-6-6 6" />
+            </svg>
+          </div>
+          <div class="eb-body">
+            <table class="param-table">
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Type</th>
+                  <th>Required</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="param-name">url</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="param-req">required</span></td>
+                  <td>HTTPS endpoint to receive events</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">events</span></td>
+                  <td><span class="param-type">string[]</span></td>
+                  <td><span class="param-req">required</span></td>
+                  <td>Array of event types to subscribe to (see Event Types)</td>
+                </tr>
+                <tr>
+                  <td><span class="param-name">secret</span></td>
+                  <td><span class="param-type">string</span></td>
+                  <td><span class="param-opt">optional</span></td>
+                  <td>Your signing secret for HMAC verification. Auto-generated if not provided.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- WEBHOOK EVENTS -->
+      <div class="doc-section" id="webhook-events">
+        <h2 class="ds-title">Webhook Event Types</h2>
+        <table class="param-table">
+          <thead>
+            <tr>
+              <th>Event</th>
+              <th>Trigger</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>campaign.post.published</code></td>
+              <td>A tracked creator publishes a new campaign post</td>
+            </tr>
+            <tr>
+              <td><code>campaign.metrics.updated</code></td>
+              <td>Campaign performance metrics are refreshed (hourly)</td>
+            </tr>
+            <tr>
+              <td><code>influencer.quality.changed</code></td>
+              <td>A creator's quality score changes by more than 5 points</td>
+            </tr>
+            <tr>
+              <td><code>influencer.followers.spike</code></td>
+              <td>Sudden follower count change detected (±10% in 24h)</td>
+            </tr>
+            <tr>
+              <td><code>brand.mention.detected</code></td>
+              <td>A monitored brand is mentioned by a creator</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SDKS -->
+      <div class="doc-section" id="sdk-node">
+        <span class="ds-tag">// SDKs</span>
+        <h2 class="ds-title">Node.js SDK</h2>
+        <div class="ds-desc">
+          <p>The official Node.js SDK supports all v1 endpoints, automatic retries, and TypeScript types out of the box.
+          </p>
+        </div>
+        <div
+          style="background:var(--code-bg);border-radius:10px;padding:16px 20px;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.75;margin-bottom:16px">
+          <div><span class="t-c"># Install</span></div>
+          <div><span style="color:var(--teal)">$</span> <span style="color:rgba(255,255,255,.75)">npm install
+              dreabee</span></div>
+          <div style="margin-top:12px"><span class="t-c"># Usage</span></div>
+          <div><span class="t-k">import</span> <span style="color:rgba(255,255,255,.75)">Dreabee</span> <span
+              class="t-k">from</span> <span class="t-s">'dreabee'</span><span
+              style="color:rgba(255,255,255,.4)">;</span></div>
+          <div><span class="t-k">const</span> <span style="color:rgba(255,255,255,.75)">db</span> <span
+              style="color:rgba(255,255,255,.4)">=</span> <span class="t-k">new</span> <span
+              class="t-m">Dreabee</span><span style="color:rgba(255,255,255,.4)">(</span><span
+              style="color:rgba(255,255,255,.75)">process.env.DREABEE_KEY</span><span
+              style="color:rgba(255,255,255,.4)">);</span></div>
+          <div style="margin-top:8px"><span class="t-k">const</span> <span
+              style="color:rgba(255,255,255,.75)">creators</span> <span style="color:rgba(255,255,255,.4)">=</span>
+            <span class="t-k">await</span> <span style="color:rgba(255,255,255,.75)">db</span><span
+              style="color:rgba(255,255,255,.4)">.</span><span class="t-m">influencers</span><span
+              style="color:rgba(255,255,255,.4)">.</span><span class="t-m">search</span><span
+              style="color:rgba(255,255,255,.4)">({</span> <span class="t-k">niche</span><span
+              style="color:rgba(255,255,255,.4)">:</span> <span class="t-s">'fitness'</span> <span
+              style="color:rgba(255,255,255,.4)">});</span></div>
+          <div><span class="t-k">const</span> <span style="color:rgba(255,255,255,.75)">score</span> <span
+              style="color:rgba(255,255,255,.4)">=</span> <span class="t-k">await</span> <span
+              style="color:rgba(255,255,255,.75)">db</span><span style="color:rgba(255,255,255,.4)">.</span><span
+              class="t-m">quality</span><span style="color:rgba(255,255,255,.4)">.</span><span
+              class="t-m">analyse</span><span style="color:rgba(255,255,255,.4)">({</span> <span
+              class="t-k">platform</span><span style="color:rgba(255,255,255,.4)">:</span> <span
+              class="t-s">'instagram'</span><span style="color:rgba(255,255,255,.4)">,</span> <span
+              class="t-k">handle</span><span style="color:rgba(255,255,255,.4)">:</span> <span
+              class="t-s">'username'</span> <span style="color:rgba(255,255,255,.4)">});</span></div>
+        </div>
+        <a href="https://github.com/dreabee/dreabee-node"
+          style="color:var(--teal);font-size:13px;font-weight:600;text-decoration:none">GitHub: dreabee/dreabee-node
+          →</a>
+      </div>
+
+    </main>
+
+    <!-- ── RIGHT CODE PANEL ── -->
+    <aside class="docs-examples">
+
+      <div class="ex-section">
+        <div class="ex-title">Example Request</div>
+        <div class="ex-lang-tabs">
+          <button class="ex-tab active" onclick="switchTab(this,'curl')">cURL</button>
+          <button class="ex-tab" onclick="switchTab(this,'node')">Node</button>
+          <button class="ex-tab" onclick="switchTab(this,'python')">Python</button>
+        </div>
+        <div id="ex-curl" class="code-ex"><button class="ex-copy" onclick="copyEx(this)">copy</button><span
+            class="t-c"># Search influencers</span>
+          <span class="t-pr">curl</span> <span class="t-u">-X POST</span> \
+          <span class="t-s">https://api.dreabee.com/v1/influencers/search</span> \
+          <span class="t-u">-H</span> <span class="t-s">"X-API-Key: db_live_xxx"</span> \
+          <span class="t-u">-H</span> <span class="t-s">"Content-Type: application/json"</span> \
+          <span class="t-u">-d</span> <span class="t-s">'{
+            "platform": "instagram",
+            "niche": "fashion",
+            "min_quality_score": 75,
+            "followers": { "min": 10000 }
+            }'</span>
+        </div>
+        <div id="ex-node" class="code-ex" style="display:none"><button class="ex-copy"
+            onclick="copyEx(this)">copy</button><span class="t-k">import</span> <span class="t-u">Dreabee</span> <span
+            class="t-k">from</span> <span class="t-s">'dreabee'</span><span class="t-c">;</span>
+
+          <span class="t-k">const</span> <span class="t-u">db</span> = <span class="t-k">new</span> <span
+            class="t-m">Dreabee</span>(<span class="t-u">process.env.DB_KEY</span>);
+
+          <span class="t-k">const</span> { results } = <span class="t-k">await</span> <span class="t-u">db</span>.<span
+            class="t-m">influencers</span>.<span class="t-m">search</span>({
+          platform: <span class="t-s">'instagram'</span>,
+          niche: <span class="t-s">'fashion'</span>,
+          min_quality_score: <span class="t-n">75</span>,
+          followers: { min: <span class="t-n">10000</span> }
+          });
+        </div>
+        <div id="ex-python" class="code-ex" style="display:none"><button class="ex-copy"
+            onclick="copyEx(this)">copy</button><span class="t-k">import</span> <span class="t-u">dreabee</span>
+
+          <span class="t-u">db</span> = <span class="t-m">dreabee.Client</span>(<span class="t-u">api_key</span>=<span
+            class="t-s">"db_live_xxx"</span>)
+
+          <span class="t-u">results</span> = <span class="t-u">db</span>.<span class="t-m">influencers</span>.<span
+            class="t-m">search</span>(
+          platform=<span class="t-s">"instagram"</span>,
+          niche=<span class="t-s">"fashion"</span>,
+          min_quality_score=<span class="t-n">75</span>
+          )
+        </div>
+      </div>
+
+      <div class="ex-section">
+        <div class="ex-title">Sample Response</div>
+        <div class="code-ex"><button class="ex-copy" onclick="copyEx(this)">copy</button><span class="t-c">// 200 OK ·
+            94ms</span>
+          {
+          <span class="t-k">"results"</span>: [
+          {
+          <span class="t-k">"handle"</span>: <span class="t-s">"@stylebyneha"</span>,
+          <span class="t-k">"platform"</span>: <span class="t-s">"instagram"</span>,
+          <span class="t-k">"followers"</span>: <span class="t-n">248000</span>,
+          <span class="t-k">"engagement_rate"</span>: <span class="t-n">6.2</span>,
+          <span class="t-k">"quality_score"</span>: <span class="t-n">84</span>,
+          <span class="t-k">"fake_pct"</span>: <span class="t-n">9.2</span>,
+          <span class="t-k">"niche"</span>: <span class="t-s">"fashion"</span>,
+          <span class="t-k">"location"</span>: <span class="t-s">"IN"</span>
+          }
+          ],
+          <span class="t-k">"total"</span>: <span class="t-n">2847</span>,
+          <span class="t-k">"next_cursor"</span>: <span class="t-s">"cur_xyz123"</span>
+          }
+        </div>
+      </div>
+
+      <div class="ex-section">
+        <div class="ex-title">Error Response</div>
+        <div class="code-ex"><span class="t-c">// 401 Unauthorized</span>
+          {
+          <span class="t-k">"error"</span>: {
+          <span class="t-k">"code"</span>: <span class="t-s">"unauthorized"</span>,
+          <span class="t-k">"message"</span>: <span class="t-s">"Invalid or missing API key"</span>,
+          <span class="t-k">"docs"</span>: <span class="t-s">"https://dreabee.com/api/docs#auth"</span>
+          }
+          }
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+
+        <!-- Brand column -->
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <img
+            src="/assets/logo.webp"
+            alt="Dreabee" style="height:40px;width:auto;display:block">
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X" title="Twitter / X"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn" title="LinkedIn"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram" title="Instagram"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="5%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube" title="YouTube"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links">
+            <a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a>
+            <a href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a>
+            <a href="dreabee-pricing.html" class="gfoot-link">Pricing</a>
+          </div>
+        </div>
+
+        <!-- Free Tools -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links">
+            <a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links">
+            <a href="dreabee-about.html" class="gfoot-link">About Us</a>
+            <a href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a>
+            <a href="dreabee-press.html" class="gfoot-link">Press</a>
+            <a href="dreabee-blog.html" class="gfoot-link">Blog</a>
+            <a href="dreabee-contact.html" class="gfoot-link">Contact</a>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links">
+            <a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gfoot-link">API Reference</a>
+            <a href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a>
+            <a href="dreabee-changelog.html" class="gfoot-link">Changelog</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Resources</span>
+          <div class="gfoot-links">
+            <a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a>
+            <a href="dreabee-for-creators.html" class="gfoot-link">For Creators</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+            <a href="dreabee-compare.html" class="gfoot-link">Compare Platforms</a>
+            <a href="dreabee-faq.html" class="gfoot-link">FAQ</a>
+            <a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links">
+            <a href="dreabee-login.html" class="gfoot-link">Login</a>
+            <a href="dreabee-register.html" class="gfoot-link">Get Started Free</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links">
+            <a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a>
+            <a href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a>
+            <a href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a>
+          </div>
+        </div>
+
+      </div><!-- /gfoot-top -->
+    </div><!-- /gfoot-inner -->
+
+    <hr class="gfoot-divider">
+
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2025 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal">
+        <a href="dreabee-terms.html">Terms</a>
+        <a href="dreabee-privacy-policy.html">Privacy</a>
+        <a href="dreabee-cookie-policy.html">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* Sidebar active link on scroll */
+    const sections = document.querySelectorAll('.doc-section[id]');
+    const sbLinks = document.querySelectorAll('.sb-link');
+    function updateSidebar() {
+      let active = null;
+      sections.forEach(s => {
+        if (s.getBoundingClientRect().top < window.innerHeight * .45) active = s.id;
+      });
+      sbLinks.forEach(l => {
+        l.classList.toggle('active', l.getAttribute('onclick') === `scrollTo('${active}')`);
+      });
+    }
+    window.addEventListener('scroll', updateSidebar, { passive: true });
+    updateSidebar();
+
+    function scrollTo(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function toggleEndpoint(header) {
+      header.closest('.endpoint-block').classList.toggle('open');
+    }
+
+    function switchTab(btn, lang) {
+      btn.closest('.ex-lang-tabs').querySelectorAll('.ex-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      const section = btn.closest('.ex-section');
+      section.querySelectorAll('.code-ex').forEach(c => c.style.display = 'none');
+      const el = section.querySelector('#ex-' + lang);
+      if (el) el.style.display = 'block';
+    }
+
+    function copyEx(btn) {
+      const code = btn.parentElement.innerText.replace('copy', '').replace('copied', '').trim();
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = 'copied';
+        setTimeout(() => btn.textContent = 'copy', 1800);
+      }).catch(() => { btn.textContent = 'done'; setTimeout(() => btn.textContent = 'copy', 1500) });
+    }
+  </script>
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+  </script>
+</body>
+
+</html>

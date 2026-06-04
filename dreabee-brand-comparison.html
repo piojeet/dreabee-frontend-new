@@ -1,0 +1,3558 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Comparison — Dreabee Influencer Marketing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ═══ DREABEE MASTER NAV + FOOTER CSS ═══ */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    /* NAV */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* FOOTER */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden;
+      padding: 0
+    }
+
+    .gfoot-soc:hover {
+      border-color: #34AE93;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 174, 147, .2)
+    }
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px) {
+      .gnav-links {
+        gap: 0
+      }
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 6px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --gradient: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --bg: #FFFFFF;
+      --surface: #F7FAFA;
+      --border: #E2EDEC;
+      --text-primary: #043E54;
+      --text-secondary: #4A7A84;
+      --tint: #EDF7F5;
+      --nav-h: 64px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+
+
+
+
+
+
+
+
+    .nav-link:hover,
+
+    .nav-dropdown {
+      position: relative;
+    }
+
+    .nav-dropdown-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color .15s, background .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .nav-dropdown-toggle:hover {
+      color: var(--primary);
+      background: var(--tint);
+    }
+
+    .chevron {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s;
+    }
+
+    .nav-dropdown.open .chevron {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(4, 62, 84, 0.1);
+      min-width: 220px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: opacity .15s, transform .15s;
+    }
+
+    .nav-dropdown.open .dropdown-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: color .12s, background .12s;
+    }
+
+    .dropdown-item:hover {
+      color: var(--primary);
+      background: var(--tint);
+    }
+
+
+
+    .btn-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 7px;
+      transition: color .15s;
+    }
+
+    .btn-ghost:hover {
+      color: var(--primary);
+    }
+
+    .btn-primary- .btn-primary-nav:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 14px rgba(52, 174, 147, 0.35);
+    }
+
+
+
+
+
+
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 16px;
+      z-index: 999;
+      max-height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+    }
+
+    .mobile-menu.open {
+      display: block;
+    }
+
+    .mobile-link {
+      display: block;
+      padding: 10px 12px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-decoration: none;
+      border-radius: 7px;
+      transition: background .12s;
+    }
+
+    .mobile-link:hover {
+      background: var(--tint);
+    }
+
+    .mobile-section-title {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      padding: 12px 12px 4px;
+    }
+
+    .mobile-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 8px 0;
+    }
+
+
+    /* ── GLOBALS ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 96px 24px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -.025em;
+      color: var(--primary);
+    }
+
+    h2 {
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.018em;
+      color: var(--primary);
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.3;
+    }
+
+    .subtext {
+      font-size: clamp(15px, 1.8vw, 17px);
+      color: var(--text-secondary);
+      line-height: 1.72;
+    }
+
+    .gradient-text {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--tint);
+      border: 1px solid var(--border);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 100px;
+      margin-bottom: 20px;
+    }
+
+    .section-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--gradient);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      padding: 13px 26px;
+      border-radius: 9px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 5px 18px rgba(52, 174, 147, 0.38);
+    }
+
+    .btn-outline-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: transparent;
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      padding: 12px 26px;
+      border-radius: 9px;
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color .15s, background .15s;
+    }
+
+    .btn-outline-cta:hover {
+      border-color: var(--teal);
+      background: var(--tint);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── HERO ── */
+    #hero {
+      padding-top: calc(var(--nav-h) + 80px);
+      padding-bottom: 80px;
+      background: radial-gradient(ellipse 80% 55% at 50% -5%, rgba(138, 216, 163, 0.12) 0%, transparent 65%);
+      text-align: center;
+    }
+
+    #hero h1 {
+      margin-bottom: 20px;
+      max-width: 780px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #hero .subtext {
+      max-width: 700px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* ── INSIGHTS GRID ── */
+    #insights {
+      background: var(--surface);
+    }
+
+    .insights-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .insights-header .subtext {
+      max-width: 580px;
+      margin: 12px auto 0;
+    }
+
+    .insights-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .insights-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .insights-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Make last row's orphan card span full width if needed */
+    .insight-card:last-child:nth-child(3n+1) {
+      grid-column: 1 / -1;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 959px) {
+      .insight-card:last-child:nth-child(3n+1) {
+        grid-column: auto;
+        max-width: none;
+        margin: 0;
+      }
+    }
+
+    .insight-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 1px 5px rgba(4, 62, 84, 0.04);
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .insight-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(4, 62, 84, 0.09);
+    }
+
+    .insight-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .insight-card h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .insight-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ── FEATURE ROWS ── */
+    #feature-rows {
+      background: var(--bg);
+      padding: 80px 24px;
+    }
+
+    .feature-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feature-row:first-child {
+      padding-top: 0;
+    }
+
+    .feature-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    @media (min-width: 768px) {
+      .feature-row {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .feature-row.reverse .feature-text {
+        order: 2;
+      }
+
+      .feature-row.reverse .feature-visual {
+        order: 1;
+      }
+    }
+
+    .feature-text {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .feature-row-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--tint);
+      border: 1px solid var(--border);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      width: fit-content;
+    }
+
+    .feature-text h3 {
+      font-size: clamp(18px, 2.2vw, 22px);
+    }
+
+    .feature-text p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.72;
+    }
+
+    .feature-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--teal);
+      text-decoration: none;
+      transition: gap .15s;
+      width: fit-content;
+      margin-top: 4px;
+    }
+
+    .feature-link:hover {
+      gap: 8px;
+    }
+
+    /* Visual placeholders */
+    .visual-placeholder {
+      background: var(--tint);
+      border: 1.5px dashed var(--teal);
+      border-radius: 16px;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(138, 216, 163, 0.05) 0%, rgba(52, 174, 147, 0.06) 100%);
+    }
+
+    .vp-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .vp-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .vp-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(52, 174, 147, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .vp-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .vp-bar {
+      border-radius: 4px 4px 0 0;
+      background: var(--gradient);
+    }
+
+    .vp-metrics {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .vp-metric {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 10px 16px;
+      text-align: center;
+    }
+
+    .vp-metric-val {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .vp-metric-lbl {
+      font-size: 10px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* Overlap visual */
+    .overlap-rings {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 100px;
+      width: 200px;
+    }
+
+    .overlap-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid;
+      opacity: .55;
+      position: absolute;
+    }
+
+    .ring-a {
+      border-color: var(--teal);
+      background: rgba(52, 174, 147, 0.12);
+      left: 0;
+    }
+
+    .ring-b {
+      border-color: var(--mint);
+      background: rgba(138, 216, 163, 0.12);
+      left: 30px;
+    }
+
+    .ring-c {
+      border-color: #4A7A84;
+      background: rgba(74, 122, 132, 0.1);
+      left: 60px;
+    }
+
+    /* ── MULTI-BRAND COMPARE ── */
+    #multi-brand {
+      background: var(--surface);
+    }
+
+    .multi-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    @media (min-width: 768px) {
+      .multi-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .multi-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .multi-text h2 {
+      margin-bottom: 4px;
+    }
+
+    /* Compare table mini */
+    .compare-mini {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(4, 62, 84, 0.05);
+    }
+
+    .compare-mini-head {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      background: var(--tint);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 16px;
+    }
+
+    .compare-mini-head span {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .compare-mini-head span:first-child {
+      text-align: left;
+      color: var(--text-secondary);
+    }
+
+    .compare-mini-row {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      transition: background .12s;
+      align-items: center;
+    }
+
+    .compare-mini-row:last-child {
+      border-bottom: none;
+    }
+
+    .compare-mini-row:hover {
+      background: rgba(237, 247, 245, 0.45);
+    }
+
+    .compare-mini-row span {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+
+    .compare-mini-row span:first-child {
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: left;
+    }
+
+    .compare-mini-row .you {
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    /* Accordion */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .accordion-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      overflow: hidden;
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+      padding: 15px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      gap: 12px;
+      transition: background .12s;
+    }
+
+    .accordion-trigger:hover {
+      background: var(--tint);
+    }
+
+    .acc-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1.5px solid var(--teal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--teal);
+      line-height: 1;
+      transition: transform .2s;
+    }
+
+    .accordion-item.open .acc-icon {
+      transform: rotate(45deg);
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+    }
+
+    .accordion-item.open .accordion-body {
+      max-height: 160px;
+    }
+
+    .accordion-body-inner {
+      padding: 0 18px 15px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ── AUDIENCE SECTION ── */
+    #audience {
+      background: var(--bg);
+    }
+
+    .audience-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .audience-header .subtext {
+      max-width: 600px;
+      margin: 12px auto 0;
+    }
+
+    .audience-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-bottom: 44px;
+    }
+
+    @media (min-width: 768px) {
+      .audience-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .audience-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      box-shadow: 0 1px 5px rgba(4, 62, 84, 0.04);
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .audience-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(4, 62, 84, 0.09);
+    }
+
+    .aud-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      background: var(--gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .aud-icon-wrap svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .audience-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .audience-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .closing-callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      text-align: center;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .closing-callout strong {
+      color: var(--primary);
+    }
+
+    /* ── FAQ ── */
+    #faq {
+      background: var(--surface);
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .faq-list {
+      max-width: 820px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .faq-trigger {
+      width: 100%;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary);
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      gap: 12px;
+      transition: background .12s;
+    }
+
+    .faq-trigger:hover {
+      background: var(--tint);
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--teal);
+      transition: transform .2s;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease;
+    }
+
+    .faq-item.open .faq-body {
+      max-height: 200px;
+    }
+
+    .faq-body-inner {
+      padding: 0 20px 18px;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* ── CTA BANNER ── */
+    #cta-banner {
+      background: var(--gradient);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    #cta-banner h2 {
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    #cta-banner .subtext {
+      color: rgba(255, 255, 255, 0.85);
+      max-width: 580px;
+      margin: 0 auto 32px;
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 9px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .btn-white:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(4, 62, 84, 0.2);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 0;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .footer-inner {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+    }
+
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--primary);
+      margin-bottom: 14px;
+    }
+
+    .footer-logo-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-tagline {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 220px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-link {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color .12s;
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      border-top: 1px solid var(--border);
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color .12s;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--primary);
+    }
+
+    /* ──────── GLOBAL NAV ──────── */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .g .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* ──────── GLOBAL FOOTER ──────── */
+
+    .gnav-link,
+    .gnav-toggle {
+      padding: 6px 8px;
+      font-size: 13px
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .g .gfoot-grid {
+        grid-template-columns: 1fr !important
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+      }
+    }
+
+    /* ──────── REDESIGNED FOOTER ──────── */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    .gfoot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4A7A84;
+      margin-bottom: 16px
+    }
+
+    .gfoot-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #34AE93;
+      border-radius: 50%
+    }
+  </style>
+  <style id="dreabee-nav-css">
+    /* ── Dreabee Unified Nav & Footer — hardcoded, no CSS var deps ── */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: #ECF7F3;
+      color: #043E54
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: #D5EBE5;
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: #043E54
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #043E54;
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid #D5EBE5
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #043E54;
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid #D5EBE5;
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: #34AE93
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #4A7A84;
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* Footer */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%) !important;
+      border-top: 1px solid #D5EBE5 !important;
+      padding: 64px 0 0 !important
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* Responsive */
+    @media(max-width:1024px) {
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 5px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-inner {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" id="gnav-logo" href="index.html">
+        <img
+          src="/assets/logo.webp"
+          alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
+      </div>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost" id="gnav-login">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
+      </div>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink" id="gnav-mob-login">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+  </div>
+  </div><!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="index.html" class="mobile-link">Home</a>
+    <p class="mobile-section-title">Features</p>
+    <a href="dreabee-influencer-discovery.html" class="mobile-link">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="mobile-link">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="mobile-link">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="mobile-link">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="mobile-link">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="mobile-link" style="color:var(--primary);font-weight:600;">Brand
+      Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="mobile-link">Brand Monitoring</a>
+    <hr class="mobile-divider">
+    <p class="mobile-section-title">Free Tools</p>
+    <a href="dreabee-instagram-fake-followers.html" class="mobile-link">Instagram Fake Followers</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="mobile-link">YouTube Engagement Rate</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="mobile-link">Instagram Engagement Rate</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="mobile-link">TikTok Engagement Rate</a>
+    <hr class="mobile-divider">
+    <a href="dreabee-pricing.html" class="mobile-link">Pricing</a>
+    <a href="dreabee-blog.html" class="mobile-link">Blog</a>
+    <a href="dreabee-login.html" class="mobile-link">Login</a>
+    <div style="padding:12px 0;"><a href="dreabee-register.html" class="btn-primary-nav"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="container">
+      <div class="fade-in">
+        <div class="section-badge">Competitive Intelligence</div>
+        <h1>Compare Brands<br><span class="gradient-text">Without Guesswork</span></h1>
+        <p class="subtext">Get the complete competitive picture across Instagram and YouTube. Dreabee's Brand Comparison
+          tool gives you live, data-backed visibility into the influencer strategies of up to three competitors. See who
+          they collaborate with, how much of their content is paid, what kind of reach they generate, and how your
+          campaigns measure up.</p>
+        <div class="hero-ctas" style="margin-top:36px;">
+          <a href="dreabee-register.html" class="btn-cta">Try Dreabee Free →</a>
+          <a href="#insights" class="btn-outline-cta">See a Demo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INSIGHTS GRID ── -->
+  <section id="insights">
+    <div class="container">
+      <div class="insights-header fade-in">
+        <h2>Brand Comparison Insights</h2>
+        <p class="subtext">Track how your brand stacks up against competitors in real time.</p>
+      </div>
+      <div class="insights-grid">
+
+        <div class="insight-card fade-in">
+          <div class="insight-num">01</div>
+          <h3>Keyword-based brand discovery</h3>
+          <p>Search for any product, brand, influencer, or campaign to uncover what your competitors are doing across
+            Instagram and YouTube.</p>
+        </div>
+
+        <div class="insight-card fade-in">
+          <div class="insight-num">02</div>
+          <h3>Content performance metrics</h3>
+          <p>See real-time data on the effectiveness of posts, including likes, comments, shares, and views, so you can
+            measure engagement and identify high-impact content.</p>
+        </div>
+
+        <div class="insight-card fade-in">
+          <div class="insight-num">03</div>
+          <h3>Paid vs. organic performance analysis</h3>
+          <p>Understand the difference in reach between paid and organic content. Track total views and paid views on
+            YouTube to gauge how much of the visibility is driven by advertising.</p>
+        </div>
+
+        <div class="insight-card fade-in">
+          <div class="insight-num">04</div>
+          <h3>Influencer activity</h3>
+          <p>Track the number of paid influencers, paid posts, and paid views across brands. See the country and
+            language of the influencers to understand regional strategy and alignment.</p>
+        </div>
+
+        <div class="insight-card fade-in">
+          <div class="insight-num">05</div>
+          <h3>Influencer overlap detection</h3>
+          <p>Identify influencers working across multiple competing brands, giving you insights into exclusive
+            partnerships or potential conflicts.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FEATURE ROWS ── -->
+  <section id="feature-rows">
+    <div class="container">
+
+      <!-- Row 1 -->
+      <div class="feature-row fade-in">
+        <div class="feature-text">
+          <div class="feature-row-badge">Overlap & Exclusivity</div>
+          <h3>Identify Influencer Overlap &amp; Exclusivity</h3>
+          <p>Know which creators are being used across multiple brands in your industry. Use smart filters like country,
+            language, category, and content format to find overlapping creators and gauge their performance. Spot
+            exclusive relationships or missed partnership opportunities before your competitors do.</p>
+          <a href="dreabee-register.html" class="feature-link">Explore overlap data →</a>
+        </div>
+        <div class="feature-visual">
+          <div class="visual-placeholder">
+            <div class="vp-inner">
+              <div class="vp-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"
+                  stroke-linecap="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
+              <div class="overlap-rings">
+                <div class="overlap-ring ring-a"></div>
+                <div class="overlap-ring ring-b"></div>
+                <div class="overlap-ring ring-c"></div>
+              </div>
+              <div class="vp-metrics">
+                <div class="vp-metric">
+                  <div class="vp-metric-val">12</div>
+                  <div class="vp-metric-lbl">Shared Creators</div>
+                </div>
+                <div class="vp-metric">
+                  <div class="vp-metric-val">3</div>
+                  <div class="vp-metric-lbl">Brands Compared</div>
+                </div>
+              </div>
+              <span class="vp-label">Influencer Overlap</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2 (reverse) -->
+      <div class="feature-row reverse fade-in">
+        <div class="feature-text">
+          <div class="feature-row-badge">Live Activity</div>
+          <h3>Real-Time Campaign Activity</h3>
+          <p>See exactly when brands are ramping up or scaling back campaigns. Get time-specific data on post volume,
+            influencer engagement, and campaign momentum so you can align your outreach, launches, and budget strategy
+            accordingly. Stay ahead of seasonal spikes and industry shifts without relying on outdated data.</p>
+          <a href="dreabee-register.html" class="feature-link">View live data →</a>
+        </div>
+        <div class="feature-visual">
+          <div class="visual-placeholder">
+            <div class="vp-inner">
+              <div class="vp-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"
+                  stroke-linecap="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                </svg>
+              </div>
+              <div class="vp-bars">
+                <div class="vp-bar" style="width:12px;height:28px;opacity:.35"></div>
+                <div class="vp-bar" style="width:12px;height:44px;opacity:.45"></div>
+                <div class="vp-bar" style="width:12px;height:36px;opacity:.4"></div>
+                <div class="vp-bar" style="width:12px;height:68px;opacity:.6"></div>
+                <div class="vp-bar" style="width:12px;height:52px;opacity:.5"></div>
+                <div class="vp-bar" style="width:12px;height:90px;opacity:.75"></div>
+                <div class="vp-bar" style="width:12px;height:72px;opacity:.65"></div>
+                <div class="vp-bar" style="width:12px;height:48px;opacity:.5"></div>
+              </div>
+              <div class="vp-metrics">
+                <div class="vp-metric">
+                  <div class="vp-metric-val">↑ 34%</div>
+                  <div class="vp-metric-lbl">This Week</div>
+                </div>
+                <div class="vp-metric">
+                  <div class="vp-metric-val">218</div>
+                  <div class="vp-metric-lbl">Posts Tracked</div>
+                </div>
+              </div>
+              <span class="vp-label">Campaign Momentum</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="feature-row fade-in">
+        <div class="feature-text">
+          <div class="feature-row-badge">Regional Intelligence</div>
+          <h3>Regional &amp; Language Targeting Insights</h3>
+          <p>Dive into the geography and audience segmentation of your competitors' campaigns. See where they're
+            focusing their efforts — down to the city level — and which languages their influencers are using. Use this
+            intelligence to uncover underserved regions or over-saturated markets before making your next move.</p>
+          <a href="dreabee-register.html" class="feature-link">Explore regional data →</a>
+        </div>
+        <div class="feature-visual">
+          <div class="visual-placeholder">
+            <div class="vp-inner">
+              <div class="vp-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"
+                  stroke-linecap="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path
+                    d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
+                <span
+                  style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--primary);">🇮🇳
+                  India · 48%</span>
+                <span
+                  style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--primary);">🇺🇸
+                  US · 22%</span>
+                <span
+                  style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--primary);">🇬🇧
+                  UK · 14%</span>
+                <span
+                  style="background:#fff;border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--text-secondary);">+9
+                  more</span>
+              </div>
+              <div class="vp-metrics">
+                <div class="vp-metric">
+                  <div class="vp-metric-val">12</div>
+                  <div class="vp-metric-lbl">Countries</div>
+                </div>
+                <div class="vp-metric">
+                  <div class="vp-metric-val">5</div>
+                  <div class="vp-metric-lbl">Languages</div>
+                </div>
+              </div>
+              <span class="vp-label">Geo Targeting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 4 (reverse) -->
+      <div class="feature-row reverse fade-in">
+        <div class="feature-text">
+          <div class="feature-row-badge">Content Strategy</div>
+          <h3>Deep Content Strategy Insights</h3>
+          <p>Review every piece of content your competitors are pushing — across Instagram and YouTube. Understand which
+            formats are performing best, whether it's short-form, educational, or entertainment-driven content. Learn
+            what's resonating in your niche, and refine your own campaign creative accordingly.</p>
+          <a href="dreabee-register.html" class="feature-link">Analyse content strategy →</a>
+        </div>
+        <div class="feature-visual">
+          <div class="visual-placeholder">
+            <div class="vp-inner">
+              <div class="vp-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.8"
+                  stroke-linecap="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M8 12h8M8 8h8M8 16h4" />
+                </svg>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px;width:100%;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span
+                    style="font-size:12px;font-weight:600;color:var(--text-secondary);width:80px;flex-shrink:0;">Short-form</span>
+                  <div style="flex:1;background:var(--border);border-radius:3px;height:8px;">
+                    <div style="width:78%;height:100%;background:var(--gradient);border-radius:3px;"></div>
+                  </div>
+                  <span style="font-size:12px;font-weight:700;color:var(--teal);">78%</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span
+                    style="font-size:12px;font-weight:600;color:var(--text-secondary);width:80px;flex-shrink:0;">Educational</span>
+                  <div style="flex:1;background:var(--border);border-radius:3px;height:8px;">
+                    <div style="width:54%;height:100%;background:var(--gradient);border-radius:3px;opacity:.75;"></div>
+                  </div>
+                  <span style="font-size:12px;font-weight:700;color:var(--teal);">54%</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <span
+                    style="font-size:12px;font-weight:600;color:var(--text-secondary);width:80px;flex-shrink:0;">Lifestyle</span>
+                  <div style="flex:1;background:var(--border);border-radius:3px;height:8px;">
+                    <div style="width:38%;height:100%;background:var(--gradient);border-radius:3px;opacity:.6;"></div>
+                  </div>
+                  <span style="font-size:12px;font-weight:700;color:var(--teal);">38%</span>
+                </div>
+              </div>
+              <span class="vp-label">Content Format Mix</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── MULTI-BRAND COMPARE ── -->
+  <section id="multi-brand">
+    <div class="container">
+      <div class="multi-inner">
+
+        <div class="multi-text fade-in">
+          <h2>Compare Multiple Brands<br><span class="gradient-text">Simultaneously</span></h2>
+          <p class="subtext">Take comparison to the next level with up to three brands.</p>
+          <div class="accordion">
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleAcc(this)">
+                Side-by-side analysis
+                <span class="acc-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">Track creator output and effectiveness across time and content
+                  formats.</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleAcc(this)">
+                Paid Content Performance
+                <span class="acc-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">Track engagement, reach, and ROI of your campaigns with detailed
+                  reports.</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleAcc(this)">
+                Audience Demographic Breakdown
+                <span class="acc-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">Track engagement, reach, and ROI of your campaigns with detailed
+                  reports.</div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-trigger" onclick="toggleAcc(this)">
+                Performance and Engagement Insights
+                <span class="acc-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                  </svg>
+                </span>
+              </button>
+              <div class="accordion-body">
+                <div class="accordion-body-inner">Track creator output and effectiveness across time and content
+                  formats.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <div class="compare-mini">
+            <div class="compare-mini-head">
+              <span>Metric</span>
+              <span style="color:var(--teal);">You</span>
+              <span>Brand A</span>
+              <span>Brand B</span>
+            </div>
+            <div class="compare-mini-row">
+              <span>Paid Posts</span>
+              <span class="you">84</span>
+              <span>62</span>
+              <span>71</span>
+            </div>
+            <div class="compare-mini-row">
+              <span>Avg. ER</span>
+              <span class="you">7.4%</span>
+              <span>4.9%</span>
+              <span>6.1%</span>
+            </div>
+            <div class="compare-mini-row">
+              <span>Influencers</span>
+              <span class="you">38</span>
+              <span>24</span>
+              <span>31</span>
+            </div>
+            <div class="compare-mini-row">
+              <span>Total Reach</span>
+              <span class="you">4.2M</span>
+              <span>2.8M</span>
+              <span>3.5M</span>
+            </div>
+            <div class="compare-mini-row">
+              <span>Paid Views</span>
+              <span class="you">1.1M</span>
+              <span>780K</span>
+              <span>940K</span>
+            </div>
+            <div class="compare-mini-row">
+              <span>Countries</span>
+              <span class="you">12</span>
+              <span>7</span>
+              <span>9</span>
+            </div>
+            <div class="compare-mini-row">
+              <span>Languages</span>
+              <span class="you">5</span>
+              <span>3</span>
+              <span>4</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── AUDIENCE INSIGHTS ── -->
+  <section id="audience">
+    <div class="container">
+      <div class="audience-header fade-in">
+        <h2>Turn Audience Insights into<br><span class="gradient-text">Strategic Advantage</span></h2>
+      </div>
+
+      <div class="audience-cards-grid">
+
+        <div class="audience-card fade-in">
+          <div class="aud-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+            </svg>
+          </div>
+          <h3>Understand Your Audience Instantly</h3>
+          <p>Stay in tune with shifting audience sentiment and discover what truly captures their attention.</p>
+        </div>
+
+        <div class="audience-card fade-in">
+          <div class="aud-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          </div>
+          <h3>Create Messaging That Resonates</h3>
+          <p>Use data-driven insights to craft campaigns that connect emotionally and perform effectively across social
+            channels.</p>
+        </div>
+
+        <div class="audience-card fade-in">
+          <div class="aud-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round">
+              <circle cx="12" cy="12" r="10" />
+              <path
+                d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </svg>
+          </div>
+          <h3>Gain a Holistic Market View</h3>
+          <p>Monitor industry-wide conversations and see how influencers talk about other brands to uncover emerging
+            trends and strategic opportunities.</p>
+        </div>
+
+      </div>
+
+      <div class="closing-callout fade-in">
+        Dreabee's brand comparison tool goes beyond numbers, delivering <strong>actionable insights</strong> into what
+        works for competitors, where they fall short, and how to seize market gaps. <strong>No guesswork</strong> — just
+        clear, strategic intelligence.
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FAQ ── -->
+  <section id="faq">
+    <div class="container">
+      <div class="faq-header fade-in">
+        <h2>Brand Comparison Frequently<br><span class="gradient-text">Asked Questions</span></h2>
+      </div>
+      <div class="faq-list fade-in">
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">How does Dreabee help me find the right
+            influencers?<span class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">Dreabee helps you cut through the noise and connect with creators who fit your
+              brand. With smart filters and detailed insights, you can discover influencers who bring real engagement —
+              not just inflated numbers.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">Can I access detailed influencer data for competing
+            brands?<span class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">Yes, you can access detailed influencer data including paid partnerships,
+              content performance, and overlapping collaborations across multiple competing brands.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">Can I see the difference between paid and organic
+            performance?<span class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">Absolutely. You'll see metrics that differentiate between paid and organic
+              posts, views, and creators — especially on YouTube and Instagram — helping you understand your
+              competitors' actual spend and strategy.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">Can I filter data by region, language, or platform?<span
+              class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">Yes, Dreabee offers granular filters for country, city, language, platform, and
+              content type — giving you localised insights for smarter campaign targeting.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">Is the data updated in real time?<span
+              class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">Yes. All metrics and content updates are tracked continuously, allowing you to
+              monitor brand activity, content launches, and influencer engagement as they happen.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">Can I see which content formats drive the most
+            engagement?<span class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">Definitely. You'll see which types of posts (educational, entertainment,
+              product-focused, etc.) are driving the most engagement, so you can tailor your own content strategy.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">Can I identify influencers shared across competing
+            brands?<span class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">You can uncover which influencers are promoting multiple brands, helping you
+              spot creators who are available, overused, or possibly exclusive to certain competitors.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">Can I track campaign timing and seasonal trends?<span
+              class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">Yes. You'll get a timeline of content volume and engagement, so you can identify
+              when competitors are pushing campaigns, scaling back, or launching new products.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">What industries does brand comparison work for?<span
+              class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">Whether you're in beauty, fintech, fashion, wellness, or beyond — any brand
+              running or planning influencer campaigns can benefit from this competitive intelligence.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-trigger" onclick="toggleFaq(this)">Do I need to connect my social media accounts?<span
+              class="faq-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+              </svg>
+            </span></button>
+          <div class="faq-body">
+            <div class="faq-body-inner">No. Dreabee does not require any social media logins. All analysis is done
+              externally using public data and proprietary tracking systems — fully secure and non-intrusive.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BANNER ── -->
+  <section id="cta-banner">
+    <div class="container" style="text-align:center;">
+      <h2>Try Dreabee for Your Brand or Agency</h2>
+      <p class="subtext">Get started with free media plans, campaign tracking, and access to demo features — everything
+        you need to explore smarter influencer marketing, risk-free.</p>
+      <a href="dreabee-register.html" class="btn-white">Get Started Free →</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+
+        <!-- Brand column -->
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X" title="Twitter / X"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn" title="LinkedIn"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram" title="Instagram"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="5%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube" title="YouTube"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links">
+            <a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a>
+            <a href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a>
+            <a href="dreabee-pricing.html" class="gfoot-link">Pricing</a>
+          </div>
+        </div>
+
+        <!-- Free Tools -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links">
+            <a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links">
+            <a href="dreabee-about.html" class="gfoot-link">About Us</a>
+            <a href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a>
+            <a href="dreabee-press.html" class="gfoot-link">Press</a>
+            <a href="dreabee-blog.html" class="gfoot-link">Blog</a>
+            <a href="dreabee-contact.html" class="gfoot-link">Contact</a>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links">
+            <a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gfoot-link">API Reference</a>
+            <a href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a>
+            <a href="dreabee-changelog.html" class="gfoot-link">Changelog</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Resources</span>
+          <div class="gfoot-links">
+            <a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a>
+            <a href="dreabee-for-creators.html" class="gfoot-link">For Creators</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+            <a href="dreabee-compare.html" class="gfoot-link">Compare Platforms</a>
+            <a href="dreabee-faq.html" class="gfoot-link">FAQ</a>
+            <a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links">
+            <a href="dreabee-login.html" class="gfoot-link">Login</a>
+            <a href="dreabee-register.html" class="gfoot-link">Get Started Free</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links">
+            <a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a>
+            <a href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a>
+            <a href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a>
+          </div>
+        </div>
+
+      </div><!-- /gfoot-top -->
+    </div><!-- /gfoot-inner -->
+
+    <hr class="gfoot-divider">
+
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2025 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal">
+        <a href="dreabee-terms.html">Terms</a>
+        <a href="dreabee-privacy-policy.html">Privacy</a>
+        <a href="dreabee-cookie-policy.html">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav dropdowns
+    function toggleDropdown(id) {
+      const el = document.getElementById(id);
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+      if (!isOpen) el.classList.add('open');
+    }
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.nav-dropdown')) document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+    });
+
+    // Mobile
+    function toggleMobile() {
+      document.getElementById('hamburger').classList.toggle('open');
+      document.getElementById('mobile-menu').classList.toggle('open');
+    }
+
+    // Accordion
+    function toggleAcc(trigger) {
+      const item = trigger.closest('.accordion-item');
+      const isOpen = item.classList.contains('open');
+      item.closest('.accordion').querySelectorAll('.accordion-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // FAQ
+    function toggleFaq(trigger) {
+      trigger.closest('.faq-item').classList.toggle('open');
+    }
+
+    // Fade-in observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.07 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+  </script>
+</body>
+
+</html>

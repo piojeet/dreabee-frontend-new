@@ -1,0 +1,1853 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Dreabee Influencer Marketing Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden;
+      padding: 0
+    }
+
+    .gfoot-soc:hover {
+      border-color: #34AE93;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 174, 147, .2)
+    }
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    @media(max-width:1024px) {
+      .gnav-links {
+        gap: 0
+      }
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 6px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #fff;
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--tint);
+      border: 1px solid var(--bdr);
+      color: var(--teal);
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px
+    }
+
+    .chip::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(36px, 5vw, 62px);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -.03em;
+      color: var(--ink)
+    }
+
+    h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(24px, 3.2vw, 40px);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -.025em;
+      color: var(--ink)
+    }
+
+    .lead {
+      font-size: clamp(15px, 1.8vw, 18px);
+      color: var(--muted);
+      line-height: 1.8
+    }
+
+    .g-text {
+      background: var(--g1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .btn-g {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      background: var(--g2);
+      color: #fff;
+      text-decoration: none;
+      padding: 13px 26px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap
+    }
+
+    .btn-g:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(52, 174, 147, .38)
+    }
+
+    .btn-gw {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      background: var(--g2);
+      color: #fff;
+      text-decoration: none;
+      padding: 13px 26px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform .18s, box-shadow .18s
+    }
+
+    .btn-gw:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(52, 174, 147, .5)
+    }
+
+    .btn-w {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, .1);
+      border: 2px solid rgba(255, 255, 255, .25);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 26px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: .18s
+    }
+
+    .btn-w:hover {
+      background: rgba(255, 255, 255, .18)
+    }
+
+    .sr {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .55s cubic-bezier(.4, 0, .2, 1), transform .55s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    .sr.on {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .sr.d1 {
+      transition-delay: .08s
+    }
+
+    .sr.d2 {
+      transition-delay: .16s
+    }
+
+    .sr.d3 {
+      transition-delay: .24s
+    }
+
+    /* FAQ PAGE */
+    .faq-hero {
+      padding: calc(var(--nh) + 64px) 0 52px;
+      background: linear-gradient(160deg, #e6f5ee 0%, #f5fcf9 45%, #fff 75%);
+      position: relative;
+      overflow: hidden
+    }
+
+    .faq-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -120px;
+      width: 560px;
+      height: 560px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(138, 216, 163, .18) 0%, transparent 65%);
+      pointer-events: none
+    }
+
+    .faq-hero-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 32px;
+      text-align: center
+    }
+
+    .faq-hero h1 {
+      margin-bottom: 20px
+    }
+
+    .faq-hero .lead {
+      max-width: 580px;
+      margin: 0 auto 36px
+    }
+
+    .faq-search-wrap {
+      position: relative;
+      max-width: 520px;
+      margin: 0 auto
+    }
+
+    .faq-search {
+      width: 100%;
+      padding: 14px 52px 14px 20px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      border: 2px solid var(--bdr);
+      border-radius: 12px;
+      outline: none;
+      transition: border-color .18s, box-shadow .18s;
+      background: #fff;
+      color: var(--ink)
+    }
+
+    .faq-search:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 4px rgba(52, 174, 147, .1)
+    }
+
+    .faq-search-icon {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none
+    }
+
+    .faq-stats {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      margin-top: 40px;
+      flex-wrap: wrap
+    }
+
+    .faq-stat {
+      text-align: center
+    }
+
+    .faq-stat-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1
+    }
+
+    .faq-stat-lbl {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 4px
+    }
+
+    .faq-cats {
+      background: #fff;
+      border-bottom: 1px solid var(--bdr);
+      position: sticky;
+      top: 64px;
+      z-index: 100;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    .faq-cats::-webkit-scrollbar {
+      display: none
+    }
+
+    .faq-cats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 32px;
+      display: flex;
+      gap: 4px
+    }
+
+    .faq-cat-btn {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      background: none;
+      border: 1px solid transparent;
+      padding: 7px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: .15s
+    }
+
+    .faq-cat-btn:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .faq-cat-btn.active {
+      color: var(--teal);
+      background: var(--tint);
+      border-color: var(--bdr)
+    }
+
+    .faq-body {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 64px 32px 80px
+    }
+
+    .faq-section {
+      margin-bottom: 64px
+    }
+
+    .faq-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--bdr)
+    }
+
+    .faq-section-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--tint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0
+    }
+
+    .faq-section-title h2 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.02em
+    }
+
+    .faq-item {
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      transition: box-shadow .18s
+    }
+
+    .faq-item:hover {
+      box-shadow: 0 4px 20px rgba(4, 62, 84, .07)
+    }
+
+    .faq-item.open {
+      box-shadow: 0 4px 24px rgba(4, 62, 84, .1)
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: background .12s
+    }
+
+    .faq-q:hover {
+      background: var(--surf)
+    }
+
+    .faq-item.open .faq-q {
+      background: var(--tint)
+    }
+
+    .faq-q-text {
+      flex: 1;
+      line-height: 1.45
+    }
+
+    .faq-badges {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0
+    }
+
+    .faq-pop {
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--g1);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 100px;
+      letter-spacing: .04em;
+      white-space: nowrap
+    }
+
+    .faq-chevron {
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      background: var(--surf);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: transform .2s, background .15s
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      background: var(--teal)
+    }
+
+    .faq-chevron svg {
+      width: 12px;
+      height: 12px;
+      color: var(--muted)
+    }
+
+    .faq-item.open .faq-chevron svg {
+      color: #fff
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 600px
+    }
+
+    .faq-a-inner {
+      padding: 0 20px 20px;
+      font-size: 14.5px;
+      color: #2a5262;
+      line-height: 1.8
+    }
+
+    .faq-a-inner p {
+      margin-bottom: 10px
+    }
+
+    .faq-a-inner p:last-child {
+      margin-bottom: 0
+    }
+
+    .faq-a-inner a {
+      color: var(--teal);
+      text-decoration: underline;
+      text-underline-offset: 3px
+    }
+
+    .faq-a-inner ul {
+      padding-left: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px
+    }
+
+    .faq-a-inner li::marker {
+      color: var(--teal)
+    }
+
+    .faq-empty {
+      text-align: center;
+      padding: 64px 20px;
+      display: none
+    }
+
+    .faq-empty.show {
+      display: block
+    }
+
+    .faq-empty-icon {
+      font-size: 48px;
+      margin-bottom: 16px
+    }
+
+    .faq-empty h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px
+    }
+
+    .faq-empty p {
+      color: var(--muted);
+      font-size: 15px
+    }
+
+    .faq-contact {
+      background: var(--surf);
+      border-top: 1px solid var(--bdr);
+      padding: 72px 32px;
+      text-align: center
+    }
+
+    .faq-contact-inner {
+      max-width: 900px;
+      margin: 0 auto
+    }
+
+    .faq-contact h2 {
+      margin-bottom: 14px
+    }
+
+    .faq-contact .lead {
+      margin-bottom: 44px
+    }
+
+    .faq-contact-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      text-align: left
+    }
+
+    @media(max-width:680px) {
+      .faq-contact-cards {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .fcc {
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 16px;
+      padding: 24px;
+      transition: box-shadow .18s, transform .18s
+    }
+
+    .fcc:hover {
+      box-shadow: 0 8px 32px rgba(4, 62, 84, .1);
+      transform: translateY(-3px)
+    }
+
+    .fcc-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--tint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 14px
+    }
+
+    .fcc h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 6px
+    }
+
+    .fcc p {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px
+    }
+
+    .fcc a {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--teal);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px
+    }
+
+    .fcc a:hover {
+      color: var(--ink)
+    }
+
+    .cta-banner {
+      background: var(--ink);
+      padding: 72px 32px;
+      text-align: center
+    }
+
+    .cta-banner h2 {
+      font-family: 'Sora', sans-serif;
+      color: #fff;
+      font-size: clamp(26px, 3.5vw, 42px);
+      font-weight: 800;
+      margin-bottom: 14px
+    }
+
+    .cta-banner p {
+      color: rgba(255, 255, 255, .7);
+      font-size: 16px;
+      margin-bottom: 36px
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    @media(max-width:640px) {
+      .faq-hero-inner {
+        padding: 0 20px
+      }
+
+      .faq-body {
+        padding: 40px 20px 60px
+      }
+
+      .faq-cats-inner {
+        padding: 12px 20px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" href="index.html">
+        <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
+      </div>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
+      </div>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+
+  <!-- HERO -->
+  <section class="faq-hero sr">
+    <div class="faq-hero-inner">
+      <div class="chip">Help Center</div>
+      <h1>Frequently Asked <span class="g-text">Questions</span></h1>
+      <p class="lead" style="margin-top:16px">Everything you need to know about Dreabee. Can't find your answer? We're
+        here to help.</p>
+      <div class="faq-search-wrap">
+        <input type="text" class="faq-search" id="faqSearch"
+          placeholder="Search questions… e.g. pricing, analytics, API" autocomplete="off">
+        <span class="faq-search-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+        </span>
+      </div>
+      <div class="faq-stats sr d1">
+        <div class="faq-stat">
+          <div class="faq-stat-num">50+</div>
+          <div class="faq-stat-lbl">Questions answered</div>
+        </div>
+        <div class="faq-stat">
+          <div class="faq-stat-num">7</div>
+          <div class="faq-stat-lbl">Topic categories</div>
+        </div>
+        <div class="faq-stat">
+          <div class="faq-stat-num">&lt;2 min</div>
+          <div class="faq-stat-lbl">Avg read time</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORY NAV -->
+  <div class="faq-cats">
+    <div class="faq-cats-inner">
+      <button class="faq-cat-btn active" data-cat="all">All Topics</button>
+      <button class="faq-cat-btn" data-cat="general">General</button>
+      <button class="faq-cat-btn" data-cat="discovery">Influencer Discovery</button>
+      <button class="faq-cat-btn" data-cat="analytics">Analytics</button>
+      <button class="faq-cat-btn" data-cat="campaigns">Campaigns</button>
+      <button class="faq-cat-btn" data-cat="brand">Brand Tools</button>
+      <button class="faq-cat-btn" data-cat="pricing">Pricing &amp; Plans</button>
+      <button class="faq-cat-btn" data-cat="privacy">Privacy &amp; Security</button>
+    </div>
+  </div>
+
+  <!-- FAQ BODY -->
+  <div class="faq-body" id="faqBody">
+
+    <div class="faq-section sr" data-section="general">
+      <div class="faq-section-title">
+        <div class="faq-section-icon">🐝</div>
+        <h2>General</h2>
+      </div>
+      <div class="faq-item" data-cat="general">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What is Dreabee and who is it
+            for?</span>
+          <div class="faq-badges"><span class="faq-pop">Popular</span></div><span class="faq-chevron"><svg
+              viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Dreabee is a next-generation influencer marketing platform built for brands, agencies, and marketers who
+              want real data — not vanity metrics. We help you discover authentic influencers, run end-to-end campaigns,
+              and measure actual ROI across Instagram, YouTube, TikTok, and Twitch.</p>
+            <p>Whether you're a solo brand manager or part of a large agency team, Dreabee scales to fit your workflow.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="general">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Do I need to create an account to use
+            Dreabee's free tools?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>No account required for our free tools like the Fake Follower Checker and Engagement Rate Calculators.
+              For full platform access — including influencer search, campaign management, and detailed analytics —
+              you'll need to sign up (free, no credit card).</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="general">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Which social media platforms does
+            Dreabee support?</span>
+          <div class="faq-badges"><span class="faq-pop">Popular</span></div><span class="faq-chevron"><svg
+              viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Dreabee currently supports Instagram, YouTube, TikTok, and Twitch. We're actively expanding to Pinterest,
+              X (Twitter), and LinkedIn in upcoming releases.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="general">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Is there a free trial
+            available?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes! Every new account gets a 14-day free trial with full access to all Pro features — no credit card
+              required. After the trial, choose the plan that fits your needs or continue with our limited free tier.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section sr d1" data-section="discovery">
+      <div class="faq-section-title">
+        <div class="faq-section-icon">🔍</div>
+        <h2>Influencer Discovery</h2>
+      </div>
+      <div class="faq-item" data-cat="discovery">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How large is Dreabee's influencer
+            database?</span>
+          <div class="faq-badges"><span class="faq-pop">Popular</span></div><span class="faq-chevron"><svg
+              viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Our database indexes over 50 million creator profiles across Instagram, YouTube, TikTok, and Twitch.
+              Profiles are refreshed regularly to ensure engagement rates, follower counts, and audience data stay
+              accurate.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="discovery">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What filters can I use to search for
+            influencers?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Dreabee offers granular filters: platform, niche/category, keywords, follower range, engagement rate
+              thresholds, audience location/age/gender, fake follower score, brand safety flags, and past brand
+              collaborations.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="discovery">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How does the fake follower detection
+            work?</span>
+          <div class="faq-badges"><span class="faq-pop">Popular</span></div><span class="faq-chevron"><svg
+              viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Our AI engine analyzes follower growth patterns, engagement velocity, comment sentiment, and audience
+              quality signals to estimate real vs. bot followers. Each profile gets a 0–100 Authenticity Score — above
+              80 is considered highly trustworthy.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="discovery">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I save influencers to a list or
+            collection?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Absolutely. Create unlimited custom lists and save any influencer profile to one or more. Lists can be
+              shared with teammates and exported to CSV or PDF for stakeholder presentations.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section sr d2" data-section="analytics">
+      <div class="faq-section-title">
+        <div class="faq-section-icon">📊</div>
+        <h2>Analytics</h2>
+      </div>
+      <div class="faq-item" data-cat="analytics">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How is engagement rate calculated on
+            Dreabee?</span>
+          <div class="faq-badges"><span class="faq-pop">Popular</span></div><span class="faq-chevron"><svg
+              viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>We calculate ER as: <strong>(Likes + Comments + Saves + Shares) ÷ Followers × 100</strong>. We average
+              the last 30 posts for a reliable, recency-weighted score rather than a single post or lifetime average.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="analytics">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How often is influencer data
+            updated?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Top profiles (1M+ followers) refresh daily. Mid-tier (100K–1M) every 3 days. Smaller creators weekly. You
+              can trigger a manual refresh for any profile on Pro and above plans.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="analytics">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I see an influencer's historical
+            performance data?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes. Dreabee stores up to 24 months of historical data including follower growth trends, engagement rate
+              over time, and posting frequency — accessible under the "Trends" tab on any Influencer Profile page.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section sr d1" data-section="campaigns">
+      <div class="faq-section-title">
+        <div class="faq-section-icon">📋</div>
+        <h2>Campaigns</h2>
+      </div>
+      <div class="faq-item" data-cat="campaigns">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I manage multiple campaigns
+            simultaneously?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes. Run multiple campaigns in parallel, each with its own influencer roster, budget tracking, content
+              calendar, and performance dashboard. Pro plans support unlimited campaigns; Starter plans include up to 3
+              active campaigns.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="campaigns">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How do I track the ROI of my influencer
+            campaigns?</span>
+          <div class="faq-badges"><span class="faq-pop">Popular</span></div><span class="faq-chevron"><svg
+              viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Set a budget and target KPIs when creating a campaign. Dreabee tracks Earned Media Value (EMV), CPM, CPE,
+              and conversion metrics (via pixel or UTM parameters). A live ROI dashboard updates as results come in, and
+              shareable PDF reports are generated automatically.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="campaigns">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Does Dreabee handle influencer payments
+            or contracts?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Not currently — Dreabee is a discovery and analytics platform, not a marketplace. We don't facilitate
+              direct payments or contracts between brands and creators. This is a feature we're exploring for a future
+              release.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section sr d2" data-section="brand">
+      <div class="faq-section-title">
+        <div class="faq-section-icon">🏷️</div>
+        <h2>Brand Tools</h2>
+      </div>
+      <div class="faq-item" data-cat="brand">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What is Brand Monitoring and how does
+            it work?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Brand Monitoring tracks mentions of your brand, products, or keywords across Instagram, YouTube, and
+              TikTok in near real-time — showing who's talking about you, mention sentiment, estimated reach, and
+              whether the creator is an existing partner or organic advocate. Email and Slack alerts available.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="brand">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I compare my brand's share of voice
+            against competitors?</span>
+          <div class="faq-badges"><span class="faq-pop">Popular</span></div><span class="faq-chevron"><svg
+              viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes. The Brand Comparison tool lets you compare your brand against up to 4 competitors across influencer
+              share of voice, sponsored content engagement rates, top collaborating creators, and audience overlap.
+              Available on Pro and Enterprise plans.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section sr d1" data-section="pricing">
+      <div class="faq-section-title">
+        <div class="faq-section-icon">💳</div>
+        <h2>Pricing &amp; Plans</h2>
+      </div>
+      <div class="faq-item" data-cat="pricing">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">What plans does Dreabee offer?</span>
+          <div class="faq-badges"><span class="faq-pop">Popular</span></div><span class="faq-chevron"><svg
+              viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Three main plans: <strong>Free</strong> (limited searches, free tools), <strong>Pro</strong> (full
+              search, unlimited lists, campaign manager, brand monitoring, API), and <strong>Enterprise</strong> (custom
+              limits, dedicated support, SSO, white-label reporting). See our <a href="dreabee-pricing.html">Pricing
+                page</a> for details.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="pricing">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Can I cancel my subscription at any
+            time?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes. Monthly plans can be cancelled anytime — you'll retain access until the end of your billing period.
+              Annual plans can be cancelled but are non-refundable after 30 days from the start date.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="pricing">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Do you offer discounts for startups or
+            non-profits?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes! We offer 30% off for registered non-profits and an annual startup discount for companies under 2
+              years old with less than $1M in funding. <a href="dreabee-contact.html">Contact our team</a> with proof of
+              eligibility.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-section sr d2" data-section="privacy">
+      <div class="faq-section-title">
+        <div class="faq-section-icon">🔒</div>
+        <h2>Privacy &amp; Security</h2>
+      </div>
+      <div class="faq-item" data-cat="privacy">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Does Dreabee require influencers to
+            connect their social accounts?</span>
+          <div class="faq-badges"><span class="faq-pop">Popular</span></div><span class="faq-chevron"><svg
+              viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>No. Dreabee uses only publicly available data — we never require influencers to log in or connect their
+              social accounts. Our data is sourced via official platform APIs within each platform's terms of service.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="privacy">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">Is Dreabee GDPR compliant?</span><span
+            class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>Yes. Dreabee is fully GDPR, CCPA, and DPDP compliant. We process only publicly available profile data and
+              follow strict data minimisation principles. See our <a href="dreabee-privacy-policy.html">Privacy
+                Policy</a> and <a href="dreabee-cookie-policy.html">Cookie Policy</a>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="faq-item" data-cat="privacy">
+        <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-text">How is my account data
+            secured?</span><span class="faq-chevron"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <path d="M2 4l4 4 4-4" />
+            </svg></span></button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            <p>All data is encrypted in transit (TLS 1.3) and at rest (AES-256). We support 2FA, role-based access
+              controls, and SSO via Google and SAML 2.0 on Enterprise plans. Infrastructure hosted on AWS with SOC 2
+              Type II certification.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-empty" id="faqEmpty">
+      <div class="faq-empty-icon">🔍</div>
+      <h3>No results found</h3>
+      <p>Try a different search term, or browse by category above.</p>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="faq-contact">
+    <div class="faq-contact-inner">
+      <div class="chip sr">Still have questions?</div>
+      <h2 class="sr d1">We're <span class="g-text">here to help</span></h2>
+      <p class="lead sr d2">Our team typically responds within a few hours on business days.</p>
+      <div class="faq-contact-cards sr d3">
+        <div class="fcc">
+          <div class="fcc-icon">✉️</div>
+          <h3>Email Support</h3>
+          <p>Send us a message and we'll get back to you within 24 hours.</p>
+          <a href="dreabee-contact.html">Contact us →</a>
+        </div>
+        <div class="fcc">
+          <div class="fcc-icon">📅</div>
+          <h3>Book a Demo</h3>
+          <p>See Dreabee in action with a personalised walkthrough from our team.</p>
+          <a href="dreabee-book-a-demo.html">Schedule now →</a>
+        </div>
+        <div class="fcc">
+          <div class="fcc-icon">📖</div>
+          <h3>Developer Docs</h3>
+          <p>Integrate with Dreabee via our API — full reference and quickstart guides.</p>
+          <a href="dreabee-api-docs.html">Read docs →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <div class="wrap">
+      <div class="chip" style="background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:var(--mint)">
+        Start for free</div>
+      <h2>Ready to find your next<br>top-performing creator?</h2>
+      <p>Join 350+ brands already using Dreabee to run smarter influencer campaigns.</p>
+      <div class="cta-actions">
+        <a href="dreabee-register.html" class="btn-gw">Get started free →</a>
+        <a href="dreabee-book-a-demo.html" class="btn-w">Book a demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X"
+              style="padding:4px;display:flex;align-items:center;justify-content:center"><svg width="16" height="16"
+                viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg></a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn"
+              style="padding:4px;display:flex;align-items:center;justify-content:center"><svg width="16" height="16"
+                viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg></a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram"
+              style="padding:3px;display:flex;align-items:center;justify-content:center"><svg width="18" height="18"
+                viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg></a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube"
+              style="padding:3px;display:flex;align-items:center;justify-content:center"><svg width="18" height="18"
+                viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg></a>
+          </div>
+        </div>
+        <div class="gfoot-col"><span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links"><a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer
+              Discovery</a><a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a><a
+              href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a><a
+              href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a><a
+              href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a><a
+              href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a><a
+              href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a><a href="dreabee-pricing.html"
+              class="gfoot-link">Pricing</a></div>
+        </div>
+        <div class="gfoot-col"><span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links"><a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower
+              Check</a><a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a><a
+              href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a><a
+              href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a></div><span
+            class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links"><a href="dreabee-about.html" class="gfoot-link">About Us</a><a
+              href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a><a
+              href="dreabee-press.html" class="gfoot-link">Press</a><a href="dreabee-blog.html"
+              class="gfoot-link">Blog</a><a href="dreabee-contact.html" class="gfoot-link">Contact</a></div>
+        </div>
+        <div class="gfoot-col"><span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links"><a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a><a
+              href="dreabee-api-docs.html" class="gfoot-link">API Reference</a><a
+              href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a><a
+              href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a><a href="dreabee-changelog.html"
+              class="gfoot-link">Changelog</a></div><span class="gfoot-col-title"
+            style="margin-top:20px">Resources</span>
+          <div class="gfoot-links"><a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a><a
+              href="dreabee-for-creators.html" class="gfoot-link">For Creators</a><a href="dreabee-book-a-demo.html"
+              class="gfoot-link">Book a Demo</a><a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a></div>
+        </div>
+        <div class="gfoot-col"><span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links"><a href="dreabee-login.html" class="gfoot-link">Login</a><a
+              href="dreabee-register.html" class="gfoot-link">Get Started Free</a><a href="dreabee-book-a-demo.html"
+              class="gfoot-link">Book a Demo</a></div><span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links"><a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a><a
+              href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a><a
+              href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a></div>
+        </div>
+      </div>
+    </div>
+    <hr class="gfoot-divider">
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2025 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal"><a href="dreabee-terms.html">Terms</a><a href="dreabee-privacy-policy.html">Privacy</a><a
+          href="dreabee-cookie-policy.html">Cookies</a></div>
+    </div>
+  </footer>
+
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+    function toggleFaq(btn) { var item = btn.closest('.faq-item'), wasOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item.open').forEach(function (i) { i.classList.remove('open') }); if (!wasOpen) item.classList.add('open'); }
+    document.querySelectorAll('.faq-cat-btn').forEach(function (btn) { btn.addEventListener('click', function () { document.querySelectorAll('.faq-cat-btn').forEach(function (b) { b.classList.remove('active') }); btn.classList.add('active'); document.getElementById('faqSearch').value = ''; filterFaqs('', btn.dataset.cat); }); });
+    document.getElementById('faqSearch').addEventListener('input', function () { document.querySelectorAll('.faq-cat-btn').forEach(function (b) { b.classList.remove('active') }); document.querySelector('[data-cat="all"]').classList.add('active'); filterFaqs(this.value.toLowerCase(), 'all'); });
+    function filterFaqs(q, cat) { var any = false; document.querySelectorAll('.faq-section').forEach(function (sec) { var sv = false; sec.querySelectorAll('.faq-item').forEach(function (item) { var text = item.querySelector('.faq-q-text').textContent.toLowerCase() + item.querySelector('.faq-a-inner').textContent.toLowerCase(); var cm = (cat === 'all') || (item.dataset.cat === cat); var sm = !q || text.includes(q); var show = cm && sm; item.style.display = show ? '' : 'none'; if (show) { sv = true; any = true; } }); sec.style.display = sv ? '' : 'none'; }); document.getElementById('faqEmpty').classList.toggle('show', !any); }
+    var obs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('on') }); }, { threshold: .1 });
+    document.querySelectorAll('.sr').forEach(function (el) { obs.observe(el) });
+  </script>
+</body>
+
+</html>

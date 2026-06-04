@@ -1,0 +1,2919 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — Dreabee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ═══ DREABEE MASTER NAV + FOOTER CSS ═══ */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    /* NAV */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* FOOTER */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden;
+      padding: 0
+    }
+
+    .gfoot-soc:hover {
+      border-color: #34AE93;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 174, 147, .2)
+    }
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px) {
+      .gnav-links {
+        gap: 0
+      }
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 6px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --primary: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --grad: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --surface: #F7FAFA;
+      --border: #E2EDEC;
+      --tp: #043E54;
+      --ts: #4A7A84;
+      --tint: #EDF7F5;
+      --nav-h: 64px;
+      --s-sm: 0 1px 5px rgba(4, 62, 84, .05);
+      --s-md: 0 4px 18px rgba(4, 62, 84, .08);
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--tp);
+      line-height: 1.6;
+      overflow-x: hidden
+    }
+
+    .nav-link:hover,
+
+    .nav-dd-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      background: none;
+      font-family: inherit;
+      transition: .15s
+    }
+
+    .nav-dd-btn:hover {
+      color: var(--primary);
+      background: var(--tint)
+    }
+
+    .chev {
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .nav-dd.open .chev {
+      transform: rotate(180deg)
+    }
+
+    .dd-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--s-md);
+      min-width: 220px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: .15s
+    }
+
+    .nav-dd.open .dd-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0)
+    }
+
+    .btn-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 7px
+    }
+
+    .btn-ghost:hover {
+      color: var(--primary)
+    }
+
+    .btn-pill {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--grad);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: .15s;
+      font-family: inherit
+    }
+
+    .btn-pill:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 14px rgba(52, 174, 147, .35)
+    }
+
+    .mob-sec {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ts);
+      padding: 12px 12px 4px
+    }
+
+    .mob-hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 8px 0
+    }
+
+    /* hero */
+    .page-hero {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 52px 24px 44px
+    }
+
+    .page-hero-inner {
+      max-width: 800px;
+      margin: 0 auto
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--tint);
+      border: 1px solid rgba(52, 174, 147, .3);
+      color: var(--teal);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 18px
+    }
+
+    .page-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 400;
+      color: var(--primary);
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      margin-bottom: 14px
+    }
+
+    .page-hero .sub {
+      font-size: 15px;
+      color: var(--ts);
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 22px
+    }
+
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    .meta-chip {
+      font-size: 12px;
+      color: var(--ts);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 500
+    }
+
+    /* layout */
+    .page-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 96px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px
+    }
+
+    @media(min-width:900px) {
+      .page-layout {
+        grid-template-columns: 1fr 240px
+      }
+    }
+
+    /* prose */
+    .legal-body {
+      min-width: 0
+    }
+
+    .section-block {
+      margin-bottom: 44px;
+      padding-bottom: 44px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .section-block:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0
+    }
+
+    .section-num {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 10px
+    }
+
+    .section-block h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 400;
+      color: var(--primary);
+      line-height: 1.2;
+      margin-bottom: 14px;
+      scroll-margin-top: calc(var(--nav-h) + 20px)
+    }
+
+    .section-block h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 22px 0 8px;
+      line-height: 1.35;
+      scroll-margin-top: calc(var(--nav-h) + 20px)
+    }
+
+    .section-block p {
+      font-size: 14.5px;
+      color: #2a5062;
+      line-height: 1.8;
+      margin-bottom: 14px
+    }
+
+    .section-block p:last-child {
+      margin-bottom: 0
+    }
+
+    .section-block ul,
+    .section-block ol {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin-bottom: 14px
+    }
+
+    .section-block li {
+      font-size: 14.5px;
+      color: #2a5062;
+      line-height: 1.75
+    }
+
+    .section-block li::marker {
+      color: var(--teal)
+    }
+
+    .section-block strong {
+      color: var(--primary);
+      font-weight: 600
+    }
+
+    .section-block a {
+      color: var(--teal);
+      text-decoration: underline;
+      text-decoration-color: rgba(52, 174, 147, .4);
+      text-underline-offset: 3px;
+      transition: .15s
+    }
+
+    .section-block a:hover {
+      color: var(--primary)
+    }
+
+    .callout {
+      background: var(--tint);
+      border-left: 3px solid var(--teal);
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      margin: 18px 0
+    }
+
+    .callout p {
+      color: var(--tp) !important;
+      font-weight: 500;
+      margin: 0 !important;
+      font-size: 14px !important
+    }
+
+    .callout-info {
+      background: #eff6ff;
+      border-left-color: #3b82f6
+    }
+
+    .callout-info p {
+      color: #1e40af !important
+    }
+
+    /* data table */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 13.5px
+    }
+
+    .data-table th {
+      background: var(--surface);
+      color: var(--tp);
+      font-weight: 700;
+      padding: 10px 14px;
+      text-align: left;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em
+    }
+
+    .data-table td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: #2a5062;
+      vertical-align: top;
+      line-height: 1.55
+    }
+
+    .data-table tr:nth-child(even) td {
+      background: var(--surface)
+    }
+
+    /* rights grid */
+    .rights-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin: 18px 0
+    }
+
+    @media(min-width:600px) {
+      .rights-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    .right-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 14px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .right-icon {
+      font-size: 20px;
+      line-height: 1
+    }
+
+    .right-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary)
+    }
+
+    .right-desc {
+      font-size: 12px;
+      color: var(--ts);
+      line-height: 1.5
+    }
+
+    /* sidebar */
+    .legal-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px
+    }
+
+    .sw {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px;
+      box-shadow: var(--s-sm)
+    }
+
+    .sw-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--ts);
+      margin-bottom: 12px
+    }
+
+    .toc-sticky {
+      position: sticky;
+      top: calc(var(--nav-h) + 18px)
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px
+    }
+
+    .toc-item a {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      font-size: 12.5px;
+      color: var(--ts);
+      text-decoration: none;
+      padding: 5px 8px;
+      border-radius: 7px;
+      line-height: 1.4;
+      transition: .15s
+    }
+
+    .toc-item a:hover,
+    .toc-item.active a {
+      color: var(--primary);
+      background: var(--tint)
+    }
+
+    .toc-item.active a {
+      font-weight: 600
+    }
+
+    .toc-item a::before {
+      content: '';
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+      margin-top: 6px;
+      transition: background .15s
+    }
+
+    .toc-item.active a::before {
+      background: var(--teal)
+    }
+
+    .peer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 3px
+    }
+
+    .peer-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ts);
+      text-decoration: none;
+      padding: 7px 10px;
+      border-radius: 8px;
+      transition: .15s
+    }
+
+    .peer-link:hover,
+    .peer-link.active {
+      color: var(--primary);
+      background: var(--tint)
+    }
+
+    .peer-link.active {
+      font-weight: 700
+    }
+
+    .peer-link::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+      transition: .15s
+    }
+
+    .peer-link.active::before {
+      background: var(--teal)
+    }
+
+    .contact-widget {
+      background: var(--primary);
+      border: none
+    }
+
+    .contact-widget .sw-title {
+      color: rgba(255, 255, 255, .55)
+    }
+
+    .contact-widget p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.6;
+      margin-bottom: 14px
+    }
+
+    .contact-widget a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--mint);
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .08);
+      transition: .15s
+    }
+
+    .contact-widget a:last-child {
+      border-bottom: none
+    }
+
+    .contact-widget a:hover {
+      color: #fff
+    }
+
+    .updated-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 36px
+    }
+
+    .updated-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0
+    }
+
+    .updated-text {
+      font-size: 13px;
+      color: var(--ts)
+    }
+
+    .updated-text strong {
+      color: var(--tp)
+    }
+
+    /* footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 52px 24px 0
+    }
+
+    .foot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px
+    }
+
+    @media(min-width:768px) {
+      .foot-inner {
+        grid-template-columns: 2fr 1fr 1fr 1fr
+      }
+    }
+
+    .ft-col-t {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--primary);
+      margin-bottom: 12px
+    }
+
+    .foot-tag {
+      font-size: 14px;
+      color: var(--ts);
+      line-height: 1.6;
+      max-width: 220px
+    }
+
+    .foot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .foot-link {
+      font-size: 14px;
+      color: var(--ts);
+      text-decoration: none;
+      transition: .12s
+    }
+
+    .foot-link:hover {
+      color: var(--primary)
+    }
+
+    .foot-bot {
+      max-width: 1200px;
+      margin: 36px auto 0;
+      border-top: 1px solid var(--border);
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between
+    }
+
+    .foot-copy {
+      font-size: 13px;
+      color: var(--ts)
+    }
+
+    .foot-blinks {
+      display: flex;
+      gap: 20px
+    }
+
+    .foot-blinks a {
+      font-size: 13px;
+      color: var(--ts);
+      text-decoration: none;
+      transition: .12s
+    }
+
+    .foot-blinks a:hover {
+      color: var(--primary)
+    }
+
+    .foot-blinks a.active-legal {
+      color: var(--primary);
+      font-weight: 600
+    }
+
+    /* ──────── GLOBAL NAV ──────── */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .g .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* ──────── GLOBAL FOOTER ──────── */
+
+    .gnav-link,
+    .gnav-toggle {
+      padding: 6px 8px;
+      font-size: 13px
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .g .gfoot-grid {
+        grid-template-columns: 1fr !important
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+      }
+    }
+
+    /* ──────── REDESIGNED FOOTER ──────── */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    .gfoot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4A7A84;
+      margin-bottom: 16px
+    }
+
+    .gfoot-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #34AE93;
+      border-radius: 50%
+    }
+  </style>
+  <style id="dreabee-nav-css">
+    /* ── Dreabee Unified Nav & Footer — hardcoded, no CSS var deps ── */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: #ECF7F3;
+      color: #043E54
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: #D5EBE5;
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: #043E54
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #043E54;
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid #D5EBE5
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #043E54;
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid #D5EBE5;
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: #34AE93
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #4A7A84;
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* Footer */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%) !important;
+      border-top: 1px solid #D5EBE5 !important;
+      padding: 64px 0 0 !important
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* Responsive */
+    @media(max-width:1024px) {
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 5px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-inner {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── NAV ── -->
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" id="gnav-logo" href="index.html">
+        <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
+      </div>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost" id="gnav-login">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
+      </div>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink" id="gnav-mob-login">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- ── HERO ── -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        Legal Document
+      </div>
+      <h1>Privacy Policy</h1>
+      <p class="sub">Your privacy matters to us. This policy explains what data we collect, why we collect it, how we
+        use it, and the rights you have over your personal information.</p>
+      <div class="meta-row">
+        <span class="meta-chip">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" />
+            <path d="M16 2v4M8 2v4M3 10h18" />
+          </svg>
+          Effective: 1 January 2025
+        </span>
+        <span class="meta-chip">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <circle cx="12" cy="12" r="10" />
+            <path d="M12 6v6l4 2" />
+          </svg>
+          Last updated: 14 March 2025
+        </span>
+        <span class="meta-chip">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          Applicable globally
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTENT ── -->
+  <div class="page-layout">
+
+    <main class="legal-body">
+
+      <div class="updated-banner">
+        <div class="updated-dot"></div>
+        <p class="updated-text">This Privacy Policy was last updated on <strong>14 March 2025</strong>. We have updated
+          our data retention periods and added new detail on third-party integrations.</p>
+      </div>
+
+      <!-- 1 -->
+      <div class="section-block" id="introduction">
+        <span class="section-num">01 — Overview</span>
+        <h2>Introduction</h2>
+        <p>Dreabee ("we", "our", or "us") is committed to protecting your personal information. This Privacy Policy
+          describes how we collect, use, store, share, and protect information about you when you use our website at
+          <strong>dreabee.com</strong>, our mobile applications, and our influencer marketing platform (collectively,
+          the "Platform").</p>
+        <p>This policy applies to all users of the Platform including registered account holders, visitors to our public
+          website, and users of our free tools. It should be read alongside our <a href="dreabee-terms.html">Terms of
+            Use</a>.</p>
+        <p>We process personal data in accordance with applicable Indian data protection laws (including the Digital
+          Personal Data Protection Act, 2023, "DPDP Act"), and where applicable, the EU General Data Protection
+          Regulation (GDPR) for users in the European Economic Area.</p>
+        <div class="callout">
+          <p>📌 <strong>In plain English:</strong> We collect information to make the Platform work and to improve it.
+            We don't sell your personal data. You have rights over your data and can contact us to exercise them.</p>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="section-block" id="data-collected">
+        <span class="section-num">02 — What We Collect</span>
+        <h2>Information We Collect</h2>
+        <h3>Information You Provide Directly</h3>
+        <ul>
+          <li><strong>Account information:</strong> Name, email address, password (stored as a hashed value), company
+            name, job title, and billing details when you register.</li>
+          <li><strong>Payment information:</strong> Billing address and payment card details. Note: we use third-party
+            payment processors and do not store full card numbers on our servers.</li>
+          <li><strong>Communications:</strong> Messages you send us via email, chat support, or contact forms, including
+            feedback and support requests.</li>
+          <li><strong>Profile information:</strong> Any optional profile details you add, such as a profile photo or
+            company description.</li>
+        </ul>
+        <h3>Information Collected Automatically</h3>
+        <ul>
+          <li><strong>Usage data:</strong> Pages visited, features used, search queries entered, reports generated, and
+            time spent on the Platform.</li>
+          <li><strong>Device and browser information:</strong> IP address, browser type and version, operating system,
+            device identifiers, and screen resolution.</li>
+          <li><strong>Cookies and tracking technologies:</strong> Session cookies, persistent cookies, and similar
+            tracking technologies. See our Cookie section below for details.</li>
+          <li><strong>Log data:</strong> Server logs including access times, error logs, and referral URLs.</li>
+        </ul>
+        <h3>Information from Third Parties</h3>
+        <ul>
+          <li><strong>Social sign-on:</strong> If you log in using Google or another social account, we receive your
+            name, email, and profile picture from that provider.</li>
+          <li><strong>Payment processors:</strong> Confirmation of payment status and fraud signals from our payment
+            partners.</li>
+          <li><strong>Analytics partners:</strong> Aggregated analytics data from tools we use to understand Platform
+            usage.</li>
+        </ul>
+        <div class="callout callout-info">
+          <p>ℹ️ <strong>About influencer data:</strong> Our Platform analyses public social media data about influencers
+            (audience size, engagement, public posts). This is publicly available information and is not sourced from
+            private accounts.</p>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="section-block" id="how-we-use">
+        <span class="section-num">03 — How We Use It</span>
+        <h2>How We Use Your Information</h2>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Purpose</th>
+              <th>Legal Basis</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Providing the Platform</strong></td>
+              <td>Contract performance</td>
+              <td>Account management, processing searches, generating reports</td>
+            </tr>
+            <tr>
+              <td><strong>Billing &amp; Payments</strong></td>
+              <td>Contract performance</td>
+              <td>Processing subscriptions, sending invoices, managing renewals</td>
+            </tr>
+            <tr>
+              <td><strong>Customer Support</strong></td>
+              <td>Legitimate interest</td>
+              <td>Responding to queries, troubleshooting technical issues</td>
+            </tr>
+            <tr>
+              <td><strong>Platform Improvement</strong></td>
+              <td>Legitimate interest</td>
+              <td>Analysing usage patterns, fixing bugs, developing new features</td>
+            </tr>
+            <tr>
+              <td><strong>Security &amp; Fraud Prevention</strong></td>
+              <td>Legal obligation / legitimate interest</td>
+              <td>Detecting account misuse, protecting against unauthorised access</td>
+            </tr>
+            <tr>
+              <td><strong>Marketing Communications</strong></td>
+              <td>Consent</td>
+              <td>Product updates, blog newsletters, feature announcements</td>
+            </tr>
+            <tr>
+              <td><strong>Legal Compliance</strong></td>
+              <td>Legal obligation</td>
+              <td>Responding to lawful requests, maintaining required records</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>We will not use your personal data for purposes incompatible with those listed above without first notifying
+          you and, where required, seeking your consent.</p>
+      </div>
+
+      <!-- 4 -->
+      <div class="section-block" id="sharing">
+        <span class="section-num">04 — Sharing Data</span>
+        <h2>How We Share Your Information</h2>
+        <p>We do not sell, rent, or trade your personal information to third parties. We share data only in the
+          following limited circumstances:</p>
+        <h3>Service Providers</h3>
+        <p>We engage trusted third-party companies to help us operate the Platform. These providers have access to your
+          data only to perform specific tasks on our behalf and are obligated not to disclose or use it for other
+          purposes. Our service providers include:</p>
+        <ul>
+          <li><strong>Cloud infrastructure:</strong> Hosting and database services (e.g., AWS, Google Cloud)</li>
+          <li><strong>Payment processing:</strong> Stripe or Razorpay for secure payment handling</li>
+          <li><strong>Email delivery:</strong> Transactional and marketing email platforms</li>
+          <li><strong>Analytics:</strong> Product analytics and error tracking tools</li>
+          <li><strong>Customer support:</strong> Helpdesk software for managing support tickets</li>
+        </ul>
+        <h3>Business Transfers</h3>
+        <p>If Dreabee is acquired by or merged with another company, your information may be transferred as part of that
+          transaction. We will notify you via email or prominent notice on our Platform before your data is transferred
+          and becomes subject to a different privacy policy.</p>
+        <h3>Legal Requirements</h3>
+        <p>We may disclose your information if required to do so by law or in response to valid requests by public
+          authorities (e.g., a court or government agency), provided such requests comply with applicable legal
+          standards.</p>
+        <h3>With Your Consent</h3>
+        <p>We may share your information with third parties when you have given us explicit consent to do so, such as
+          when you integrate third-party tools with your Dreabee account.</p>
+      </div>
+
+      <!-- 5 -->
+      <div class="section-block" id="cookies">
+        <span class="section-num">05 — Cookies</span>
+        <h2>Cookies &amp; Tracking Technologies</h2>
+        <p>We use cookies and similar tracking technologies to operate and improve the Platform. Here's what we use and
+          why:</p>
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Cookie Type</th>
+              <th>Purpose</th>
+              <th>Duration</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Essential</strong></td>
+              <td>Required for login sessions, security, and basic Platform functionality. Cannot be disabled.</td>
+              <td>Session / up to 30 days</td>
+            </tr>
+            <tr>
+              <td><strong>Functional</strong></td>
+              <td>Remember your preferences such as language, display settings, and dashboard layout.</td>
+              <td>Up to 12 months</td>
+            </tr>
+            <tr>
+              <td><strong>Analytics</strong></td>
+              <td>Help us understand how users interact with the Platform so we can improve it. Data is aggregated and
+                anonymised.</td>
+              <td>Up to 24 months</td>
+            </tr>
+            <tr>
+              <td><strong>Marketing</strong></td>
+              <td>Used to measure the effectiveness of our advertising campaigns. Only set with your consent.</td>
+              <td>Up to 12 months</td>
+            </tr>
+          </tbody>
+        </table>
+        <p>You can manage cookie preferences through your browser settings. Disabling certain cookies may affect
+          Platform functionality. We do not currently respond to "Do Not Track" signals, but we do honour legally
+          mandated opt-out mechanisms where applicable.</p>
+      </div>
+
+      <!-- 6 -->
+      <div class="section-block" id="retention">
+        <span class="section-num">06 — Data Retention</span>
+        <h2>Data Retention</h2>
+        <p>We retain personal data for as long as necessary to fulfil the purposes outlined in this policy, unless a
+          longer retention period is required by law.</p>
+        <ul>
+          <li><strong>Active account data:</strong> Retained for the duration of your account and for up to <strong>2
+              years</strong> after account closure to allow for reactivation and dispute resolution.</li>
+          <li><strong>Billing records:</strong> Retained for <strong>7 years</strong> to comply with tax and financial
+            regulations.</li>
+          <li><strong>Support communications:</strong> Retained for <strong>3 years</strong> from the date of the
+            interaction.</li>
+          <li><strong>Usage logs:</strong> Retained for up to <strong>12 months</strong> for security and performance
+            purposes.</li>
+          <li><strong>Marketing consent records:</strong> Retained for the duration of your consent and for <strong>1
+              year</strong> after withdrawal, for audit purposes.</li>
+        </ul>
+        <p>When data is no longer required, it is securely deleted or anonymised in accordance with our internal data
+          disposal procedures.</p>
+      </div>
+
+      <!-- 7 -->
+      <div class="section-block" id="your-rights">
+        <span class="section-num">07 — Your Rights</span>
+        <h2>Your Privacy Rights</h2>
+        <p>Depending on your location, you may have the following rights regarding your personal data. We honour these
+          rights for all users globally, regardless of jurisdiction.</p>
+        <div class="rights-grid">
+          <div class="right-card">
+            <div class="right-icon">👁</div>
+            <div class="right-title">Right to Access</div>
+            <div class="right-desc">Request a copy of the personal data we hold about you.</div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon">✏️</div>
+            <div class="right-title">Right to Rectify</div>
+            <div class="right-desc">Ask us to correct inaccurate or incomplete personal data.</div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon">🗑️</div>
+            <div class="right-title">Right to Erase</div>
+            <div class="right-desc">Request deletion of your personal data ("right to be forgotten").</div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon">⏸️</div>
+            <div class="right-title">Right to Restrict</div>
+            <div class="right-desc">Ask us to pause processing your data in certain circumstances.</div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon">📦</div>
+            <div class="right-title">Data Portability</div>
+            <div class="right-desc">Receive your data in a structured, machine-readable format.</div>
+          </div>
+          <div class="right-card">
+            <div class="right-icon">🚫</div>
+            <div class="right-title">Right to Object</div>
+            <div class="right-desc">Object to processing based on legitimate interests or direct marketing.</div>
+          </div>
+        </div>
+        <p>To exercise any of these rights, email us at <a href="mailto:hello@dreabee.com">hello@dreabee.com</a> with
+          the subject line "Privacy Request". We will respond within <strong>30 days</strong>. We may need to verify
+          your identity before processing your request. There is no fee for submitting a request.</p>
+        <div class="callout">
+          <p>📌 You also have the right to lodge a complaint with your local data protection authority. In India, this
+            is the <strong>Data Protection Board of India</strong> once operational under the DPDP Act, 2023.</p>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="section-block" id="security">
+        <span class="section-num">08 — Security</span>
+        <h2>Data Security</h2>
+        <p>We implement industry-standard security measures to protect your personal data against unauthorised access,
+          alteration, disclosure, or destruction. Our security practices include:</p>
+        <ul>
+          <li><strong>Encryption in transit:</strong> All data transmitted between your browser and our servers is
+            encrypted using TLS 1.2 or higher.</li>
+          <li><strong>Encryption at rest:</strong> Sensitive data including passwords (hashed with bcrypt) and payment
+            tokens are encrypted at rest.</li>
+          <li><strong>Access controls:</strong> Role-based access controls limit employee access to personal data on a
+            need-to-know basis.</li>
+          <li><strong>Regular audits:</strong> We conduct periodic security reviews and vulnerability assessments.</li>
+          <li><strong>Incident response:</strong> We maintain a documented data breach response procedure. In the event
+            of a breach affecting your data, we will notify you within <strong>72 hours</strong> of becoming aware of
+            it, as required by law.</li>
+        </ul>
+        <p>While we take all reasonable precautions, no method of transmission over the internet or electronic storage
+          is 100% secure. We encourage you to use strong, unique passwords and to enable two-factor authentication where
+          available.</p>
+      </div>
+
+      <!-- 9 -->
+      <div class="section-block" id="international">
+        <span class="section-num">09 — International Transfers</span>
+        <h2>International Data Transfers</h2>
+        <p>Dreabee is based in India. If you are located outside India, your personal data will be transferred to and
+          processed in India, where data protection laws may differ from those in your country.</p>
+        <p>For users in the European Economic Area (EEA) or United Kingdom: where we transfer your data outside the
+          EEA/UK, we ensure appropriate safeguards are in place, such as Standard Contractual Clauses (SCCs) approved by
+          the European Commission, or other legally recognised transfer mechanisms.</p>
+        <p>By using the Platform, you consent to the transfer and processing of your data in India and other countries
+          where our service providers operate, in accordance with this Privacy Policy.</p>
+      </div>
+
+      <!-- 10 -->
+      <div class="section-block" id="children">
+        <span class="section-num">10 — Children</span>
+        <h2>Children's Privacy</h2>
+        <p>The Platform is not directed at children under the age of 18. We do not knowingly collect personal
+          information from minors. If we become aware that we have inadvertently collected personal data from a child
+          under 18, we will take immediate steps to delete that information.</p>
+        <p>If you believe we have collected data from a minor, please contact us immediately at <a
+            href="mailto:hello@dreabee.com">hello@dreabee.com</a>.</p>
+      </div>
+
+      <!-- 11 -->
+      <div class="section-block" id="changes">
+        <span class="section-num">11 — Changes</span>
+        <h2>Changes to This Policy</h2>
+        <p>We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal
+          requirements, or other factors. When we make material changes, we will:</p>
+        <ul>
+          <li>Update the "last updated" date at the top of this page.</li>
+          <li>Notify registered users by email at least <strong>14 days before</strong> the changes take effect.</li>
+          <li>Where required by law, seek your renewed consent.</li>
+        </ul>
+        <p>We encourage you to review this page periodically. Your continued use of the Platform after the effective
+          date of a revised policy constitutes your acceptance of the changes.</p>
+      </div>
+
+      <!-- 12 -->
+      <div class="section-block" id="contact">
+        <span class="section-num">12 — Contact</span>
+        <h2>Contact &amp; Data Controller</h2>
+        <p>Dreabee is the data controller for personal data collected through the Platform. If you have questions,
+          concerns, or requests regarding this Privacy Policy or your personal data, please contact us:</p>
+        <ul>
+          <li><strong>Email:</strong> <a href="mailto:hello@dreabee.com">hello@dreabee.com</a> — subject line: "Privacy
+            Request"</li>
+          <li><strong>Phone:</strong> <a href="tel:+917739083447">+91 7739083447</a></li>
+          <li><strong>Postal address:</strong> Dreabee, Office India, Gorakhpur, Uttar Pradesh 273001, India</li>
+        </ul>
+        <p>We aim to acknowledge all privacy requests within <strong>48 hours</strong> and resolve them within
+          <strong>30 days</strong>. For complex requests, we may require additional time and will notify you
+          accordingly.</p>
+      </div>
+
+    </main>
+
+    <!-- SIDEBAR -->
+    <aside class="legal-sidebar">
+
+      <div class="sw">
+        <div class="sw-title">Legal Documents</div>
+        <div class="peer-links">
+          <a href="dreabee-terms.html" class="peer-link">Terms of Use</a>
+          <a href="dreabee-privacy-policy.html" class="peer-link active">Privacy Policy</a>
+        </div>
+      </div>
+
+      <div class="sw toc-sticky">
+        <div class="sw-title">On This Page</div>
+        <ul class="toc-list" id="toc-list">
+          <li class="toc-item" data-t="introduction"><a href="#introduction">Introduction</a></li>
+          <li class="toc-item" data-t="data-collected"><a href="#data-collected">Information We Collect</a></li>
+          <li class="toc-item" data-t="how-we-use"><a href="#how-we-use">How We Use It</a></li>
+          <li class="toc-item" data-t="sharing"><a href="#sharing">Sharing Your Data</a></li>
+          <li class="toc-item" data-t="cookies"><a href="#cookies">Cookies</a></li>
+          <li class="toc-item" data-t="retention"><a href="#retention">Data Retention</a></li>
+          <li class="toc-item" data-t="your-rights"><a href="#your-rights">Your Rights</a></li>
+          <li class="toc-item" data-t="security"><a href="#security">Data Security</a></li>
+          <li class="toc-item" data-t="international"><a href="#international">International Transfers</a></li>
+          <li class="toc-item" data-t="children"><a href="#children">Children's Privacy</a></li>
+          <li class="toc-item" data-t="changes"><a href="#changes">Changes to Policy</a></li>
+          <li class="toc-item" data-t="contact"><a href="#contact">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="sw contact-widget">
+        <div class="sw-title">Privacy Requests</div>
+        <p>Questions about your data? Contact our privacy team directly.</p>
+        <a href="mailto:hello@dreabee.com">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          hello@dreabee.com
+        </a>
+        <a href="tel:+917739083447">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.79-1.79a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>
+          +91 7739083447
+        </a>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+
+        <!-- Brand column -->
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X" title="Twitter / X"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn" title="LinkedIn"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram" title="Instagram"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="5%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube" title="YouTube"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links">
+            <a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a>
+            <a href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a>
+            <a href="dreabee-pricing.html" class="gfoot-link">Pricing</a>
+          </div>
+        </div>
+
+        <!-- Free Tools -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links">
+            <a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links">
+            <a href="dreabee-about.html" class="gfoot-link">About Us</a>
+            <a href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a>
+            <a href="dreabee-press.html" class="gfoot-link">Press</a>
+            <a href="dreabee-blog.html" class="gfoot-link">Blog</a>
+            <a href="dreabee-contact.html" class="gfoot-link">Contact</a>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links">
+            <a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gfoot-link">API Reference</a>
+            <a href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a>
+            <a href="dreabee-changelog.html" class="gfoot-link">Changelog</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Resources</span>
+          <div class="gfoot-links">
+            <a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a>
+            <a href="dreabee-for-creators.html" class="gfoot-link">For Creators</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+            <a href="dreabee-compare.html" class="gfoot-link">Compare Platforms</a>
+            <a href="dreabee-faq.html" class="gfoot-link">FAQ</a>
+            <a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links">
+            <a href="dreabee-login.html" class="gfoot-link">Login</a>
+            <a href="dreabee-register.html" class="gfoot-link">Get Started Free</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links">
+            <a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a>
+            <a href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a>
+            <a href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a>
+          </div>
+        </div>
+
+      </div><!-- /gfoot-top -->
+    </div><!-- /gfoot-inner -->
+
+    <hr class="gfoot-divider">
+
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2025 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal">
+        <a href="dreabee-terms.html">Terms</a>
+        <a href="dreabee-privacy-policy.html">Privacy</a>
+        <a href="dreabee-cookie-policy.html">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleDD(id) { const el = document.getElementById(id), open = el.classList.contains('open'); document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open')); if (!open) el.classList.add('open') }
+    document.addEventListener('click', e => { if (!e.target.closest('.nav-dd')) document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open')) })
+    function toggleMob() { document.getElementById('hamburger').classList.toggle('open'); document.getElementById('mob-menu').classList.toggle('open') }
+    const sections = document.querySelectorAll('.section-block[id]');
+    const tocItems = document.querySelectorAll('.toc-item[data-t]');
+    function updateTOC() {
+      let active = null;
+      sections.forEach(s => { if (s.getBoundingClientRect().top < window.innerHeight * 0.4) active = s.id });
+      tocItems.forEach(i => i.classList.toggle('active', i.dataset.t === active));
+    }
+    window.addEventListener('scroll', updateTOC, { passive: true });
+    updateTOC();
+  </script>
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+  </script>
+</body>
+
+</html>

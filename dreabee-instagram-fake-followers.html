@@ -1,0 +1,2415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram Fake Followers Checker — Dreabee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --grad: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --surface: #F7FAFA;
+      --border: #E2EDEC;
+      --tp: #043E54;
+      --ts: #4A7A84;
+      --tint: #EDF7F5;
+      --nav-h: 64px;
+      --s-sm: 0 1px 5px rgba(4, 62, 84, .05);
+      --s-md: 0 4px 18px rgba(4, 62, 84, .08);
+      --s-lg: 0 12px 40px rgba(4, 62, 84, .12);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--tp);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo {
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      /* margin-left: 24px; */
+      flex: 1;
+    }
+
+    .nav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+    }
+
+    .nav-link:hover {
+      color: var(--primary);
+      background: var(--tint);
+    }
+
+    .nav-dd {
+      position: relative;
+    }
+
+    .nav-dd-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      background: none;
+      font-family: inherit;
+      transition: .15s;
+    }
+
+    .nav-dd-btn:hover {
+      color: var(--primary);
+      background: var(--tint);
+    }
+
+    .chev {
+      width: 12px;
+      height: 12px;
+      transition: transform .2s;
+    }
+
+    .nav-dd.open .chev {
+      transform: rotate(180deg);
+    }
+
+    .dd-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--s-lg);
+      min-width: 220px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: .15s;
+    }
+
+    .nav-dd.open .dd-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .dd-item {
+      display: block;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ts);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: .12s;
+    }
+
+    .dd-item:hover,
+    .dd-item.active {
+      color: var(--primary);
+      background: var(--tint);
+    }
+
+    .nav-actions {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .btn-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 7px;
+    }
+
+    .btn-ghost:hover {
+      color: var(--primary);
+    }
+
+    .btn-pill {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--grad);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: .15s;
+      font-family: inherit;
+    }
+
+    .btn-pill:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 14px rgba(52, 174, 147, .35);
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: auto;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: .25s;
+    }
+
+    .hamburger.open span:nth-child(1) {
+      transform: translateY(6px) rotate(45deg);
+    }
+
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.open span:nth-child(3) {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+
+    .mob-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 16px;
+      z-index: 999;
+      max-height: calc(100vh - var(--nav-h));
+      overflow-y: auto;
+    }
+
+    .mob-menu.open {
+      display: block;
+    }
+
+    .mob-link {
+      display: block;
+      padding: 10px 12px;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--tp);
+      text-decoration: none;
+      border-radius: 7px;
+    }
+
+    .mob-link:hover {
+      background: var(--tint);
+    }
+
+    .mob-sec {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ts);
+      padding: 12px 12px 4px;
+    }
+
+    .mob-hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 8px 0;
+    }
+
+    @media (min-width: 768px) {
+
+      .nav-links,
+      .nav-actions {
+        display: flex;
+        justify-content: center;
+      }
+
+      .hamburger {
+        display: none;
+      }
+    }
+
+    /* GLOBALS */
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      color: var(--primary);
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(24px, 3.5vw, 38px);
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: -.015em;
+      color: var(--primary);
+    }
+
+    .sub {
+      font-size: clamp(14px, 1.6vw, 16px);
+      color: var(--ts);
+      line-height: 1.75;
+    }
+
+    .grad-text {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--tint);
+      border: 1px solid rgba(52, 174, 147, .3);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+    }
+
+    .badge-pill::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--grad);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: inherit;
+      padding: 13px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: .15s;
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 22px rgba(52, 174, 147, .42);
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: .15s;
+    }
+
+    .btn-white:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(4, 62, 84, .2);
+    }
+
+    .fi {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+
+    .fi.vis {
+      opacity: 1;
+      transform: none;
+    }
+
+    .d1 {
+      transition-delay: .1s
+    }
+
+    .d2 {
+      transition-delay: .2s
+    }
+
+    .d3 {
+      transition-delay: .3s
+    }
+
+    /* HERO */
+    #hero {
+      padding: calc(var(--nav-h) + 52px) 24px 56px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      background: radial-gradient(ellipse 90% 55% at 50% -5%, rgba(138, 216, 163, .14) 0%, transparent 62%);
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image: linear-gradient(rgba(52, 174, 147, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(52, 174, 147, .04) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: radial-gradient(ellipse 80% 65% at 50% 30%, rgba(0, 0, 0, .45) 0%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 65% at 50% 30%, rgba(0, 0, 0, .45) 0%, transparent 70%);
+    }
+
+    #hero .wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    #hero h1 {
+      max-width: 760px;
+      margin: 0 auto 14px;
+    }
+
+    #hero .sub {
+      max-width: 660px;
+      margin: 0 auto 32px;
+    }
+
+    /* Search card */
+    .search-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 22px 22px 18px;
+      box-shadow: var(--s-lg);
+    }
+
+    .sc-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ts);
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .sc-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .sc-input {
+      flex: 1;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-family: inherit;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      transition: .15s;
+      color: var(--tp);
+      background: var(--surface);
+    }
+
+    .sc-input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(52, 174, 147, .12);
+      background: #fff;
+    }
+
+    .sc-input::placeholder {
+      color: #aac4bf;
+    }
+
+    .sc-input.err {
+      border-color: #ef4444;
+    }
+
+    .sc-note {
+      font-size: 12px;
+      color: var(--ts);
+      margin-top: 9px;
+      text-align: center;
+    }
+
+    .sc-note span {
+      color: var(--teal);
+      font-weight: 600;
+    }
+
+    @media (max-width:480px) {
+      .sc-row {
+        flex-direction: column;
+      }
+    }
+
+    /* RESULT AREA */
+    #result-area {
+      background: var(--surface);
+      padding: 0 24px 56px;
+    }
+
+    .ra-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding-top: 28px;
+    }
+
+    /* Loading */
+    .loading-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 40px 28px;
+      text-align: center;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      box-shadow: var(--s-md);
+    }
+
+    .loading-box.show {
+      display: flex;
+    }
+
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 3px solid var(--border);
+      border-top-color: var(--teal);
+      animation: spin .7s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .load-txt {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ts);
+    }
+
+    .load-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      max-width: 300px;
+      margin-top: 4px;
+    }
+
+    .step-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--ts);
+    }
+
+    .step-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--border);
+      flex-shrink: 0;
+      transition: background .3s;
+    }
+
+    .step-dot.done {
+      background: var(--teal);
+    }
+
+    .step-dot.pulse {
+      background: var(--teal);
+      animation: blink 1s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .25
+      }
+    }
+
+    /* Result card */
+    .result-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: var(--s-lg);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+
+    .result-card.show {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Card header */
+    .rc-head {
+      background: var(--primary);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .rc-av {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      font-weight: 900;
+      color: #fff;
+      border: 3px solid rgba(255, 255, 255, .2);
+    }
+
+    .rc-meta {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .rc-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .rc-handle {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .6);
+      margin-top: 2px;
+    }
+
+    .rc-loc {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .45);
+      margin-top: 3px;
+    }
+
+    .rc-bio {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .65);
+      margin-top: 5px;
+      font-style: italic;
+    }
+
+    .verified-tag {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--mint);
+      background: rgba(138, 216, 163, .15);
+      border: 1px solid rgba(138, 216, 163, .3);
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-top: 5px;
+      display: inline-block;
+    }
+
+    .rc-btns {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-left: auto;
+      align-self: flex-start;
+    }
+
+    .rc-btn {
+      background: rgba(255, 255, 255, .1);
+      border: 1px solid rgba(255, 255, 255, .2);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: .15s;
+    }
+
+    .rc-btn:hover {
+      background: rgba(255, 255, 255, .18);
+    }
+
+    /* Card body */
+    .rc-body {
+      padding: 22px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* KPI tiles */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    @media (min-width:540px) {
+      .kpi-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .kpi {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 13px 10px;
+      text-align: center;
+    }
+
+    .kpi.red {
+      border-color: rgba(239, 68, 68, .3);
+      background: #fef2f2;
+    }
+
+    .kpi.green {
+      border-color: rgba(34, 197, 94, .3);
+      background: #f0fdf4;
+    }
+
+    .kpi-v {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .kpi.red .kpi-v {
+      color: #dc2626;
+    }
+
+    .kpi.green .kpi-v {
+      color: #16a34a;
+    }
+
+    .kpi-icon {
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .kpi-l {
+      font-size: 11px;
+      color: var(--ts);
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    /* Quality row */
+    .quality-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .q-ring {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid;
+      flex-shrink: 0;
+    }
+
+    .q-grade {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .q-score {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-top: 2px;
+    }
+
+    .q-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .qd-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .qd-l {
+      color: var(--ts);
+      font-weight: 500;
+    }
+
+    .qd-v {
+      font-weight: 700;
+      color: var(--tp);
+    }
+
+    /* Audience bars */
+    .aud-head {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--tp);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .aud-note {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--ts);
+    }
+
+    .bar-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bar-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar-lbl {
+      font-size: 13px;
+      font-weight: 500;
+      width: 148px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .bar-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .bar-track {
+      flex: 1;
+      height: 9px;
+      background: var(--border);
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 5px;
+      width: 0%;
+      transition: width .9s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    .bar-pct {
+      font-size: 13px;
+      font-weight: 700;
+      width: 46px;
+      text-align: right;
+    }
+
+    .flag-badge {
+      font-size: 10px;
+      font-weight: 700;
+      background: #fef9c3;
+      color: #a16207;
+      border: 1px solid #fde68a;
+      padding: 2px 6px;
+      border-radius: 100px;
+    }
+
+    /* Card footer */
+    .rc-foot {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .rc-foot-note {
+      font-size: 12px;
+      color: var(--ts);
+    }
+
+    .rc-foot-note strong {
+      color: var(--tp);
+    }
+
+    .rc-foot-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--teal);
+      text-decoration: none;
+    }
+
+    /* Unlock CTA */
+    .unlock-row {
+      text-align: center;
+      padding-top: 4px;
+    }
+
+    /* DATA SECTIONS */
+    .sec {
+      padding: 64px 24px;
+    }
+
+    .sec.alt {
+      background: var(--surface);
+    }
+
+    .sec-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .sec-inner h2 {
+      margin-bottom: 14px;
+    }
+
+    .sec-inner p {
+      font-size: 15px;
+      color: var(--ts);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .hl-box {
+      background: var(--tint);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 14px;
+      color: var(--tp);
+      line-height: 1.65;
+      margin-top: 6px;
+    }
+
+    /* Stat cards */
+    .sc3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    @media (min-width:540px) {
+      .sc3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .scard {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 14px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--s-sm);
+      transition: .2s;
+    }
+
+    .scard:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--s-md);
+    }
+
+    .scard::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--grad);
+    }
+
+    .scard-ico {
+      font-size: 22px;
+      margin-bottom: 7px;
+    }
+
+    .scard-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--ts);
+      margin-bottom: 5px;
+    }
+
+    .scard-v {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      color: var(--primary);
+      line-height: 1;
+    }
+
+    .scard-sub {
+      font-size: 11px;
+      color: var(--ts);
+      margin-top: 4px;
+    }
+
+    /* Stat rows */
+    .srows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .srow {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .srow.alt {
+      background: var(--tint);
+    }
+
+    .tier {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal);
+      background: var(--tint);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    .srow-desc {
+      font-size: 14px;
+      color: var(--ts);
+      flex: 1;
+    }
+
+    .srow-v {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--primary);
+      white-space: nowrap;
+    }
+
+    /* Detection grid */
+    #detection {
+      padding: 64px 24px;
+    }
+
+    .det-hd {
+      max-width: 860px;
+      margin: 0 auto 32px;
+    }
+
+    .det-hd h2 {
+      margin-bottom: 12px;
+    }
+
+    .det-hd p {
+      font-size: 15px;
+      color: var(--ts);
+      line-height: 1.75;
+    }
+
+    .det-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    @media (min-width:540px) {
+      .det-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width:900px) {
+      .det-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .det-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: var(--s-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: .2s;
+    }
+
+    .det-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--s-md);
+    }
+
+    .det-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--grad);
+    }
+
+    .det-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      color: rgba(52, 174, 147, .1);
+      line-height: 1;
+      position: absolute;
+      top: 8px;
+      right: 12px;
+    }
+
+    .det-ico {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .det-ico svg {
+      width: 17px;
+      height: 17px;
+    }
+
+    .det-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .det-desc {
+      font-size: 13px;
+      color: var(--ts);
+      line-height: 1.6;
+    }
+
+    /* Audience cards */
+    #audience {
+      padding: 64px 24px;
+      background: var(--surface);
+    }
+
+    .a-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      max-width: 1100px;
+      margin: 24px auto 0;
+    }
+
+    @media (min-width:768px) {
+      .a-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .a-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: var(--s-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      transition: .2s;
+    }
+
+    .a-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--s-md);
+    }
+
+    .a-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--grad);
+    }
+
+    .a-ico {
+      font-size: 24px;
+    }
+
+    .a-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .a-text {
+      font-size: 13px;
+      color: var(--ts);
+      line-height: 1.65;
+    }
+
+    /* Verified */
+    .ver-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    @media (min-width:540px) {
+      .ver-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .ver-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .ver-pct {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      color: var(--primary);
+    }
+
+    .ver-lbl {
+      font-size: 12px;
+      color: var(--ts);
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    /* Free tools */
+    #free-tools {
+      padding: 64px 24px;
+    }
+
+    .ft-hd {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .ft-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    @media (min-width:540px) {
+      .ft-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width:900px) {
+      .ft-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .ft-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: var(--s-sm);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      position: relative;
+      overflow: hidden;
+      transition: .2s;
+    }
+
+    .ft-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--s-md);
+      border-color: rgba(52, 174, 147, .3);
+    }
+
+    .ft-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--grad);
+    }
+
+    .ft-card.here {
+      border-color: var(--teal);
+    }
+
+    .ft-ico {
+      font-size: 26px;
+    }
+
+    .ft-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .ft-desc {
+      font-size: 13px;
+      color: var(--ts);
+      line-height: 1.6;
+    }
+
+    .ft-arrow {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-top: auto;
+    }
+
+    /* CTA */
+    #cta {
+      background: var(--grad);
+      padding: 64px 24px;
+      text-align: center;
+    }
+
+    #cta h2 {
+      color: #fff;
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+      margin-bottom: 12px;
+    }
+
+    #cta .sub {
+      color: rgba(255, 255, 255, .85);
+      max-width: 540px;
+      margin: 0 auto 28px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 52px 24px 0;
+    }
+
+    .foot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px;
+    }
+
+    @media (min-width:768px) {
+      .foot-inner {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+    }
+
+    .ft-col-t {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .foot-logo {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .foot-tag {
+      font-size: 14px;
+      color: var(--ts);
+      line-height: 1.6;
+      max-width: 220px;
+    }
+
+    .foot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .foot-link {
+      font-size: 14px;
+      color: var(--ts);
+      text-decoration: none;
+      transition: .12s;
+    }
+
+    .foot-link:hover {
+      color: var(--primary);
+    }
+
+    .foot-bot {
+      max-width: 1200px;
+      margin: 36px auto 0;
+      border-top: 1px solid var(--border);
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    .foot-copy {
+      font-size: 13px;
+      color: var(--ts);
+    }
+
+    .foot-blinks {
+      display: flex;
+      gap: 20px;
+    }
+
+    .foot-blinks a {
+      font-size: 13px;
+      color: var(--ts);
+      text-decoration: none;
+    }
+
+    .foot-blinks a:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="nav-dd" id="dd-feat">
+          <button class="nav-dd-btn" onclick="toggleDd('dd-feat')">Features<svg class="chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="dd-menu">
+            <a href="dreabee-influencer-discovery.html" class="dd-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="dd-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="dd-item">📊 Influencer Analytics</a>
+            <hr class="dd-sep">
+            <a href="dreabee-campaign-reports.html" class="dd-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="dd-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="dd-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="dd-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="nav-dd" id="dd-tools">
+          <button class="nav-dd-btn" onclick="toggleDd('dd-tools')">Free Tools<svg class="chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="dd-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="dd-item">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="dd-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="dd-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="dd-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="nav-dd" id="dd-co">
+          <button class="nav-dd-btn" onclick="toggleDd('dd-co')">Company<svg class="chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="dd-menu">
+            <a href="dreabee-about.html" class="dd-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="dd-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="dd-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="dd-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="dd-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="dd-item">🌟 For Creators</a>
+            <hr class="dd-sep">
+            <a href="dreabee-contact.html" class="dd-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="nav-dd" id="dd-dev">
+          <button class="nav-dd-btn" onclick="toggleDd('dd-dev')">Developers<svg class="chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="dd-menu">
+            <a href="dreabee-developers.html" class="dd-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="dd-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="dd-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="dd-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="dd-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="nav-link">Pricing</a>
+      </div>
+      <div class="nav-actions">
+        <a href="dreabee-login.html" class="btn-ghost">Login</a>
+        <a href="dreabee-register.html" class="btn-pill">Get Started →</a>
+      </div>
+      <button class="mob-btn" id="mob-btn" onclick="toggleMob()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="mob-menu" id="mob-menu">
+    <a href="index.html" class="mob-link">Home</a>
+    <p class="mob-sec">Features</p>
+    <a href="dreabee-influencer-discovery.html" class="mob-link">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="mob-link">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="mob-link">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="mob-link">Campaign Reports</a>
+    <hr class="mob-hr">
+    <p class="mob-sec">Free Tools</p>
+    <a href="dreabee-instagram-fake-followers.html" class="mob-link"
+      style="font-weight:700;color:var(--primary)">Instagram Fake Followers</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="mob-link">YouTube Engagement Rate</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="mob-link">Instagram Engagement Rate</a>
+    <hr class="mob-hr">
+    <a href="dreabee-pricing.html" class="mob-link">Pricing</a>
+    <a href="dreabee-blog.html" class="mob-link">Blog</a>
+    <a href="dreabee-login.html" class="mob-link">Login</a>
+    <div style="padding:12px 0"><a href="dreabee-register.html" class="btn-pill"
+        style="width:100%;justify-content:center;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+
+  <!-- ═══════ HERO ═══════ -->
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="wrap fi">
+      <div class="badge-pill" style="margin-bottom:18px;">Free Tool — No Sign-Up Required</div>
+      <h1>Instagram <span class="grad-text">Fake Followers</span> Checker</h1>
+      <p class="sub">Analyse any Instagram influencer in seconds. See real vs. fake followers, engagement rates, top
+        content, and audience demographics. Built for brands, agencies, and marketers — no sign-up, just instant
+        results.</p>
+
+      <!-- SEARCH CARD -->
+      <div class="search-card">
+        <div class="sc-label">Enter an Instagram handle to check for fake followers</div>
+        <div class="sc-row">
+          <input class="sc-input" id="username-input" type="text" placeholder="@therock or username"
+            autocomplete="off" />
+          <button class="btn-cta" id="search-btn" onclick="doSearch()">Analyse Now →</button>
+        </div>
+        <p class="sc-note"><span>✓ Free</span> &nbsp;·&nbsp; <span>✓ No account needed</span> &nbsp;·&nbsp; <span>✓
+            Instant results</span></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ RESULT AREA ═══════ -->
+  <section id="result-area">
+    <div class="ra-inner">
+
+      <!-- Loading indicator -->
+      <div class="loading-box" id="loading-box">
+        <div class="spinner"></div>
+        <div class="load-txt" id="load-txt">Fetching profile data…</div>
+        <div class="load-steps">
+          <div class="step-row"><span class="step-dot" id="sd0"></span>Looking up Instagram profile</div>
+          <div class="step-row"><span class="step-dot" id="sd1"></span>Analysing follower authenticity</div>
+          <div class="step-row"><span class="step-dot" id="sd2"></span>Calculating audience quality score</div>
+          <div class="step-row"><span class="step-dot" id="sd3"></span>Generating full report</div>
+        </div>
+      </div>
+
+      <!-- Result card — populated by JS -->
+      <div class="result-card" id="result-card"></div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ RESEARCH INSIGHT ═══════ -->
+  <section class="sec fi">
+    <div class="sec-inner wrap">
+      <div class="badge-pill" style="margin-bottom:14px;">Research Report</div>
+      <h2>Fake Followers Impact ROI — Insights from Our Research</h2>
+      <p>Before partnering with an influencer, it's essential to know how follower quality impacts your ROI. Our data
+        science team analysed 200,000+ commercial posts and found a clear negative correlation between fake followers
+        and campaign performance.</p>
+      <p>The takeaway? Fake followers don't just hurt reach — they directly reduce conversions, making audience
+        authenticity mission-critical for ROI-driven campaigns.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ IMPACT DATA ═══════ -->
+  <section class="sec alt fi">
+    <div class="sec-inner wrap">
+      <h2>Impact of Fake Followers on <span class="grad-text">Conversions &amp; ROI</span></h2>
+      <p>We analysed over 200,000 influencer posts, categorising influencers into three segments by conversion
+        performance:</p>
+      <div class="sc3">
+        <div class="scard">
+          <div class="scard-ico">🏆</div>
+          <div class="scard-lbl">High Performers</div>
+          <div class="scard-v">21.5%</div>
+          <div class="scard-sub">Median fake followers · 10+ conv/post</div>
+        </div>
+        <div class="scard">
+          <div class="scard-ico">📊</div>
+          <div class="scard-lbl">Mid Performers</div>
+          <div class="scard-v">21.5%</div>
+          <div class="scard-sub">Median fake followers · 4–10 conv/post</div>
+        </div>
+        <div class="scard">
+          <div class="scard-ico">📉</div>
+          <div class="scard-lbl">Low Performers</div>
+          <div class="scard-v">21.5%</div>
+          <div class="scard-sub">Median fake followers · &lt;4 conv/post</div>
+        </div>
+      </div>
+      <div class="hl-box">💡 <strong>Key finding:</strong> Influencers with audience credibility above
+        <strong>73.17%</strong> consistently achieved stronger conversion rates — follower authenticity is
+        mission-critical for ROI.</div>
+    </div>
+  </section>
+
+  <!-- ═══════ DETECTION METRICS ═══════ -->
+  <section id="detection">
+    <div class="det-hd wrap fi">
+      <div class="badge-pill" style="margin-bottom:14px;">Hero Metrics</div>
+      <h2>Detecting Fake Followers: Key Metrics That Matter</h2>
+      <p>At Dreabee, we've developed a suite of Influencer Hero Metrics designed to assess audience authenticity and
+        engagement integrity.</p>
+    </div>
+    <div class="det-grid wrap">
+      <div class="det-card fi"><span class="det-num">01</span>
+        <div class="det-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+            stroke-linecap="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg></div>
+        <div class="det-title">Fake Follower Ratio</div>
+        <div class="det-desc">Measures the estimated % of followers that are inactive, bots, or purchased — ensuring
+          audience authenticity.</div>
+      </div>
+      <div class="det-card fi d1"><span class="det-num">02</span>
+        <div class="det-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+            stroke-linecap="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg></div>
+        <div class="det-title">Engagement Rate (Real vs. Expected)</div>
+        <div class="det-desc">Compares actual engagement with expected norms based on follower count to detect
+          artificially inflated numbers.</div>
+      </div>
+      <div class="det-card fi d2"><span class="det-num">03</span>
+        <div class="det-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+            stroke-linecap="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+            <polyline points="17 6 23 6 23 12" />
+          </svg></div>
+        <div class="det-title">Follower Growth Pattern</div>
+        <div class="det-desc">Analyses historical follower trends to uncover unusual spikes suggesting coordinated
+          follower purchases.</div>
+      </div>
+      <div class="det-card fi"><span class="det-num">04</span>
+        <div class="det-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+            stroke-linecap="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg></div>
+        <div class="det-title">Authenticity Score</div>
+        <div class="det-desc">Reviews comment content for depth, variation, and relevance to identify real interaction
+          vs. spam bots.</div>
+      </div>
+      <div class="det-card fi d1"><span class="det-num">05</span>
+        <div class="det-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+            stroke-linecap="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg></div>
+        <div class="det-title">Audience Quality Score</div>
+        <div class="det-desc">A composite metric evaluating follower credibility using multiple data points like
+          activity and origin.</div>
+      </div>
+      <div class="det-card fi d2"><span class="det-num">06</span>
+        <div class="det-ico"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8"
+            stroke-linecap="round">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg></div>
+        <div class="det-title">Like-to-Follower Ratio</div>
+        <div class="det-desc">Highlights inconsistencies between likes and follower count — can indicate low engagement
+          or inflated followership.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOLLOWER GROWTH ═══════ -->
+  <section class="sec alt fi">
+    <div class="sec-inner wrap">
+      <h2>Follower Growth as a Predictor of ROI</h2>
+      <p>Our analysis of 200,000 influencers reveals a strong correlation between follower growth and campaign ROI.</p>
+      <div class="srows">
+        <div class="srow"><span class="tier">🏆 High · 10+ conv/post</span><span class="srow-desc">Median follower
+            growth rate</span><span class="srow-v" style="color:var(--teal);">+3.2%</span></div>
+        <div class="srow alt"><span class="tier">📊 Medium · 3–10 conv/post</span><span class="srow-desc">Median
+            follower growth rate</span><span class="srow-v">+1.0%</span></div>
+        <div class="srow"><span class="tier">📉 Low · ≤2 conv/post</span><span class="srow-desc">Exhibited negative
+            growth rate</span><span class="srow-v" style="color:#ef4444;">Negative</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ ENGAGEMENT RATE ═══════ -->
+  <section class="sec fi">
+    <div class="sec-inner wrap">
+      <h2>Engagement Rate</h2>
+      <p>From 200,000+ commercial posts across Instagram and YouTube:</p>
+      <div class="sc3">
+        <div class="scard">
+          <div class="scard-ico">🏆</div>
+          <div class="scard-lbl">High · 15+ conv/post</div>
+          <div class="scard-v" style="color:var(--teal);">2.4%</div>
+          <div class="scard-sub">Median engagement rate</div>
+        </div>
+        <div class="scard">
+          <div class="scard-ico">📊</div>
+          <div class="scard-lbl">Medium · 5–15 conv</div>
+          <div class="scard-v">1.5%</div>
+          <div class="scard-sub">Average engagement rate</div>
+        </div>
+        <div class="scard">
+          <div class="scard-ico">📉</div>
+          <div class="scard-lbl">Low · &lt;5 conversions</div>
+          <div class="scard-v" style="color:#ef4444;">&lt;0.9%</div>
+          <div class="scard-sub">Engagement rates below</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TOTAL ENGAGEMENTS ═══════ -->
+  <section class="sec alt fi">
+    <div class="sec-inner wrap">
+      <h2>Total Engagements</h2>
+      <div class="srows">
+        <div class="srow"><span class="tier">🏆 High conversion</span><span class="srow-desc">Engagements per
+            post</span><span class="srow-v" style="color:var(--teal);">12K–18K</span></div>
+        <div class="srow alt"><span class="tier">📊 Medium performers</span><span class="srow-desc">Engagements per
+            post</span><span class="srow-v">4K–8K</span></div>
+        <div class="srow"><span class="tier">📉 Low performers</span><span class="srow-desc">Engagements per
+            post</span><span class="srow-v" style="color:#ef4444;">&lt;2,500</span></div>
+      </div>
+      <p style="margin-top:14px;">💡 Prioritise <strong>engagement rate</strong> over total engagement for a clearer
+        performance benchmark.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ FOLLOWER SIZE ═══════ -->
+  <section class="sec fi">
+    <div class="sec-inner wrap">
+      <h2>Audience / Follower Size</h2>
+      <div class="sc3">
+        <div class="scard">
+          <div class="scard-ico">🏆</div>
+          <div class="scard-lbl">High · 10+ conv/post</div>
+          <div class="scard-v" style="color:var(--teal);">112K</div>
+          <div class="scard-sub">Median follower count</div>
+        </div>
+        <div class="scard">
+          <div class="scard-ico">📊</div>
+          <div class="scard-lbl">Mid · 3–9 conv</div>
+          <div class="scard-v">61K</div>
+          <div class="scard-sub">Median follower count</div>
+        </div>
+        <div class="scard">
+          <div class="scard-ico">📉</div>
+          <div class="scard-lbl">Low · &lt;3 conv</div>
+          <div class="scard-v">35K</div>
+          <div class="scard-sub">Median follower count</div>
+        </div>
+      </div>
+      <p>Micro and nano influencers often offer lower collaboration costs and higher trust within niche communities.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ VERIFIED ═══════ -->
+  <section class="sec alt fi">
+    <div class="sec-inner wrap">
+      <h2>Verified Accounts</h2>
+      <p>Share of verified accounts across performer tiers from 200K+ posts:</p>
+      <div class="ver-grid">
+        <div class="ver-card">
+          <div class="ver-pct" style="color:var(--teal);">61.1%</div>
+          <div class="ver-lbl">🏆 High performers</div>
+        </div>
+        <div class="ver-card">
+          <div class="ver-pct">34.4%</div>
+          <div class="ver-lbl">📊 Medium performers</div>
+        </div>
+        <div class="ver-card">
+          <div class="ver-pct" style="color:var(--ts);">26.7%</div>
+          <div class="ver-lbl">📉 Low performers</div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--ts);">Note: Verified status is often linked with larger follower bases —
+        correlation, not causation.</p>
+    </div>
+  </section>
+
+  <!-- ═══════ AUDIENCE SECTION ═══════ -->
+  <section id="audience">
+    <div class="wrap fi" style="text-align:center;margin-bottom:0;">
+      <div class="badge-pill" style="margin-bottom:12px;">Audience Insights</div>
+      <h2>Audience Location &amp; Demographics</h2>
+    </div>
+    <div class="a-grid wrap" style="margin-top:28px;">
+      <div class="a-card fi">
+        <div class="a-ico">📍</div>
+        <div class="a-title">Audience Location</div>
+        <div class="a-text">Ensure you're targeting the right audience by analysing detailed location demographics. Our
+          data-backed insights help you choose creators whose followers align with your brand's target regions.</div>
+      </div>
+      <div class="a-card fi d1">
+        <div class="a-ico">👥</div>
+        <div class="a-title">Audience Demographics</div>
+        <div class="a-text">Understand exactly who you're reaching by analysing the gender and age breakdown. Target the
+          right people with precision, not guesswork.</div>
+      </div>
+      <div class="a-card fi d2">
+        <div class="a-ico">🤖</div>
+        <div class="a-title">Fake Followers</div>
+        <div class="a-text">Detect the exact percentage of fake followers in an influencer's audience. Make informed
+          decisions and collaborate only with authentic, high-quality influencers.</div>
+      </div>
+      <div class="a-card fi d3">
+        <div class="a-ico">📈</div>
+        <div class="a-title">Follower Growth</div>
+        <div class="a-text">Consistent audience growth has the strongest correlation with high conversion rates. Track
+          growth trends to spot organic vs. manipulated growth patterns.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FREE TOOLS ═══════ -->
+  <section id="free-tools" style="background:var(--surface);">
+    <div class="wrap">
+      <div class="ft-hd fi">
+        <div class="badge-pill" style="margin-bottom:12px;">Free Resources</div>
+        <h2>Explore Our Free Tools</h2>
+      </div>
+      <div class="ft-grid">
+        <a href="#" class="ft-card fi">
+          <div class="ft-ico">🔌</div>
+          <div class="ft-title">Chrome Plugin</div>
+          <div class="ft-desc">Quickly analyse influencer &amp; audience metrics using our audit plugin directly in your
+            browser.</div>
+          <div class="ft-arrow">Install plugin →</div>
+        </a>
+        <a href="dreabee-instagram-fake-followers.html" class="ft-card here fi d1">
+          <div class="ft-ico">📸</div>
+          <div class="ft-title">Instagram Fake Followers</div>
+          <div class="ft-desc">Use our free fake follower checker for Instagram to analyse authenticity and avoid
+            inflated metrics.</div>
+          <div class="ft-arrow">You're here →</div>
+        </a>
+        <a href="dreabee-youtube-engagement-rate.html" class="ft-card fi d2">
+          <div class="ft-ico">▶️</div>
+          <div class="ft-title">YouTube Engagement Rate Calculator</div>
+          <div class="ft-desc">Free YouTube engagement rate calculator to analyse influencers and benchmark performance.
+          </div>
+          <div class="ft-arrow">Try free →</div>
+        </a>
+        <a href="dreabee-instagram-engagement-rate.html" class="ft-card fi">
+          <div class="ft-ico">❤️</div>
+          <div class="ft-title">Instagram Engagement Rate Calculator</div>
+          <div class="ft-desc">Free Instagram engagement rate calculator to evaluate performance quickly.</div>
+          <div class="ft-arrow">Try free →</div>
+        </a>
+        <a href="dreabee-tiktok-engagement-rate.html" class="ft-card fi d1">
+          <div class="ft-ico">🎵</div>
+          <div class="ft-title">TikTok Engagement Rate Calculator</div>
+          <div class="ft-desc">Free TikTok calculator to track short-form content performance.</div>
+          <div class="ft-arrow">Try free →</div>
+        </a>
+        <a href="#" class="ft-card fi d2">
+          <div class="ft-ico">📊</div>
+          <div class="ft-title">YouTube Analytics</div>
+          <div class="ft-desc">Evaluate influencer performance on YouTube including engagement rates, audience insights,
+            and top content.</div>
+          <div class="ft-arrow">Try free →</div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="wrap" style="text-align:center;">
+      <h2>Try Dreabee for Your Brand or Agency</h2>
+      <p class="sub">Get started with free media plans, campaign tracking, and access to demo features — everything you
+        need for smarter influencer marketing, risk-free.</p>
+      <a href="dreabee-register.html" class="btn-white">Get Started Free →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-inner">
+      <div class="foot-logo">
+        <a href="index.html" style="text-decoration:none;">
+          <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+        </a>
+        <p class="foot-tag">Reimagining influencer marketing from the ground up.</p>
+      </div>
+      <div>
+        <p class="ft-col-t">Product</p>
+        <div class="foot-links">
+          <a href="dreabee-influencer-discovery.html" class="foot-link">Influencer Discovery</a>
+          <a href="dreabee-search-influencer.html" class="foot-link">Search Influencer</a>
+          <a href="dreabee-influencer-analytics.html" class="foot-link">Influencer Analytics</a>
+          <a href="dreabee-campaign-reports.html" class="foot-link">Campaign Reports</a>
+        </div>
+      </div>
+      <div>
+        <p class="ft-col-t">Free Tools</p>
+        <div class="foot-links">
+          <a href="dreabee-instagram-fake-followers.html" class="foot-link"
+            style="color:var(--primary);font-weight:600;">Instagram Fake Followers</a>
+          <a href="dreabee-youtube-engagement-rate.html" class="foot-link">YouTube ER Tool</a>
+          <a href="dreabee-instagram-engagement-rate.html" class="foot-link">Instagram ER Tool</a>
+          <a href="dreabee-tiktok-engagement-rate.html" class="foot-link">TikTok ER Tool</a>
+        </div>
+      </div>
+      <div>
+        <p class="ft-col-t">Company</p>
+        <div class="foot-links">
+          <a href="dreabee-pricing.html" class="foot-link">Pricing</a>
+          <a href="dreabee-blog.html" class="foot-link">Blog</a>
+          <a href="dreabee-login.html" class="foot-link">Login</a>
+          <a href="dreabee-register.html" class="foot-link">Sign Up Free</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span class="foot-copy">© 2025 Dreabee. All rights reserved.</span>
+      <div class="foot-blinks"><a href="dreabee-pricing.html">Pricing</a><a href="dreabee-blog.html">Blog</a><a
+          href="dreabee-login.html">Login</a></div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════════════
+     JAVASCRIPT — Search engine + auto-load
+════════════════════════════════════════ -->
+  <script>
+    /* ── nav helpers ── */
+    function toggleDD(id) {
+      const el = document.getElementById(id), open = el.classList.contains('open');
+      document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open'));
+      if (!open) el.classList.add('open');
+    }
+    document.addEventListener('click', e => { if (!e.target.closest('.nav-dd')) document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open')); });
+    function toggleMob() { document.getElementById('hamburger').classList.toggle('open'); document.getElementById('mob-menu').classList.toggle('open'); }
+
+    /* ── scroll-fade ── */
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target); } }), { threshold: 0.07 });
+    document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+
+    /* ══════════════════════════════════════
+       MOCK PROFILES
+    ══════════════════════════════════════ */
+    const PROFILES = {
+      therock: {
+        name: 'Dwayne Johnson', handle: '@therock', location: 'United States',
+        bio: '"Givin\' It Some Thought"', verified: true, initials: 'DJ',
+        av: 'linear-gradient(135deg,#f59e0b,#ef4444)',
+        followers: '389M', avgLikes: '4.2M', avgComments: '18.4K', er: '1.08%',
+        fake: 24.58,
+        aud: { real: 64.96, mass: 6.85, inf: 3.61, susp: 7.41, bots: 17.17 },
+        qs: 71, grade: 'B+', qsColor: '#34AE93',
+        loc: ['United States 42%', 'India 18%', 'Brazil 14%'],
+        niches: ['Fitness', 'Entertainment', 'Lifestyle']
+      },
+      cristiano: {
+        name: 'Cristiano Ronaldo', handle: '@cristiano', location: 'Portugal',
+        bio: '"SIU! ⚽"', verified: true, initials: 'CR',
+        av: 'linear-gradient(135deg,#34AE93,#043E54)',
+        followers: '632M', avgLikes: '8.1M', avgComments: '42.6K', er: '1.29%',
+        fake: 31.2,
+        aud: { real: 58.4, mass: 8.2, inf: 2.1, susp: 5.8, bots: 25.5 },
+        qs: 63, grade: 'C+', qsColor: '#f59e0b',
+        loc: ['Brazil 22%', 'India 19%', 'Portugal 8%'],
+        niches: ['Sports', 'Fashion', 'Fitness']
+      },
+      kyliejenner: {
+        name: 'Kylie Jenner', handle: '@kyliejenner', location: 'United States',
+        bio: '"CEO of Kylie Cosmetics 💄"', verified: true, initials: 'KJ',
+        av: 'linear-gradient(135deg,#b07be8,#7ba8e8)',
+        followers: '399M', avgLikes: '5.8M', avgComments: '21K', er: '1.45%',
+        fake: 28.4,
+        aud: { real: 61.2, mass: 7.4, inf: 3.0, susp: 6.8, bots: 21.6 },
+        qs: 67, grade: 'B-', qsColor: '#34AE93',
+        loc: ['United States 38%', 'UK 11%', 'India 9%'],
+        niches: ['Beauty', 'Fashion', 'Lifestyle']
+      },
+      natgeo: {
+        name: 'National Geographic', handle: '@natgeo', location: 'United States',
+        bio: '"Inspiring people to care about the planet"', verified: true, initials: 'NG',
+        av: 'linear-gradient(135deg,#f59e0b,#ef8c0b)',
+        followers: '280M', avgLikes: '2.4M', avgComments: '8.2K', er: '0.86%',
+        fake: 11.3,
+        aud: { real: 79.6, mass: 5.1, inf: 4.2, susp: 3.8, bots: 7.3 },
+        qs: 86, grade: 'A', qsColor: '#16a34a',
+        loc: ['United States 29%', 'UK 14%', 'India 12%'],
+        niches: ['Nature', 'Science', 'Photography']
+      },
+      nike: {
+        name: 'Nike', handle: '@nike', location: 'United States',
+        bio: '"Just Do It ✔"', verified: true, initials: 'NK',
+        av: 'linear-gradient(135deg,#222,#555)',
+        followers: '309M', avgLikes: '1.9M', avgComments: '6.8K', er: '0.62%',
+        fake: 18.7,
+        aud: { real: 72.3, mass: 5.8, inf: 3.6, susp: 4.1, bots: 14.2 },
+        qs: 78, grade: 'B+', qsColor: '#34AE93',
+        loc: ['United States 33%', 'Brazil 12%', 'UK 10%'],
+        niches: ['Sports', 'Fashion', 'Fitness']
+      }
+    };
+
+    /* ── random profile generator for unknown handles ── */
+    function rnd(a, b, d = 1) { return parseFloat((Math.random() * (b - a) + a).toFixed(d)); }
+
+    function makeProfile(username) {
+      const key = username.replace(/^@/, '').toLowerCase();
+      if (PROFILES[key]) return PROFILES[key];
+
+      // build random but plausible data
+      const real = rnd(52, 82), bots = rnd(5, 22), susp = rnd(3, 9), mass = rnd(2, 7);
+      const inf = Math.max(0, parseFloat((100 - real - bots - susp - mass).toFixed(2)));
+      const fake = parseFloat((bots + susp * 0.45).toFixed(2));
+      const qs = Math.round(real * 0.95);
+      const grade = qs >= 85 ? 'A+' : qs >= 78 ? 'A' : qs >= 72 ? 'B+' : qs >= 65 ? 'B' : qs >= 58 ? 'B-' : 'C+';
+      const qsColor = qs >= 78 ? '#16a34a' : qs >= 65 ? '#34AE93' : '#f59e0b';
+
+      const fCount = rnd(8, 900, 0);
+      const folStr = fCount >= 100 ? (fCount / 1000).toFixed(1) + 'B'
+        : fCount >= 1 ? fCount.toFixed(0) + 'M'
+          : rnd(10, 990, 0) + 'K';
+
+      const avGrads = [
+        'linear-gradient(135deg,#34AE93,#8AD8A3)',
+        'linear-gradient(135deg,#7ba8e8,#4A7A84)',
+        'linear-gradient(135deg,#b07be8,#7ba8e8)',
+        'linear-gradient(135deg,#f59e0b,#ef8c0b)',
+        'linear-gradient(135deg,#ef4444,#f97316)',
+      ];
+      const locs = ['India', 'United States', 'United Kingdom', 'Brazil', 'Germany', 'UAE', 'Australia', 'Canada'];
+      const nichePool = [['Fashion', 'Lifestyle', 'Travel'], ['Beauty', 'Skincare', 'Wellness'], ['Fitness', 'Health', 'Motivation'], ['Tech', 'Gaming', 'Reviews'], ['Food', 'Travel', 'Photography']];
+      const bios = ['"Content creator & digital storyteller"', '"Creating content that inspires ✨"', '"Sharing what I love every day"', '"Brand partnerships & collaborations"'];
+
+      const displayName = key.charAt(0).toUpperCase() + key.slice(1).replace(/[._]/g, ' ');
+      return {
+        name: displayName, handle: '@' + key,
+        location: locs[Math.floor(Math.random() * locs.length)],
+        bio: bios[Math.floor(Math.random() * bios.length)],
+        verified: Math.random() > 0.6,
+        initials: key.slice(0, 2).toUpperCase(),
+        av: avGrads[Math.floor(Math.random() * avGrads.length)],
+        followers: folStr,
+        avgLikes: rnd(1.5, 180, 1) + 'K',
+        avgComments: rnd(0.3, 9.5, 1) + 'K',
+        er: rnd(0.4, 8.9) + '%',
+        fake, aud: { real, mass, inf, susp, bots },
+        qs, grade, qsColor,
+        loc: [locs[0] + ' ' + rnd(15, 48, 0) + '%', locs[1] + ' ' + rnd(8, 22, 0) + '%', locs[2] + ' ' + rnd(4, 14, 0) + '%'],
+        niches: nichePool[Math.floor(Math.random() * nichePool.length)]
+      };
+    }
+
+    /* ── build card HTML ── */
+    function buildCard(p) {
+      const fakeClass = p.fake > 26 ? 'red' : p.fake < 14 ? 'green' : '';
+      const fakeIcon = p.fake > 26 ? '⚠️' : p.fake < 14 ? '✅' : '📊';
+
+      return `
+  <div class="rc-head">
+    <div class="rc-av" style="background:${p.av}">${p.initials}</div>
+    <div class="rc-meta">
+      <div class="rc-name">${p.name}${p.verified ? ' <span title="Verified" style="font-size:14px">✅</span>' : ''}</div>
+      <div class="rc-handle">${p.handle} &nbsp;·&nbsp; 📸 Instagram</div>
+      <div class="rc-loc">📍 ${p.location}</div>
+      <div class="rc-bio">${p.bio}</div>
+      ${p.verified ? '<span class="verified-tag">✓ Verified Account</span>' : ''}
+    </div>
+    <div class="rc-btns">
+      <button class="rc-btn">Contact details</button>
+      <button class="rc-btn">Audience breakdown</button>
+    </div>
+  </div>
+
+  <div class="rc-body">
+
+    <!-- KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi ${fakeClass}">
+        <div class="kpi-icon">${fakeIcon}</div>
+        <div class="kpi-v">${p.fake.toFixed(2)}%</div>
+        <div class="kpi-l">Fake Followers</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icon">👥</div>
+        <div class="kpi-v">${p.followers}</div>
+        <div class="kpi-l">Followers</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icon">❤️</div>
+        <div class="kpi-v">${p.avgLikes}</div>
+        <div class="kpi-l">Avg Likes</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-icon">📊</div>
+        <div class="kpi-v">${p.er}</div>
+        <div class="kpi-l">Avg Eng. Rate</div>
+      </div>
+    </div>
+
+    <!-- Quality + stats -->
+    <div class="quality-row">
+      <div class="q-ring" style="border-color:${p.qsColor}">
+        <div class="q-grade" style="color:${p.qsColor}">${p.grade}</div>
+        <div class="q-score" style="color:${p.qsColor}">${p.qs}/100</div>
+      </div>
+      <div class="q-details">
+        <div class="qd-row"><span class="qd-l">Audience Quality Score</span><span class="qd-v">${p.qs}/100</span></div>
+        <div class="qd-row"><span class="qd-l">Avg Comments</span><span class="qd-v">${p.avgComments}</span></div>
+        <div class="qd-row"><span class="qd-l">Top Location</span><span class="qd-v">${p.loc[0]}</span></div>
+        <div class="qd-row"><span class="qd-l">Niches</span><span class="qd-v">${p.niches.join(', ')}</span></div>
+      </div>
+    </div>
+
+    <!-- Audience type bars -->
+    <div>
+      <div class="aud-head">Audience Type Breakdown <span class="aud-note">Based on follower analysis</span></div>
+      <div class="bar-rows">
+        <div class="bar-row">
+          <div class="bar-lbl"><span class="bar-dot" style="background:#22c55e"></span>Real People</div>
+          <div class="bar-track"><div class="bar-fill" style="background:linear-gradient(90deg,#22c55e,#34AE93)" data-w="${p.aud.real}"></div></div>
+          <div class="bar-pct" style="color:#16a34a">${p.aud.real.toFixed(2)}%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-lbl"><span class="bar-dot" style="background:#8AD8A3"></span>Mass Followers</div>
+          <div class="bar-track"><div class="bar-fill" style="background:#8AD8A3" data-w="${p.aud.mass}"></div></div>
+          <div class="bar-pct" style="color:#34AE93">${p.aud.mass.toFixed(2)}%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-lbl"><span class="bar-dot" style="background:#7ba8e8"></span>Influencers</div>
+          <div class="bar-track"><div class="bar-fill" style="background:#7ba8e8" data-w="${p.aud.inf}"></div></div>
+          <div class="bar-pct" style="color:#7ba8e8">${p.aud.inf.toFixed(2)}%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-lbl"><span class="bar-dot" style="background:#f59e0b"></span>Suspicious <span class="flag-badge">flagged</span></div>
+          <div class="bar-track"><div class="bar-fill" style="background:#f59e0b" data-w="${p.aud.susp}"></div></div>
+          <div class="bar-pct" style="color:#b45309">${p.aud.susp.toFixed(2)}%</div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-lbl"><span class="bar-dot" style="background:#ef4444"></span>Bot Accounts</div>
+          <div class="bar-track"><div class="bar-fill" style="background:#ef4444" data-w="${p.aud.bots}"></div></div>
+          <div class="bar-pct" style="color:#dc2626">${p.aud.bots.toFixed(2)}%</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Unlock CTA -->
+    <div class="unlock-row">
+      <a href="dreabee-register.html" class="btn-cta" style="font-size:14px;padding:11px 24px;">Unlock Full Report →</a>
+    </div>
+
+  </div>
+
+  <div class="rc-foot">
+    <div class="rc-foot-note">Showing data for <strong>${p.handle}</strong> · Updated just now · <strong>Free analysis</strong></div>
+    <a href="dreabee-register.html" class="rc-foot-link">Full analytics on Dreabee →</a>
+  </div>`;
+    }
+
+    /* ── animate bars after render ── */
+    function animateBars() {
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          document.querySelectorAll('.bar-fill[data-w]').forEach(el => {
+            el.style.width = el.dataset.w + '%';
+          });
+        }, 80);
+      });
+    }
+
+    /* ── show result card ── */
+    function showCard(profile) {
+      const card = document.getElementById('result-card');
+      card.innerHTML = buildCard(profile);
+      // force reflow then animate in
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          card.classList.add('show');
+          animateBars();
+        });
+      });
+    }
+
+    /* ── loading sequence ── */
+    let searchTimer = null;
+
+    function doSearch(autoHandle) {
+      const input = document.getElementById('username-input');
+      const raw = autoHandle || input.value.trim();
+
+      // Validate
+      if (!raw) {
+        input.classList.add('err');
+        input.focus();
+        setTimeout(() => input.classList.remove('err'), 1500);
+        return;
+      }
+
+      const handle = raw.replace(/^@/, '');
+      if (!autoHandle) input.value = '@' + handle;
+
+      // Clear any previous timer
+      if (searchTimer) { clearTimeout(searchTimer); searchTimer = null; }
+
+      // Reset result card
+      const card = document.getElementById('result-card');
+      card.classList.remove('show');
+      card.innerHTML = '';
+
+      // Reset dots
+      ['sd0', 'sd1', 'sd2', 'sd3'].forEach(id => {
+        document.getElementById(id).className = 'step-dot';
+      });
+
+      // Show loading
+      const loadBox = document.getElementById('loading-box');
+      const loadTxt = document.getElementById('load-txt');
+      loadBox.classList.add('show');
+
+      // Scroll to result area smoothly
+      document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Step animations
+      const steps = [
+        { t: 200, msg: 'Looking up @' + handle + '…', dot: 0 },
+        { t: 750, msg: 'Analysing follower authenticity…', dot: 1 },
+        { t: 1400, msg: 'Calculating audience quality score…', dot: 2 },
+        { t: 2000, msg: 'Generating full report…', dot: 3 },
+      ];
+
+      steps.forEach(({ t, msg, dot }) => {
+        searchTimer = setTimeout(() => {
+          loadTxt.textContent = msg;
+          if (dot > 0) document.getElementById('sd' + (dot - 1)).className = 'step-dot done';
+          document.getElementById('sd' + dot).className = 'step-dot pulse';
+        }, t);
+      });
+
+      // Finish
+      searchTimer = setTimeout(() => {
+        document.getElementById('sd3').className = 'step-dot done';
+        loadBox.classList.remove('show');
+        const profile = makeProfile(handle);
+        showCard(profile);
+      }, 2700);
+    }
+
+    /* ── Enter key support ── */
+    document.getElementById('username-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') doSearch();
+    });
+
+    /* ══════════════════════
+       AUTO-LOAD on page open
+       Shows @therock result automatically
+    ══════════════════════ */
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('username-input').value = '@therock';
+      // slight delay so page paint completes first
+      setTimeout(() => doSearch('therock'), 500);
+    });
+  </script>
+  <script>
+    function toggleDd(id) {
+      var el = document.getElementById(id);
+      var open = el.classList.contains('open');
+      document.querySelectorAll('.nav-dd.open').forEach(function (d) { d.classList.remove('open') });
+      if (!open) el.classList.add('open');
+    }
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.nav-dd')) document.querySelectorAll('.nav-dd.open').forEach(function (d) { d.classList.remove('open') });
+    });
+    function toggleMob() {
+      document.getElementById('mob-btn').classList.toggle('open');
+      document.getElementById('mob-menu').classList.toggle('open');
+    }
+  </script>
+</body>
+
+</html>

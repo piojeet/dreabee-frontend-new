@@ -1,0 +1,2712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dreabee vs Competitors — Full Platform Comparison</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden;
+      padding: 0
+    }
+
+    .gfoot-soc:hover {
+      border-color: #34AE93;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 174, 147, .2)
+    }
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    @media(max-width:1024px) {
+      .gnav-links {
+        gap: 0
+      }
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 6px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #fff;
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden
+    }
+
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--tint);
+      border: 1px solid var(--bdr);
+      color: var(--teal);
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px
+    }
+
+    .chip::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--teal);
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    h1 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(34px, 4.8vw, 60px);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -.03em;
+      color: var(--ink)
+    }
+
+    h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight: 800;
+      line-height: 1.12;
+      letter-spacing: -.025em;
+      color: var(--ink)
+    }
+
+    h3 {
+      font-family: 'Sora', sans-serif
+    }
+
+    .lead {
+      font-size: clamp(15px, 1.8vw, 17px);
+      color: var(--muted);
+      line-height: 1.8
+    }
+
+    .g-text {
+      background: var(--g1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .btn-g {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      background: var(--g2);
+      color: #fff;
+      text-decoration: none;
+      padding: 13px 26px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap
+    }
+
+    .btn-g:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(52, 174, 147, .38)
+    }
+
+    .btn-o {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      border: 2px solid var(--ink);
+      color: var(--ink);
+      background: transparent;
+      text-decoration: none;
+      padding: 12px 26px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+      transition: background .15s, transform .15s
+    }
+
+    .btn-o:hover {
+      background: var(--tint);
+      transform: translateY(-1px)
+    }
+
+    .btn-gw {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      background: var(--g2);
+      color: #fff;
+      text-decoration: none;
+      padding: 13px 26px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform .18s, box-shadow .18s
+    }
+
+    .btn-gw:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(52, 174, 147, .5)
+    }
+
+    .btn-w {
+      font-family: 'Sora', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, .1);
+      border: 2px solid rgba(255, 255, 255, .25);
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 26px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: .18s
+    }
+
+    .btn-w:hover {
+      background: rgba(255, 255, 255, .18)
+    }
+
+    .sr {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .55s cubic-bezier(.4, 0, .2, 1), transform .55s cubic-bezier(.4, 0, .2, 1)
+    }
+
+    .sr.on {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .sr.d1 {
+      transition-delay: .08s
+    }
+
+    .sr.d2 {
+      transition-delay: .16s
+    }
+
+    .sr.d3 {
+      transition-delay: .24s
+    }
+
+    .sr.d4 {
+      transition-delay: .32s
+    }
+
+    /* ════ HERO ════ */
+    .cmp-hero {
+      padding: calc(var(--nh) + 64px) 0 56px;
+      background: linear-gradient(160deg, #e4f3ec 0%, #f4fbf8 42%, #fff 72%);
+      position: relative;
+      overflow: hidden;
+      text-align: center
+    }
+
+    .cmp-hero::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -100px;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(138, 216, 163, .16) 0%, transparent 68%);
+      pointer-events: none
+    }
+
+    .cmp-hero-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1
+    }
+
+    .cmp-hero h1 {
+      margin-bottom: 18px
+    }
+
+    .cmp-hero .lead {
+      max-width: 580px;
+      margin: 0 auto 36px
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    /* winner strip */
+    .winner-strip {
+      background: var(--ink);
+      padding: 28px 32px
+    }
+
+    .winner-strip-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 32px
+    }
+
+    .ws-item {
+      text-align: center
+    }
+
+    .ws-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 2px
+    }
+
+    .ws-lbl {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .5);
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase
+    }
+
+    .ws-div {
+      width: 1px;
+      height: 36px;
+      background: rgba(255, 255, 255, .12)
+    }
+
+    @media(max-width:600px) {
+      .ws-div {
+        display: none
+      }
+    }
+
+    /* ════ COMPETITOR TABS ════ */
+    .vs-tabs-wrap {
+      background: #fff;
+      border-bottom: 1px solid var(--bdr);
+      position: sticky;
+      top: 64px;
+      z-index: 90;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    .vs-tabs-wrap::-webkit-scrollbar {
+      display: none
+    }
+
+    .vs-tabs {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      gap: 4px;
+      padding-top: 12px;
+      padding-bottom: 12px
+    }
+
+    .vs-tab {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      background: none;
+      border: 1px solid transparent;
+      padding: 8px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: .15s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .vs-tab:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .vs-tab.active {
+      color: var(--teal);
+      background: var(--tint);
+      border-color: var(--bdr)
+    }
+
+    .vs-tab-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    /* ════ MAIN COMPARISON TABLE ════ */
+    .cmp-main {
+      padding: 56px 32px 80px;
+      background: #fff
+    }
+
+    .cmp-main-inner {
+      max-width: 1280px;
+      margin: 0 auto
+    }
+
+    /* sticky-scrollable table wrapper */
+    .tbl-scroll {
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1.5px solid var(--bdr);
+      box-shadow: 0 8px 40px rgba(4, 62, 84, .08)
+    }
+
+    .cmp-tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      min-width: 800px
+    }
+
+    /* header row */
+    .cmp-tbl thead tr th {
+      padding: 0;
+      border-bottom: 2px solid var(--bdr);
+      vertical-align: top
+    }
+
+    .th-feat {
+      width: 30%;
+      min-width: 200px;
+      padding: 20px 24px;
+      text-align: left
+    }
+
+    .th-feat-inner {
+      font-family: 'Sora', sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted)
+    }
+
+    .th-brand {
+      padding: 16px 14px;
+      text-align: center;
+      min-width: 120px
+    }
+
+    .th-brand-box {
+      border-radius: 12px;
+      padding: 14px 10px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px
+    }
+
+    .th-brand-box.dreabee {
+      background: var(--tint);
+      border: 1.5px solid var(--teal)
+    }
+
+    .th-brand-box.rival {
+      background: var(--surf);
+      border: 1.5px solid var(--bdr)
+    }
+
+    .th-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0
+    }
+
+    .th-logo.db-logo {
+      background: var(--g1)
+    }
+
+    .th-name {
+      font-family: 'Sora', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+      line-height: 1.2
+    }
+
+    .th-badge {
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--teal);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 100px;
+      letter-spacing: .03em
+    }
+
+    /* category separator */
+    .cmp-tbl .cat-row td {
+      background: var(--surf2);
+      padding: 10px 24px;
+      font-family: 'Sora', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--muted);
+      border-top: 1px solid var(--bdr);
+      border-bottom: 1px solid var(--bdr)
+    }
+
+    /* data rows */
+    .cmp-tbl tbody td {
+      padding: 14px 14px;
+      border-bottom: 1px solid var(--bdr);
+      vertical-align: middle
+    }
+
+    .cmp-tbl tbody td.td-feat {
+      padding: 14px 24px
+    }
+
+    .cmp-tbl tbody tr:last-child td {
+      border-bottom: none
+    }
+
+    .cmp-tbl tbody tr:hover td {
+      background: #fafcfb
+    }
+
+    .cmp-tbl tbody tr:hover .td-dreabee {
+      background: rgba(236, 247, 243, .7)
+    }
+
+    .td-dreabee {
+      background: rgba(236, 247, 243, .45);
+      text-align: center;
+      font-weight: 700
+    }
+
+    .td-rival {
+      text-align: center;
+      color: var(--muted)
+    }
+
+    .feat-name {
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 13.5px;
+      line-height: 1.3
+    }
+
+    .feat-sub {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 3px;
+      font-weight: 400;
+      line-height: 1.4
+    }
+
+    /* cell values */
+    .cv-yes {
+      color: var(--teal)
+    }
+
+    .cv-yes svg {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle
+    }
+
+    .cv-no {
+      color: #d0d9dc
+    }
+
+    .cv-no svg {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle
+    }
+
+    .cv-partial {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--surf2);
+      color: var(--muted);
+      padding: 3px 9px;
+      border-radius: 100px;
+      display: inline-block;
+      white-space: nowrap
+    }
+
+    .cv-text {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--ink)
+    }
+
+    .cv-text-muted {
+      font-size: 12px;
+      color: var(--muted)
+    }
+
+    .cv-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 100px;
+      display: inline-block;
+      white-space: nowrap
+    }
+
+    .cv-pill.green {
+      background: rgba(52, 174, 147, .12);
+      color: var(--teal)
+    }
+
+    .cv-pill.grey {
+      background: var(--surf2);
+      color: var(--muted)
+    }
+
+    .cv-pill.amber {
+      background: rgba(234, 179, 8, .12);
+      color: #92710b
+    }
+
+    /* score row */
+    .score-row td {
+      background: var(--surf);
+      padding: 16px 14px
+    }
+
+    .score-row .td-feat {
+      padding: 16px 24px
+    }
+
+    .score-row .td-dreabee {
+      background: var(--tint)
+    }
+
+    .score-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--teal);
+      line-height: 1
+    }
+
+    .score-num.rival-score {
+      color: var(--muted);
+      font-size: 18px
+    }
+
+    .score-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    /* ════ DEEP DIVE CARDS ════ */
+    .deep-dive {
+      background: var(--surf);
+      padding: 72px 32px
+    }
+
+    .deep-dive-inner {
+      max-width: 1280px;
+      margin: 0 auto
+    }
+
+    .deep-dive-head {
+      text-align: center;
+      margin-bottom: 52px
+    }
+
+    .dd-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px
+    }
+
+    @media(max-width:900px) {
+      .dd-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(max-width:540px) {
+      .dd-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .dd-card {
+      background: #fff;
+      border: 1.5px solid var(--bdr);
+      border-radius: 18px;
+      padding: 26px 22px
+    }
+
+    .dd-card h3 {
+      font-size: 15px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .dd-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .dd-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: var(--surf)
+    }
+
+    .dd-row-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .dd-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .dd-bar-wrap {
+      flex: 1;
+      height: 6px;
+      background: var(--bdr);
+      border-radius: 100px;
+      overflow: hidden;
+      margin: 0 8px
+    }
+
+    .dd-bar {
+      height: 100%;
+      border-radius: 100px;
+      transition: width 1.1s cubic-bezier(.4, 0, .2, 1) .2s
+    }
+
+    .dd-bar.db {
+      background: var(--g1)
+    }
+
+    .dd-bar.r1 {
+      background: #b0ccd6
+    }
+
+    .dd-bar.r2 {
+      background: #c5d8e0
+    }
+
+    .dd-bar.r3 {
+      background: #d6e4ea
+    }
+
+    .dd-bar.r4 {
+      background: #e2ecf0
+    }
+
+    .dd-val {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--muted);
+      white-space: nowrap;
+      min-width: 40px;
+      text-align: right
+    }
+
+    .dd-row.winner {
+      background: var(--tint)
+    }
+
+    .dd-row.winner .dd-row-name {
+      color: var(--teal)
+    }
+
+    .dd-row.winner .dd-val {
+      color: var(--teal)
+    }
+
+    /* ════ SWITCH SECTION ════ */
+    .switch-sec {
+      background: var(--ink);
+      padding: 80px 32px
+    }
+
+    .switch-inner {
+      max-width: 1100px;
+      margin: 0 auto
+    }
+
+    .switch-head {
+      text-align: center;
+      margin-bottom: 52px
+    }
+
+    .switch-head h2 {
+      color: #fff;
+      margin-bottom: 12px
+    }
+
+    .switch-head p {
+      color: rgba(255, 255, 255, .6);
+      max-width: 480px;
+      margin: 0 auto;
+      font-size: 16px
+    }
+
+    .switch-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px
+    }
+
+    @media(max-width:680px) {
+      .switch-steps {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .sw-step {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-radius: 16px;
+      padding: 26px 22px
+    }
+
+    .sw-num {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--g1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px
+    }
+
+    .sw-step h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px
+    }
+
+    .sw-step p {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, .55);
+      line-height: 1.65
+    }
+
+    .switch-quotes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px
+    }
+
+    @media(max-width:760px) {
+      .switch-quotes {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .sq {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 12px;
+      padding: 20px
+    }
+
+    .sq-text {
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, .75);
+      line-height: 1.7;
+      margin-bottom: 14px;
+      font-style: italic
+    }
+
+    .sq-author {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .sq-av {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--g1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Sora', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0
+    }
+
+    .sq-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2
+    }
+
+    .sq-role {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .4)
+    }
+
+    /* ════ CTA ════ */
+    .cta-banner {
+      background: #fff;
+      border-top: 1px solid var(--bdr);
+      padding: 80px 32px;
+      text-align: center
+    }
+
+    .cta-banner h2 {
+      margin-bottom: 14px
+    }
+
+    .cta-banner p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-bottom: 36px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap
+    }
+
+    .cta-banner .btn-o {
+      border-color: var(--bdr);
+      color: var(--muted)
+    }
+
+    .cta-banner .btn-o:hover {
+      background: var(--surf)
+    }
+
+    @media(max-width:640px) {
+
+      .cmp-hero-inner,
+      .vs-tabs,
+      .cmp-main,
+      .deep-dive,
+      .switch-sec,
+      .cta-banner {
+        padding-left: 16px;
+        padding-right: 16px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" href="index.html">
+        <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
+      </div>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
+      </div>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+
+  <!-- HERO -->
+  <section class="cmp-hero sr">
+    <div class="cmp-hero-inner">
+      <div class="chip">Platform Comparison 2025</div>
+      <h1>Dreabee vs <span class="g-text">Every Competitor</span></h1>
+      <p class="lead" style="margin-top:16px">We stacked Dreabee against Modash, Heepsy, Upfluence, Influencity, and
+        AspireIQ — across every feature that actually matters. See why 350+ brands switched.</p>
+      <div class="hero-actions">
+        <a href="dreabee-register.html" class="btn-g">Try Dreabee free — 14 days →</a>
+        <a href="dreabee-book-a-demo.html" class="btn-o">Book a live demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WINNER STRIP -->
+  <div class="winner-strip sr">
+    <div class="winner-strip-inner">
+      <div class="ws-item">
+        <div class="ws-num"
+          style="background:var(--g1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">
+          6/6</div>
+        <div class="ws-lbl">Competitors beaten</div>
+      </div>
+      <div class="ws-div"></div>
+      <div class="ws-item">
+        <div class="ws-num">50M+</div>
+        <div class="ws-lbl">Creator profiles</div>
+      </div>
+      <div class="ws-div"></div>
+      <div class="ws-item">
+        <div class="ws-num">4.8★</div>
+        <div class="ws-lbl">G2 rating</div>
+      </div>
+      <div class="ws-div"></div>
+      <div class="ws-item">
+        <div class="ws-num">4.1×</div>
+        <div class="ws-lbl">Avg ROI lift</div>
+      </div>
+      <div class="ws-div"></div>
+      <div class="ws-item">
+        <div class="ws-num">0</div>
+        <div class="ws-lbl">Creator logins required</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPETITOR TABS -->
+  <div class="vs-tabs-wrap">
+    <div class="vs-tabs">
+      <button class="vs-tab active" data-show="all">
+        <span class="vs-tab-dot" style="background:#7c3aed"></span>All Competitors
+      </button>
+      <button class="vs-tab" data-show="modash">
+        <span class="vs-tab-dot" style="background:#6366f1"></span>vs Modash
+      </button>
+      <button class="vs-tab" data-show="heepsy">
+        <span class="vs-tab-dot" style="background:#f59e0b"></span>vs Heepsy
+      </button>
+      <button class="vs-tab" data-show="upfluence">
+        <span class="vs-tab-dot" style="background:#10b981"></span>vs Upfluence
+      </button>
+      <button class="vs-tab" data-show="influencity">
+        <span class="vs-tab-dot" style="background:#3b82f6"></span>vs Influencity
+      </button>
+      <button class="vs-tab" data-show="aspireiq">
+        <span class="vs-tab-dot" style="background:#ef4444"></span>vs AspireIQ
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN TABLE -->
+  <section class="cmp-main">
+    <div class="cmp-main-inner">
+      <div class="tbl-scroll sr">
+        <table class="cmp-tbl" id="cmpTable">
+          <thead>
+            <tr>
+              <th class="th-feat">
+                <div class="th-feat-inner">Feature</div>
+              </th>
+              <th class="th-brand">
+                <div class="th-brand-box dreabee">
+                  <div class="th-logo db-logo">db</div>
+                  <div class="th-name">Dreabee</div>
+                  <div class="th-badge">Best Overall</div>
+                </div>
+              </th>
+              <th class="th-brand rival-col" data-rival="modash">
+                <div class="th-brand-box rival">
+                  <div class="th-logo" style="background:#6366f1;font-size:11px">Mo</div>
+                  <div class="th-name">Modash</div>
+                </div>
+              </th>
+              <th class="th-brand rival-col" data-rival="heepsy">
+                <div class="th-brand-box rival">
+                  <div class="th-logo" style="background:#f59e0b;font-size:11px">He</div>
+                  <div class="th-name">Heepsy</div>
+                </div>
+              </th>
+              <th class="th-brand rival-col" data-rival="upfluence">
+                <div class="th-brand-box rival">
+                  <div class="th-logo" style="background:#10b981;font-size:10px">Up</div>
+                  <div class="th-name">Upfluence</div>
+                </div>
+              </th>
+              <th class="th-brand rival-col" data-rival="influencity">
+                <div class="th-brand-box rival">
+                  <div class="th-logo" style="background:#3b82f6;font-size:10px">In</div>
+                  <div class="th-name">Influencity</div>
+                </div>
+              </th>
+              <th class="th-brand rival-col" data-rival="aspireiq">
+                <div class="th-brand-box rival">
+                  <div class="th-logo" style="background:#ef4444;font-size:10px">Asp</div>
+                  <div class="th-name">AspireIQ</div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- DISCOVERY -->
+            <tr class="cat-row">
+              <td colspan="7">🔍 Discovery & Search</td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Creator database size</div>
+                <div class="feat-sub">Total indexed profiles</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-pill green">50M+</span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-text-muted">250M</span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-text-muted">11M</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-text-muted">3M</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-text-muted">70M</span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-text-muted">150K</span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Platforms covered</div>
+                <div class="feat-sub">IG / YT / TikTok / Twitch</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-pill green">All 4</span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-text-muted">IG+YT+TT</span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-text-muted">IG+YT+TT</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-text-muted">IG+YT+TT</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-text-muted">IG+YT+TT</span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-text-muted">IG only</span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Advanced audience filters</div>
+                <div class="feat-sub">Age, location, gender, interests</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-partial">Partial</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Lookalike creator search</div>
+                <div class="feat-sub">Find similar creators to a reference</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Brand safety filters</div>
+                <div class="feat-sub">Flag risky content & topics</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-partial">Partial</span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-partial">Partial</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+
+            <!-- DATA QUALITY -->
+            <tr class="cat-row">
+              <td colspan="7">🛡️ Data Quality & Analytics</td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Fake follower detection</div>
+                <div class="feat-sub">AI authenticity score 0–100</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-partial">Partial</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Historical trend data</div>
+                <div class="feat-sub">Months of follower & ER history</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-pill green">24 months</span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-text-muted">12 months</span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-text-muted">3 months</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-text-muted">6 months</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-text-muted">12 months</span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-text-muted">None</span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Data refresh rate</div>
+                <div class="feat-sub">How often profiles update</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-pill green">Daily</span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-pill amber">Weekly</span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-pill grey">Monthly</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-pill amber">Weekly</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-pill amber">Weekly</span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-pill grey">On-demand</span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">On-demand profile refresh</div>
+                <div class="feat-sub">Force live data pull anytime</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-partial">Partial</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Audience overlap detection</div>
+                <div class="feat-sub">Shared follower % across picks</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-partial">Partial</span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+
+            <!-- CAMPAIGNS -->
+            <tr class="cat-row">
+              <td colspan="7">📋 Campaign Management</td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Unlimited campaigns</div>
+                <div class="feat-sub">No cap on active campaigns</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-partial">Limited</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-partial">Limited</span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">ROI & EMV tracking</div>
+                <div class="feat-sub">Earned media value dashboard</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-partial">Partial</span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">PDF report export</div>
+                <div class="feat-sub">Shareable stakeholder reports</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-partial">Partial</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+
+            <!-- BRAND TOOLS -->
+            <tr class="cat-row">
+              <td colspan="7">🏷️ Brand Tools</td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Brand monitoring</div>
+                <div class="feat-sub">Real-time mention tracking</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-partial">Partial</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Competitor share-of-voice</div>
+                <div class="feat-sub">Compare influencer coverage vs rivals</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+
+            <!-- PLATFORM & PRICING -->
+            <tr class="cat-row">
+              <td colspan="7">💰 Pricing & Platform</td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Free tier available</div>
+                <div class="feat-sub">Use without a credit card</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-partial">Trial only</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-partial">Trial only</span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Free tools (no login)</div>
+                <div class="feat-sub">ER calculators, fake follower check</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Starting price / month</div>
+                <div class="feat-sub">Entry-level paid plan</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-pill green">$49</span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-text-muted">$99</span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-text-muted">$69</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-text-muted">Custom</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-text-muted">$168</span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-text-muted">Custom</span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">API access</div>
+                <div class="feat-sub">Programmatic data integration</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-no"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#d0d9dc" stroke-width="2">
+                    <path stroke-linecap="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg></span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">GDPR / DPDP compliant</div>
+                <div class="feat-sub">Privacy regulation ready</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-yes"><svg fill="none" viewBox="0 0 24 24" stroke="#34AE93"
+                    stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-yes"><svg fill="none"
+                    viewBox="0 0 24 24" stroke="#34AE93" stroke-width="2.5">
+                    <path stroke-linecap="round" d="M5 13l4 4L19 7" />
+                  </svg></span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-partial">Partial</span></td>
+            </tr>
+            <tr>
+              <td class="td-feat">
+                <div class="feat-name">Creator login required</div>
+                <div class="feat-sub">Influencers must connect accounts</div>
+              </td>
+              <td class="td-dreabee"><span class="cv-pill green">Never</span></td>
+              <td class="td-rival rival-col" data-rival="modash"><span class="cv-pill grey">Never</span></td>
+              <td class="td-rival rival-col" data-rival="heepsy"><span class="cv-pill grey">Never</span></td>
+              <td class="td-rival rival-col" data-rival="upfluence"><span class="cv-pill amber">Required</span></td>
+              <td class="td-rival rival-col" data-rival="influencity"><span class="cv-pill grey">Never</span></td>
+              <td class="td-rival rival-col" data-rival="aspireiq"><span class="cv-pill amber">Required</span></td>
+            </tr>
+
+            <!-- SCORE ROW -->
+            <tr class="score-row">
+              <td class="td-feat">
+                <div class="feat-name" style="font-size:14px;font-weight:800">Overall Dreabee wins</div>
+                <div class="feat-sub">Features where Dreabee leads</div>
+              </td>
+              <td class="td-dreabee" style="text-align:center">
+                <div class="score-num">—</div>
+                <div class="score-label">Your pick</div>
+              </td>
+              <td class="td-rival rival-col" data-rival="modash">
+                <div class="score-num rival-score">11/18</div>
+                <div class="score-label">Dreabee wins</div>
+              </td>
+              <td class="td-rival rival-col" data-rival="heepsy">
+                <div class="score-num rival-score">15/18</div>
+                <div class="score-label">Dreabee wins</div>
+              </td>
+              <td class="td-rival rival-col" data-rival="upfluence">
+                <div class="score-num rival-score">13/18</div>
+                <div class="score-label">Dreabee wins</div>
+              </td>
+              <td class="td-rival rival-col" data-rival="influencity">
+                <div class="score-num rival-score">12/18</div>
+                <div class="score-label">Dreabee wins</div>
+              </td>
+              <td class="td-rival rival-col" data-rival="aspireiq">
+                <div class="score-num rival-score">17/18</div>
+                <div class="score-label">Dreabee wins</div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEEP DIVE -->
+  <section class="deep-dive">
+    <div class="deep-dive-inner">
+      <div class="deep-dive-head sr">
+        <div class="chip">By the numbers</div>
+        <h2>Key metrics, head-to-head</h2>
+        <p class="lead" style="max-width:520px;margin:14px auto 0">Quantified comparisons across the dimensions brands
+          care about most.</p>
+      </div>
+      <div class="dd-grid sr d1">
+
+        <div class="dd-card">
+          <h3>🗄️ Database Size (M profiles)</h3>
+          <div class="dd-rows">
+            <div class="dd-row winner">
+              <div class="dd-row-name"><span class="dd-dot" style="background:var(--teal)"></span>Dreabee</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar db" data-w="100"></div>
+              </div>
+              <div class="dd-val">50M</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#6366f1"></span>Modash</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r1" data-w="100" style="background:#c7d8e0"></div>
+              </div>
+              <div class="dd-val">250M</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#3b82f6"></span>Influencity</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r2" data-w="58"></div>
+              </div>
+              <div class="dd-val">70M</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#f59e0b"></span>Heepsy</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r3" data-w="22"></div>
+              </div>
+              <div class="dd-val">11M</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#10b981"></span>Upfluence</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r4" data-w="6"></div>
+              </div>
+              <div class="dd-val">3M</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dd-card">
+          <h3>⭐ G2 User Rating (out of 5)</h3>
+          <div class="dd-rows">
+            <div class="dd-row winner">
+              <div class="dd-row-name"><span class="dd-dot" style="background:var(--teal)"></span>Dreabee</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar db" data-w="96"></div>
+              </div>
+              <div class="dd-val">4.8</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#10b981"></span>Upfluence</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r1" data-w="88"></div>
+              </div>
+              <div class="dd-val">4.4</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#6366f1"></span>Modash</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r2" data-w="84"></div>
+              </div>
+              <div class="dd-val">4.2</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#3b82f6"></span>Influencity</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r3" data-w="80"></div>
+              </div>
+              <div class="dd-val">4.0</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#f59e0b"></span>Heepsy</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r4" data-w="72"></div>
+              </div>
+              <div class="dd-val">3.6</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dd-card">
+          <h3>🛡️ Authenticity Score Accuracy</h3>
+          <div class="dd-rows">
+            <div class="dd-row winner">
+              <div class="dd-row-name"><span class="dd-dot" style="background:var(--teal)"></span>Dreabee</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar db" data-w="97"></div>
+              </div>
+              <div class="dd-val">97%</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#3b82f6"></span>Influencity</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r1" data-w="82"></div>
+              </div>
+              <div class="dd-val">82%</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#6366f1"></span>Modash</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r2" data-w="76"></div>
+              </div>
+              <div class="dd-val">76%</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#f59e0b"></span>Heepsy</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r3" data-w="68"></div>
+              </div>
+              <div class="dd-val">68%</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#10b981"></span>Upfluence</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r4" data-w="55"></div>
+              </div>
+              <div class="dd-val">55%</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dd-card">
+          <h3>🔄 Data Freshness Score</h3>
+          <div class="dd-rows">
+            <div class="dd-row winner">
+              <div class="dd-row-name"><span class="dd-dot" style="background:var(--teal)"></span>Dreabee</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar db" data-w="100"></div>
+              </div>
+              <div class="dd-val">Daily</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#6366f1"></span>Modash</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r1" data-w="42"></div>
+              </div>
+              <div class="dd-val">Weekly</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#3b82f6"></span>Influencity</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r2" data-w="42"></div>
+              </div>
+              <div class="dd-val">Weekly</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#10b981"></span>Upfluence</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r3" data-w="42"></div>
+              </div>
+              <div class="dd-val">Weekly</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#f59e0b"></span>Heepsy</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r4" data-w="16"></div>
+              </div>
+              <div class="dd-val">Monthly</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dd-card">
+          <h3>💰 Value for Money Score</h3>
+          <div class="dd-rows">
+            <div class="dd-row winner">
+              <div class="dd-row-name"><span class="dd-dot" style="background:var(--teal)"></span>Dreabee</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar db" data-w="95"></div>
+              </div>
+              <div class="dd-val">9.5/10</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#f59e0b"></span>Heepsy</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r1" data-w="72"></div>
+              </div>
+              <div class="dd-val">7.2/10</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#6366f1"></span>Modash</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r2" data-w="64"></div>
+              </div>
+              <div class="dd-val">6.4/10</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#3b82f6"></span>Influencity</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r3" data-w="54"></div>
+              </div>
+              <div class="dd-val">5.4/10</div>
+            </div>
+            <div class="dd-row">
+              <div class="dd-row-name"><span class="dd-dot" style="background:#10b981"></span>Upfluence</div>
+              <div class="dd-bar-wrap">
+                <div class="dd-bar r4" data-w="46"></div>
+              </div>
+              <div class="dd-val">4.6/10</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dd-card">
+          <h3>📊 Unique Features Only in Dreabee</h3>
+          <div class="dd-rows" style="gap:8px">
+            <div class="dd-row winner" style="justify-content:flex-start;gap:10px;padding:9px 12px"><span
+                style="font-size:16px">🔁</span><span style="font-size:13px;font-weight:600;color:var(--teal)">Lookalike
+                creator search</span></div>
+            <div class="dd-row winner" style="justify-content:flex-start;gap:10px;padding:9px 12px"><span
+                style="font-size:16px">📡</span><span style="font-size:13px;font-weight:600;color:var(--teal)">Brand
+                mention monitoring</span></div>
+            <div class="dd-row winner" style="justify-content:flex-start;gap:10px;padding:9px 12px"><span
+                style="font-size:16px">⚖️</span><span
+                style="font-size:13px;font-weight:600;color:var(--teal)">Competitor share-of-voice</span></div>
+            <div class="dd-row winner" style="justify-content:flex-start;gap:10px;padding:9px 12px"><span
+                style="font-size:16px">🛠️</span><span style="font-size:13px;font-weight:600;color:var(--teal)">No-login
+                free tools</span></div>
+            <div class="dd-row winner" style="justify-content:flex-start;gap:10px;padding:9px 12px"><span
+                style="font-size:16px">🎮</span><span style="font-size:13px;font-weight:600;color:var(--teal)">Twitch
+                native coverage</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SWITCH -->
+  <section class="switch-sec">
+    <div class="switch-inner">
+      <div class="switch-head sr">
+        <h2>Switching takes one afternoon</h2>
+        <p>Import your lists, run your first search, and see the difference immediately — no long onboarding.</p>
+      </div>
+      <div class="switch-steps sr d1">
+        <div class="sw-step">
+          <div class="sw-num">1</div>
+          <h3>Sign up free</h3>
+          <p>Create your account in 30 seconds. No credit card, no contracts. 14-day full Pro trial included.</p>
+        </div>
+        <div class="sw-step">
+          <div class="sw-num">2</div>
+          <h3>Import your shortlists</h3>
+          <p>Upload CSV exports from any other platform. We auto-enrich every profile with fresh Dreabee data instantly.
+          </p>
+        </div>
+        <div class="sw-step">
+          <div class="sw-num">3</div>
+          <h3>Launch smarter campaigns</h3>
+          <p>Use real-time authenticity scores, audience overlap, and brand monitoring to make decisions you can defend.
+          </p>
+        </div>
+      </div>
+      <div class="switch-quotes sr d2">
+        <div class="sq">
+          <p class="sq-text">"We moved from Modash last quarter. The authenticity scores are noticeably more accurate
+            and the brand monitoring is a feature we didn't know we needed."</p>
+          <div class="sq-author">
+            <div class="sq-av">SR</div>
+            <div>
+              <div class="sq-name">Sarah R.</div>
+              <div class="sq-role">Head of Influencer, NovaBrand</div>
+            </div>
+          </div>
+        </div>
+        <div class="sq">
+          <p class="sq-text">"Switched from Upfluence — no more asking creators to log in. Dreabee's public-data-only
+            approach is a huge trust win when pitching influencers."</p>
+          <div class="sq-author">
+            <div class="sq-av">AK</div>
+            <div>
+              <div class="sq-name">Arjun K.</div>
+              <div class="sq-role">Marketing Director, Lumin Co.</div>
+            </div>
+          </div>
+        </div>
+        <div class="sq">
+          <p class="sq-text">"Influencity was costing us $168/mo for fewer features. Dreabee at $49 with Twitch support
+            was a no-brainer. Migrated in a day."</p>
+          <div class="sq-author">
+            <div class="sq-av">MC</div>
+            <div>
+              <div class="sq-name">Maya C.</div>
+              <div class="sq-role">Agency Lead, Pulse Media</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-banner">
+    <div class="wrap">
+      <div class="chip">Make the switch</div>
+      <h2>Try Dreabee free for <span class="g-text">14 days</span></h2>
+      <p>No credit card. No contracts. Better influencer data from day one — across every platform.</p>
+      <div class="cta-actions">
+        <a href="dreabee-register.html" class="btn-g">Get started free →</a>
+        <a href="dreabee-book-a-demo.html" class="btn-o">See it in action</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <svg width="120" height="34" viewBox="0 0 140 42" fill="none">
+              <defs>
+                <linearGradient id="flg2" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8AD8A3" />
+                  <stop offset="100%" stop-color="#34AE93" />
+                </linearGradient>
+              </defs>
+              <circle cx="21" cy="21" r="18" fill="url(#flg2)" /><text x="21" y="27" font-family="Georgia,serif"
+                font-size="16" font-weight="bold" fill="#043E54" text-anchor="middle">db</text><text x="50" y="27"
+                font-family="Inter,sans-serif" font-size="20" font-weight="700" fill="#043E54">dreabee</text>
+            </svg>
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X"
+              style="padding:4px;display:flex;align-items:center;justify-content:center"><svg width="16" height="16"
+                viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg></a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn"
+              style="padding:4px;display:flex;align-items:center;justify-content:center"><svg width="16" height="16"
+                viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg></a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram"
+              style="padding:3px;display:flex;align-items:center;justify-content:center"><svg width="18" height="18"
+                viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg></a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube"
+              style="padding:3px;display:flex;align-items:center;justify-content:center"><svg width="18" height="18"
+                viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg></a>
+          </div>
+        </div>
+        <div class="gfoot-col"><span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links"><a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer
+              Discovery</a><a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a><a
+              href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a><a
+              href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a><a
+              href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a><a
+              href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a><a
+              href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a><a href="dreabee-pricing.html"
+              class="gfoot-link">Pricing</a></div>
+        </div>
+        <div class="gfoot-col"><span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links"><a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower
+              Check</a><a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a><a
+              href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a><a
+              href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a></div><span
+            class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links"><a href="dreabee-about.html" class="gfoot-link">About Us</a><a
+              href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a><a
+              href="dreabee-press.html" class="gfoot-link">Press</a><a href="dreabee-blog.html"
+              class="gfoot-link">Blog</a><a href="dreabee-contact.html" class="gfoot-link">Contact</a></div>
+        </div>
+        <div class="gfoot-col"><span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links"><a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a><a
+              href="dreabee-api-docs.html" class="gfoot-link">API Reference</a><a
+              href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a><a
+              href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a><a href="dreabee-changelog.html"
+              class="gfoot-link">Changelog</a></div><span class="gfoot-col-title"
+            style="margin-top:20px">Resources</span>
+          <div class="gfoot-links"><a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a><a
+              href="dreabee-for-creators.html" class="gfoot-link">For Creators</a><a href="dreabee-book-a-demo.html"
+              class="gfoot-link">Book a Demo</a><a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a></div>
+        </div>
+        <div class="gfoot-col"><span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links"><a href="dreabee-login.html" class="gfoot-link">Login</a><a
+              href="dreabee-register.html" class="gfoot-link">Get Started Free</a><a href="dreabee-book-a-demo.html"
+              class="gfoot-link">Book a Demo</a></div><span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links"><a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a><a
+              href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a><a
+              href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a></div>
+        </div>
+      </div>
+    </div>
+    <hr class="gfoot-divider">
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2025 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal"><a href="dreabee-terms.html">Terms</a><a href="dreabee-privacy-policy.html">Privacy</a><a
+          href="dreabee-cookie-policy.html">Cookies</a></div>
+    </div>
+  </footer>
+
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+
+    /* Tab filtering */
+    document.querySelectorAll('.vs-tab').forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        document.querySelectorAll('.vs-tab').forEach(function (t) { t.classList.remove('active') });
+        tab.classList.add('active');
+        var show = tab.dataset.show;
+        document.querySelectorAll('.rival-col').forEach(function (col) {
+          if (show === 'all') { col.style.display = ''; }
+          else { col.style.display = (col.dataset.rival === show) ? '' : 'none'; }
+        });
+      });
+    });
+
+    /* Animate bars on scroll into view */
+    var barsDone = false;
+    function animateBars() {
+      if (barsDone) return; barsDone = true;
+      document.querySelectorAll('.dd-bar').forEach(function (bar) {
+        var w = bar.dataset.w || '0';
+        bar.style.width = '0%';
+        setTimeout(function () { bar.style.width = w + '%'; }, 150);
+      });
+    }
+    var barObs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) animateBars(); }); }, { threshold: .15 });
+    var diveSection = document.querySelector('.deep-dive');
+    if (diveSection) barObs.observe(diveSection);
+
+    /* Scroll reveal */
+    var obs = new IntersectionObserver(function (entries) { entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('on') }); }, { threshold: .08 });
+    document.querySelectorAll('.sr').forEach(function (el) { obs.observe(el) });
+  </script>
+</body>
+
+</html>

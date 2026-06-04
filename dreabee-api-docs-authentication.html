@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Authentication — Dreabee API Docs</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --bg: #0A1628;
+      --surface: #0F1F38;
+      --surface2: #162540;
+      --border: #1E3352;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --grad: linear-gradient(135deg, #8AD8A3, #34AE93);
+      --muted: #6B8FAF;
+      --text: #C8D8E8;
+      --bright: #E8F4FF;
+      --orange: #F5A623;
+      --pink: #FF6B9D;
+      --blue: #4A9EFF;
+      --red: #FF6B6B;
+      --line: rgba(255, 255, 255, .06)
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px
+    }
+
+    /* TOP NAV */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(10, 22, 40, .95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+      display: flex;
+      align-items: center
+    }
+
+    .top-nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 20px
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--bright)
+    }
+
+    .nav-logo svg {
+      width: 20px;
+      height: 20px
+    }
+
+    .slash {
+      color: var(--border);
+      margin: 0 2px
+    }
+
+    .page-name {
+      color: var(--teal)
+    }
+
+    .nav-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      background: rgba(52, 174, 147, .2);
+      border: 1px solid rgba(52, 174, 147, .4);
+      color: var(--teal);
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-left: 8px
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 14px;
+      width: 220px;
+      cursor: text;
+      transition: border-color .2s
+    }
+
+    .search-box:hover {
+      border-color: rgba(52, 174, 147, .4)
+    }
+
+    .search-box svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--muted);
+      stroke-width: 2;
+      stroke-linecap: round;
+      flex-shrink: 0
+    }
+
+    .search-box span {
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .search-kbd {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      background: var(--border);
+      padding: 2px 5px;
+      border-radius: 3px
+    }
+
+    .btn-key {
+      font-size: 13px;
+      font-weight: 700;
+      background: var(--grad);
+      color: #0A1628;
+      padding: 7px 16px;
+      border-radius: 7px
+    }
+
+    /* 3-PANEL */
+    .docs-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr 400px;
+      min-height: calc(100vh - 64px);
+      margin-top: 64px;
+      overflow: hidden
+    }
+
+    /* LEFT NAV */
+    .sidebar-left {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 20px 0;
+      height: calc(100vh - 64px);
+      position: sticky;
+      top: 64px
+    }
+
+    .sidebar-left::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .sidebar-left::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px
+    }
+
+    .nav-section-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      padding: 10px 20px 4px
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      padding: 8px 20px;
+      cursor: pointer;
+      border-left: 2px solid transparent;
+      transition: all .15s
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, .04);
+      color: var(--text)
+    }
+
+    .nav-item.active {
+      color: var(--teal);
+      border-left-color: var(--teal);
+      background: rgba(52, 174, 147, .06)
+    }
+
+    .nm {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 3px;
+      flex-shrink: 0
+    }
+
+    .nm-get {
+      background: rgba(74, 158, 255, .15);
+      color: var(--blue)
+    }
+
+    .nm-post {
+      background: rgba(52, 174, 147, .15);
+      color: var(--teal)
+    }
+
+    .nm-del {
+      background: rgba(239, 68, 68, .15);
+      color: #F87171
+    }
+
+    /* MAIN */
+    .docs-main {
+      overflow-y: auto;
+      padding: 0
+    }
+
+    .docs-main::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .docs-main::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px
+    }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 40px 48px 32px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .ph-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 16px
+    }
+
+    .ph-breadcrumb a {
+      color: var(--muted);
+      transition: color .15s
+    }
+
+    .ph-breadcrumb a:hover {
+      color: var(--teal)
+    }
+
+    .ph-breadcrumb span {
+      color: var(--border)
+    }
+
+    .ph-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--teal);
+      background: rgba(52, 174, 147, .1);
+      border: 1px solid rgba(52, 174, 147, .2);
+      padding: 3px 10px;
+      border-radius: 4px;
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: .8px
+    }
+
+    .page-header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--bright);
+      letter-spacing: -1.5px;
+      margin-bottom: 12px
+    }
+
+    .page-header p {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 600px
+    }
+
+    /* ON-PAGE NAV */
+    .on-page-nav {
+      padding: 16px 48px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      background: rgba(255, 255, 255, .02)
+    }
+
+    .opn-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 5px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all .15s;
+      border: 1px solid transparent
+    }
+
+    .opn-link:hover,
+    .opn-link.active {
+      background: rgba(52, 174, 147, .1);
+      border-color: rgba(52, 174, 147, .2);
+      color: var(--teal)
+    }
+
+    /* CONTENT */
+    .doc-content {
+      padding: 40px 48px 80px
+    }
+
+    .doc-section {
+      margin-bottom: 60px;
+      scroll-margin-top: 24px
+    }
+
+    .doc-section h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--bright);
+      letter-spacing: -.5px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .doc-section h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 28px 0 10px
+    }
+
+    .doc-section p {
+      font-size: 14.5px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 14px
+    }
+
+    .doc-section p code,
+    .ic {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: var(--teal)
+    }
+
+    /* ALERT BOXES */
+    .alert {
+      display: flex;
+      gap: 12px;
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 20px 0;
+      font-size: 13.5px;
+      line-height: 1.65
+    }
+
+    .alert svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      flex-shrink: 0;
+      margin-top: 1px
+    }
+
+    .alert-info {
+      background: rgba(74, 158, 255, .08);
+      border: 1px solid rgba(74, 158, 255, .2);
+      color: var(--blue)
+    }
+
+    .alert-info svg {
+      stroke: var(--blue)
+    }
+
+    .alert-warn {
+      background: rgba(245, 166, 35, .08);
+      border: 1px solid rgba(245, 166, 35, .2);
+      color: var(--orange)
+    }
+
+    .alert-warn svg {
+      stroke: var(--orange)
+    }
+
+    .alert-danger {
+      background: rgba(255, 107, 107, .08);
+      border: 1px solid rgba(255, 107, 107, .2);
+      color: var(--red)
+    }
+
+    .alert-danger svg {
+      stroke: var(--red)
+    }
+
+    .alert-success {
+      background: rgba(52, 174, 147, .08);
+      border: 1px solid rgba(52, 174, 147, .2);
+      color: var(--teal)
+    }
+
+    .alert-success svg {
+      stroke: var(--teal)
+    }
+
+    /* CODE BLOCKS */
+    .code-block {
+      background: #060E1D;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin: 16px 0
+    }
+
+    .cb-header {
+      background: var(--surface);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .cb-lang {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--teal)
+    }
+
+    .cb-filename {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    .cb-copy {
+      font-size: 11px;
+      color: var(--muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      transition: color .15s;
+      display: flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .cb-copy:hover {
+      color: var(--teal)
+    }
+
+    .cb-copy svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2
+    }
+
+    .cb-body {
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      overflow-x: auto
+    }
+
+    /* Syntax */
+    .tk {
+      color: var(--blue)
+    }
+
+    .ts {
+      color: var(--orange)
+    }
+
+    .tn {
+      color: var(--pink)
+    }
+
+    .tb {
+      color: #A78BFA
+    }
+
+    .tc {
+      color: rgba(107, 143, 175, .55);
+      font-style: italic
+    }
+
+    .to {
+      color: var(--muted)
+    }
+
+    .tp {
+      color: var(--bright)
+    }
+
+    .tcmt {
+      color: #34AE93
+    }
+
+    /* KEY FORMAT TABLE */
+    .key-anatomy {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0
+    }
+
+    .ka-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--bright);
+      margin-bottom: 16px;
+      letter-spacing: 1px;
+      word-break: break-all
+    }
+
+    .ka-segments {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .ka-seg {
+      padding: 6px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity .2s;
+      border-top: 3px solid transparent
+    }
+
+    .ka-seg:hover {
+      opacity: .8
+    }
+
+    .ks-prefix {
+      background: rgba(52, 174, 147, .15);
+      color: var(--teal);
+      border-color: var(--teal)
+    }
+
+    .ks-env {
+      background: rgba(74, 158, 255, .15);
+      color: var(--blue);
+      border-color: var(--blue)
+    }
+
+    .ks-type {
+      background: rgba(245, 166, 35, .15);
+      color: var(--orange);
+      border-color: var(--orange)
+    }
+
+    .ks-secret {
+      background: rgba(107, 143, 175, .1);
+      color: var(--muted);
+      border-color: var(--muted)
+    }
+
+    .ka-legend {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border)
+    }
+
+    .kl-item {
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted)
+    }
+
+    .kl-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 2px;
+      flex-shrink: 0
+    }
+
+    /* ERROR TABLE */
+    .err-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13.5px
+    }
+
+    .err-table th {
+      text-align: left;
+      padding: 10px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .err-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top
+    }
+
+    .err-table tr:last-child td {
+      border-bottom: none
+    }
+
+    .err-table tr:hover td {
+      background: rgba(255, 255, 255, .02)
+    }
+
+    .status-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px
+    }
+
+    .s200 {
+      background: rgba(52, 174, 147, .15);
+      color: var(--teal)
+    }
+
+    .s400 {
+      background: rgba(245, 166, 35, .15);
+      color: var(--orange)
+    }
+
+    .s401 {
+      background: rgba(255, 107, 107, .15);
+      color: var(--red)
+    }
+
+    .s429 {
+      background: rgba(245, 166, 35, .15);
+      color: var(--orange)
+    }
+
+    .s500 {
+      background: rgba(255, 107, 107, .15);
+      color: var(--red)
+    }
+
+    /* RATE LIMIT VISUAL */
+    .rl-visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin: 20px 0
+    }
+
+    .rlv-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px
+    }
+
+    .rlv-row:last-child {
+      margin-bottom: 0
+    }
+
+    .rlv-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      width: 100px;
+      flex-shrink: 0
+    }
+
+    .rlv-bar {
+      flex: 1;
+      height: 8px;
+      background: var(--border);
+      border-radius: 4px;
+      overflow: hidden
+    }
+
+    .rlv-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: var(--grad)
+    }
+
+    .rlv-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--bright);
+      width: 80px;
+      text-align: right;
+      flex-shrink: 0
+    }
+
+    /* PAGINATION */
+    .pagination-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 20px 0
+    }
+
+    .pagination-section h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      margin-bottom: 14px
+    }
+
+    .pag-field {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13.5px
+    }
+
+    .pag-field:last-child {
+      border-bottom: none
+    }
+
+    .pf-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: var(--teal)
+    }
+
+    .pf-type {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      margin: 0 12px
+    }
+
+    .pf-desc {
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    /* RIGHT CODE PANEL */
+    .sidebar-right {
+      background: #060E1D;
+      border-left: 1px solid var(--border);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column
+    }
+
+    .sidebar-right::-webkit-scrollbar {
+      width: 4px
+    }
+
+    .sidebar-right::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 2px
+    }
+
+    .code-panel-section {
+      border-bottom: 1px solid var(--border)
+    }
+
+    .cps-header {
+      background: var(--surface);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer
+    }
+
+    .cps-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .8px
+    }
+
+    .code-tabs {
+      display: flex;
+      background: rgba(255, 255, 255, .03);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .ctab {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 9px 14px;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all .2s
+    }
+
+    .ctab:hover {
+      color: var(--text)
+    }
+
+    .ctab.active {
+      color: var(--teal);
+      border-bottom-color: var(--teal)
+    }
+
+    .code-tab-content {
+      display: none;
+      padding: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.8
+    }
+
+    .code-tab-content.active {
+      display: block
+    }
+
+    .resp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border)
+    }
+
+    .resp-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .8px
+    }
+
+    .resp-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      background: rgba(52, 174, 147, .1);
+      padding: 3px 8px;
+      border-radius: 4px
+    }
+
+    .resp-body {
+      padding: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.8
+    }
+
+    @media(max-width:1100px) {
+      .docs-layout {
+        grid-template-columns: 240px 1fr
+      }
+    }
+
+    .sidebar-right-mobile {
+      display: none
+    }
+
+    @media(max-width:1100px) {
+      .sidebar-right {
+        display: none
+      }
+    }
+
+    @media(max-width:768px) {
+      .docs-layout {
+        grid-template-columns: 1fr
+      }
+
+      .sidebar-left {
+        display: none
+      }
+
+      .page-header,
+      .doc-content,
+      .on-page-nav {
+        padding-left: 24px;
+        padding-right: 24px
+      }
+    }
+
+    /* ── DOCS RESPONSIVE ── */
+    @media(max-width:1100px) {
+      .docs-layout {
+        grid-template-columns: 220px 1fr 340px
+      }
+    }
+
+    @media(max-width:900px) {
+      .docs-layout {
+        grid-template-columns: 200px 1fr
+      }
+
+      .sidebar-right {
+        display: none
+      }
+    }
+
+    @media(max-width:640px) {
+      .docs-layout {
+        grid-template-columns: 1fr;
+        min-height: auto
+      }
+
+      .sidebar-left {
+        display: none
+      }
+
+      .docs-main {
+        padding: 20px 16px
+      }
+
+      .top-nav-inner {
+        padding: 0 16px
+      }
+
+      .search-box {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-nav">
+    <div class="top-nav-inner">
+      <a href="dreabee-developers.html" class="nav-logo">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gD" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8AD8A3" />
+              <stop offset="100%" stop-color="#34AE93" />
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="14" height="14" rx="7" fill="url(#gD)" />
+          <rect x="18" y="0" width="14" height="14" rx="4" fill="url(#gD)" opacity="0.7" />
+          <rect x="0" y="18" width="14" height="14" rx="4" fill="url(#gD)" opacity="0.7" />
+          <rect x="18" y="18" width="14" height="14" rx="7" fill="url(#gD)" />
+        </svg>
+        dreabee<span class="slash">/</span><span class="page-name">docs</span><span class="nav-badge">v2.1</span>
+      </a>
+      <div class="nav-right">
+        <a href="index.html"
+          style="font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:5px;padding:5px 12px;border:1px solid var(--border);border-radius:6px;transition:all .15s;white-space:nowrap;margin-right:8px"
+          onmouseover="this.style.color='var(--teal)';this.style.borderColor='var(--teal)'"
+          onmouseout="this.style.color='var(--muted)';this.style.borderColor='var(--border)'">← dreabee.com</a>
+        <div class="search-box"><svg viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg><span>Search docs…</span><span class="search-kbd">⌘K</span></div>
+        <a href="dreabee-get-api-key.html" class="btn-key">Get API Key</a>
+      </div>
+    </div>
+  </div>
+  <div class="docs-layout">
+    <!-- LEFT NAV -->
+    <nav class="sidebar-left">
+      <div class="nav-section-title">Getting Started</div>
+      <a class="nav-item" href="dreabee-api-docs.html">Introduction</a>
+      <a class="nav-item active" href="#">Authentication</a>
+      <a class="nav-item" href="dreabee-api-docs.html">Quick Start</a>
+      <a class="nav-item" href="#">Errors</a>
+      <a class="nav-item" href="#">Rate Limits</a>
+      <a class="nav-item" href="#">Pagination</a>
+      <div class="nav-section-title">Creators</div>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Get Creator</a>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Search Creators</a>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Audience Data</a>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Recent Posts</a>
+      <a class="nav-item" href="#"><span class="nm nm-post">POST</span>Batch Lookup</a>
+      <div class="nav-section-title">Brands</div>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Brand Analysis</a>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Brand Mentions</a>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Compare Brands</a>
+      <div class="nav-section-title">Campaigns</div>
+      <a class="nav-item" href="#"><span class="nm nm-post">POST</span>Create Report</a>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Get Report</a>
+      <div class="nav-section-title">Data</div>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Benchmarks</a>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Hashtag Analytics</a>
+      <div class="nav-section-title">Account</div>
+      <a class="nav-item" href="#"><span class="nm nm-get">GET</span>Usage</a>
+      <a class="nav-item" href="#"><span class="nm nm-del">DEL</span>Revoke Key</a>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-main">
+      <div class="page-header">
+        <div class="ph-breadcrumb"><a href="dreabee-developers.html">Docs</a><span>/</span><a href="#">Getting
+            Started</a><span>/</span>Authentication</div>
+        <div class="ph-badge">Getting Started</div>
+        <h1>Authentication</h1>
+        <p>The Dreabee API uses API keys to authenticate requests. All API calls must include your key as a Bearer token
+          in the <span class="ic">Authorization</span> header. Keys are scoped to your account and carry your plan
+          limits.</p>
+      </div>
+      <div class="on-page-nav">
+        <span class="opn-link active" onclick="scrollTo('overview')">Overview</span>
+        <span class="opn-link" onclick="scrollTo('key-format')">Key format</span>
+        <span class="opn-link" onclick="scrollTo('usage')">Usage</span>
+        <span class="opn-link" onclick="scrollTo('security')">Security</span>
+        <span class="opn-link" onclick="scrollTo('rotating')">Rotating keys</span>
+        <span class="opn-link" onclick="scrollTo('errors')">Auth errors</span>
+        <span class="opn-link" onclick="scrollTo('rate-limits')">Rate limits</span>
+        <span class="opn-link" onclick="scrollTo('pagination')">Pagination</span>
+      </div>
+
+      <div class="doc-content">
+
+        <!-- OVERVIEW -->
+        <div class="doc-section" id="overview">
+          <h2>Overview</h2>
+          <p>All requests to the Dreabee API must be authenticated. We use API keys — long-lived tokens that are tied to
+            your account and carry your plan's permissions and rate limits.</p>
+          <p>There are two types of keys:</p>
+          <p><strong style="color:var(--bright)">Live keys</strong> (<span class="ic">drea_live_...</span>) — Use in
+            production. These keys access real data and count against your monthly request quota.</p>
+          <p><strong style="color:var(--bright)">Test keys</strong> (<span class="ic">drea_test_...</span>) — Use in
+            development. Requests are sandboxed and return mock data. Test requests do not count toward your quota.</p>
+          <div class="alert alert-warn">
+            <svg viewBox="0 0 24 24">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            <span>Never expose your live API key in client-side code, public repositories, or error messages. If
+              compromised, rotate it immediately from your dashboard.</span>
+          </div>
+        </div>
+
+        <!-- KEY FORMAT -->
+        <div class="doc-section" id="key-format">
+          <h2>Key format</h2>
+          <p>Dreabee API keys follow a consistent format that encodes the environment and type, making them easy to
+            identify at a glance.</p>
+          <div class="key-anatomy">
+            <div class="ka-key">drea_live_sk_a7f3k9m2x8q1r5t0p4w6n</div>
+            <div class="ka-segments">
+              <div class="ka-seg ks-prefix">drea_</div>
+              <div class="ka-seg ks-env">live_</div>
+              <div class="ka-seg ks-type">sk_</div>
+              <div class="ka-seg ks-secret">a7f3k9m2x8q1r5t0p4w6n</div>
+            </div>
+            <div class="ka-legend">
+              <div class="kl-item">
+                <div class="kl-dot" style="background:var(--teal)"></div>Prefix — always <span class="ic"
+                  style="margin-left:4px">drea_</span>
+              </div>
+              <div class="kl-item">
+                <div class="kl-dot" style="background:var(--blue)"></div>Environment — <span class="ic"
+                  style="margin-left:4px">live_</span> or <span class="ic" style="margin-left:4px">test_</span>
+              </div>
+              <div class="kl-item">
+                <div class="kl-dot" style="background:var(--orange)"></div>Type — <span class="ic"
+                  style="margin-left:4px">sk_</span> (secret key)
+              </div>
+              <div class="kl-item">
+                <div class="kl-dot" style="background:var(--muted)"></div>Secret — 22-character random string
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-info">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            <span>You can validate locally whether a string looks like a valid Dreabee key by checking it matches the
+              pattern <span class="ic">drea_(live|test)_sk_[a-z0-9]{22}</span> — though this doesn't verify the key is
+              active or authorised.</span>
+          </div>
+        </div>
+
+        <!-- USAGE -->
+        <div class="doc-section" id="usage">
+          <h2>Usage</h2>
+          <p>Pass your API key as a Bearer token in the <span class="ic">Authorization</span> HTTP header on every
+            request.</p>
+          <div class="code-block">
+            <div class="cb-header"><span class="cb-lang">HTTP Header</span><button class="cb-copy"
+                onclick="copyCode(this)"><svg viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg> Copy</button></div>
+            <div class="cb-body"><span class="tk">Authorization:</span> <span class="ts">Bearer
+                drea_live_sk_your_key_here</span></div>
+          </div>
+          <h3>Example requests</h3>
+          <div class="code-block">
+            <div class="cb-header"><span class="cb-lang">cURL</span><span
+                class="cb-filename">get-creator.sh</span><button class="cb-copy" onclick="copyCode(this)"><svg
+                  viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg> Copy</button></div>
+            <div class="cb-body">
+              <span class="tp">curl</span> https://api.dreabee.com/v2/creator/luxestyle \<br>
+              &nbsp;&nbsp;<span class="tk">-H</span> <span class="ts">"Authorization: Bearer $DREABEE_API_KEY"</span>
+              \<br>
+              &nbsp;&nbsp;<span class="tk">-G</span> \<br>
+              &nbsp;&nbsp;<span class="tk">-d</span> <span class="ts">"platform=instagram"</span>
+            </div>
+          </div>
+          <div class="code-block">
+            <div class="cb-header"><span class="cb-lang">Python</span><span
+                class="cb-filename">auth_example.py</span><button class="cb-copy" onclick="copyCode(this)"><svg
+                  viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg> Copy</button></div>
+            <div class="cb-body">
+              <span class="tk">import</span> <span class="tp">os</span><br>
+              <span class="tk">from</span> <span class="tp">dreabee</span> <span class="tk">import</span> <span
+                class="tp">DreabeeClient</span><br><br>
+              <span class="tc"># Load key from environment — never hardcode</span><br>
+              client = <span class="tp">DreabeeClient</span>(api_key=<span class="tp">os</span>.environ[<span
+                class="ts">"DREABEE_API_KEY"</span>])<br><br>
+              <span class="tc"># The client handles auth headers automatically</span><br>
+              creator = client.creator.get(<span class="ts">"luxestyle"</span>, platform=<span
+                class="ts">"instagram"</span>)<br>
+              <span class="tp">print</span>(creator.authenticity_score) <span class="tc"># 91.4</span>
+            </div>
+          </div>
+          <div class="code-block">
+            <div class="cb-header"><span class="cb-lang">Node.js</span><span
+                class="cb-filename">auth_example.js</span><button class="cb-copy" onclick="copyCode(this)"><svg
+                  viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg> Copy</button></div>
+            <div class="cb-body">
+              <span class="tk">import</span> { <span class="tp">DreabeeClient</span> } <span class="tk">from</span>
+              <span class="ts">'@dreabee/sdk'</span><br><br>
+              <span class="tc">// Load from env — process.env.DREABEE_API_KEY</span><br>
+              <span class="tk">const</span> client = <span class="tk">new</span> <span
+                class="tp">DreabeeClient</span>(process.env.<span class="tp">DREABEE_API_KEY</span>)<br><br>
+              <span class="tk">const</span> creator = <span class="tk">await</span> client.creator.get({<br>
+              &nbsp;&nbsp;handle: <span class="ts">'luxestyle'</span>,<br>
+              &nbsp;&nbsp;platform: <span class="ts">'instagram'</span><br>
+              })<br>
+              <span class="tp">console</span>.log(creator.authenticity_score) <span class="tc">// 91.4</span>
+            </div>
+          </div>
+          <div class="alert alert-info">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
+            </svg>
+            <span>All Dreabee SDKs handle auth headers automatically when initialised with an API key. You never need to
+              set headers manually when using an official SDK.</span>
+          </div>
+        </div>
+
+        <!-- SECURITY -->
+        <div class="doc-section" id="security">
+          <h2>Security best practices</h2>
+          <h3>Store keys in environment variables</h3>
+          <p>Never hardcode API keys in source code. Store them in environment variables and load them at runtime.</p>
+          <div class="code-block">
+            <div class="cb-header"><span class="cb-lang">Shell</span><span class="cb-filename">.env</span><button
+                class="cb-copy" onclick="copyCode(this)"><svg viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg> Copy</button></div>
+            <div class="cb-body">
+              <span class="tc"># .env — add to .gitignore</span><br>
+              <span class="tp">DREABEE_API_KEY</span>=<span class="ts">drea_live_sk_your_key_here</span><br><br>
+              <span class="tc"># Use test key during development</span><br>
+              <span class="tp">DREABEE_TEST_KEY</span>=<span class="ts">drea_test_sk_your_test_key</span>
+            </div>
+          </div>
+          <div class="alert alert-danger">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <span>Never commit API keys to git. Add <span class="ic">.env</span> to your <span
+                class="ic">.gitignore</span>. If you accidentally expose a key in a public repo, rotate it immediately —
+              treat it as compromised.</span>
+          </div>
+          <h3>Use separate keys per environment</h3>
+          <p>Generate distinct keys for development, staging, and production. This way you can revoke a single
+            environment's access without affecting others.</p>
+          <h3>Restrict key permissions</h3>
+          <p>In your dashboard, you can scope keys to specific endpoints or IP addresses. Use the minimum permissions
+            your integration actually needs.</p>
+        </div>
+
+        <!-- ROTATING -->
+        <div class="doc-section" id="rotating">
+          <h2>Rotating API keys</h2>
+          <p>You can generate a new API key at any time from <strong style="color:var(--bright)">Settings → API
+              Keys</strong> in your dashboard. When you rotate a key:</p>
+          <p>1. Generate the new key in your dashboard — it's active immediately.<br>2. Update your application to use
+            the new key.<br>3. Delete the old key once you've confirmed everything works.</p>
+          <div class="alert alert-success">
+            <svg viewBox="0 0 24 24">
+              <polyline points="20 6 9 17 4 12" />
+            </svg>
+            <span>You can have multiple active keys simultaneously, making zero-downtime rotation possible. Old keys
+              remain valid until you explicitly revoke them.</span>
+          </div>
+        </div>
+
+        <!-- AUTH ERRORS -->
+        <div class="doc-section" id="errors">
+          <h2>Authentication errors</h2>
+          <p>When authentication fails, the API returns a structured JSON error body alongside an HTTP error status.</p>
+          <table class="err-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Error code</th>
+                <th>Cause</th>
+                <th>Fix</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="status-badge s401">401</span></td>
+                <td><span class="ic">MISSING_KEY</span></td>
+                <td style="color:var(--muted)">No Authorization header sent</td>
+                <td style="color:var(--muted)">Add <span class="ic">Authorization: Bearer {key}</span> header</td>
+              </tr>
+              <tr>
+                <td><span class="status-badge s401">401</span></td>
+                <td><span class="ic">INVALID_KEY</span></td>
+                <td style="color:var(--muted)">Key doesn't exist or is malformed</td>
+                <td style="color:var(--muted)">Verify key from your dashboard</td>
+              </tr>
+              <tr>
+                <td><span class="status-badge s401">401</span></td>
+                <td><span class="ic">REVOKED_KEY</span></td>
+                <td style="color:var(--muted)">Key was deleted or revoked</td>
+                <td style="color:var(--muted)">Generate a new key in Settings</td>
+              </tr>
+              <tr>
+                <td><span class="status-badge s401">403</span></td>
+                <td><span class="ic">PLAN_RESTRICTED</span></td>
+                <td style="color:var(--muted)">Endpoint not available on your plan</td>
+                <td style="color:var(--muted)">Upgrade your plan or use a different endpoint</td>
+              </tr>
+              <tr>
+                <td><span class="status-badge s429">429</span></td>
+                <td><span class="ic">RATE_LIMITED</span></td>
+                <td style="color:var(--muted)">Request rate exceeded</td>
+                <td style="color:var(--muted)">Back off and retry after <span class="ic">Retry-After</span> seconds</td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="code-block">
+            <div class="cb-header"><span class="cb-lang">JSON</span><span class="cb-filename">error response</span>
+            </div>
+            <div class="cb-body">
+              <span class="to">{</span><br>
+              &nbsp;&nbsp;<span class="tk">"error"</span><span class="to">: {</span><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="tk">"code"</span><span class="to">: </span><span
+                class="ts">"INVALID_KEY"</span><span class="to">,</span><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="tk">"message"</span><span class="to">: </span><span class="ts">"The
+                API key provided is invalid or has been revoked."</span><span class="to">,</span><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="tk">"status"</span><span class="to">: </span><span
+                class="tn">401</span><span class="to">,</span><br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="tk">"docs"</span><span class="to">: </span><span
+                class="ts">"https://docs.dreabee.com/api/authentication#errors"</span><br>
+              &nbsp;&nbsp;<span class="to">}</span><br>
+              <span class="to">}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RATE LIMITS -->
+        <div class="doc-section" id="rate-limits">
+          <h2>Rate limits</h2>
+          <p>Rate limits are enforced per API key. Every response includes headers that tell you your current usage:</p>
+          <div class="code-block">
+            <div class="cb-header"><span class="cb-lang">Response Headers</span></div>
+            <div class="cb-body">
+              <span class="tk">X-RateLimit-Limit:</span> <span class="tn">60</span> <span class="tc"># Requests per
+                minute</span><br>
+              <span class="tk">X-RateLimit-Remaining:</span> <span class="tn">47</span> <span class="tc"># Remaining in
+                current window</span><br>
+              <span class="tk">X-RateLimit-Reset:</span> <span class="tn">1705929600</span> <span class="tc"># Unix
+                timestamp when window resets</span><br>
+              <span class="tk">X-Monthly-Limit:</span> <span class="tn">50000</span> <span class="tc"># Total monthly
+                quota</span><br>
+              <span class="tk">X-Monthly-Remaining:</span> <span class="tn">49953</span> <span class="tc"># Monthly
+                remaining</span>
+            </div>
+          </div>
+          <div class="rl-visual">
+            <div class="rlv-row">
+              <div class="rlv-label">Free</div>
+              <div class="rlv-bar">
+                <div class="rlv-fill" style="width:10%"></div>
+              </div>
+              <div class="rlv-val">20/min</div>
+            </div>
+            <div class="rlv-row">
+              <div class="rlv-label">Starter</div>
+              <div class="rlv-bar">
+                <div class="rlv-fill" style="width:30%"></div>
+              </div>
+              <div class="rlv-val">60/min</div>
+            </div>
+            <div class="rlv-row">
+              <div class="rlv-label">Growth</div>
+              <div class="rlv-bar">
+                <div class="rlv-fill" style="width:60%"></div>
+              </div>
+              <div class="rlv-val">300/min</div>
+            </div>
+            <div class="rlv-row">
+              <div class="rlv-label">Pro</div>
+              <div class="rlv-bar">
+                <div class="rlv-fill" style="width:100%"></div>
+              </div>
+              <div class="rlv-val">1,000/min</div>
+            </div>
+          </div>
+          <p>When rate-limited, wait the number of seconds in the <span class="ic">Retry-After</span> header before
+            retrying. Implement exponential backoff for resilience.</p>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="doc-section" id="pagination">
+          <h2>Pagination</h2>
+          <p>All list endpoints use cursor-based pagination. Responses include a <span class="ic">pagination</span>
+            object with the cursor for the next page.</p>
+          <div class="pagination-section">
+            <h4>Pagination response fields</h4>
+            <div class="pag-field"><span class="pf-name">next_cursor</span><span class="pf-type">string |
+                null</span><span class="pf-desc">Cursor for next page. Null if no more results.</span></div>
+            <div class="pag-field"><span class="pf-name">has_more</span><span class="pf-type">boolean</span><span
+                class="pf-desc">Whether more results exist after this page.</span></div>
+            <div class="pag-field"><span class="pf-name">total_count</span><span class="pf-type">integer</span><span
+                class="pf-desc">Total number of matching results (capped at 10,000).</span></div>
+            <div class="pag-field"><span class="pf-name">per_page</span><span class="pf-type">integer</span><span
+                class="pf-desc">Items returned in this response. Max 100.</span></div>
+          </div>
+          <div class="code-block">
+            <div class="cb-header"><span class="cb-lang">Python</span><span
+                class="cb-filename">paginate.py</span><button class="cb-copy" onclick="copyCode(this)"><svg
+                  viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg> Copy</button></div>
+            <div class="cb-body">
+              results, cursor = [], <span class="tb">None</span><br><br>
+              <span class="tk">while True</span>:<br>
+              &nbsp;&nbsp;page = client.creator.search(<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;niche=<span class="ts">"beauty"</span>, location=<span class="ts">"GB"</span>,<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;cursor=cursor, per_page=<span class="tn">100</span><br>
+              &nbsp;&nbsp;)<br>
+              &nbsp;&nbsp;results.extend(page.data)<br>
+              &nbsp;&nbsp;<span class="tk">if not</span> page.pagination.has_more: <span class="tk">break</span><br>
+              &nbsp;&nbsp;cursor = page.pagination.next_cursor<br><br>
+              <span class="tp">print</span>(f<span class="ts">"Found {len(results)} creators"</span>)
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /doc-content -->
+    </main>
+
+    <!-- RIGHT CODE PANEL -->
+    <div class="sidebar-right">
+      <div class="code-panel-section">
+        <div class="cps-header"><span class="cps-title">// Auth header</span></div>
+        <div class="code-tabs">
+          <div class="ctab active" onclick="switchTab(this,'t1curl')">cURL</div>
+          <div class="ctab" onclick="switchTab(this,'t1py')">Python</div>
+          <div class="ctab" onclick="switchTab(this,'t1node')">Node</div>
+        </div>
+        <div class="code-tab-content active" id="t1curl">
+          <span class="tc"># Set in your shell</span><br>
+          <span class="tp">export</span> DREABEE_API_KEY=<span class="ts">"drea_live_sk_..."</span><br><br>
+          <span class="tp">curl</span> https://api.dreabee.com/v2/creator/luxestyle \<br>
+          &nbsp;&nbsp;<span class="tk">-H</span> <span class="ts">"Authorization: Bearer $DREABEE_API_KEY"</span> \<br>
+          &nbsp;&nbsp;<span class="tk">-G</span> <span class="tk">-d</span> <span class="ts">"platform=instagram"</span>
+        </div>
+        <div class="code-tab-content" id="t1py">
+          <span class="tk">import</span> <span class="tp">os</span><br>
+          <span class="tk">from</span> <span class="tp">dreabee</span> <span class="tk">import</span> <span
+            class="tp">DreabeeClient</span><br><br>
+          client = <span class="tp">DreabeeClient</span>(<br>
+          &nbsp;&nbsp;api_key=<span class="tp">os</span>.environ[<span class="ts">"DREABEE_API_KEY"</span>]<br>
+          )
+        </div>
+        <div class="code-tab-content" id="t1node">
+          <span class="tk">import</span> { <span class="tp">DreabeeClient</span> } <span class="tk">from</span> <span
+            class="ts">'@dreabee/sdk'</span><br><br>
+          <span class="tk">const</span> client = <span class="tk">new</span> <span class="tp">DreabeeClient</span>(<br>
+          &nbsp;&nbsp;process.env.<span class="tp">DREABEE_API_KEY</span><br>
+          )
+        </div>
+      </div>
+      <div class="code-panel-section">
+        <div class="resp-header"><span class="resp-title">// 401 error response</span><span class="resp-status"
+            style="color:var(--red);background:rgba(255,107,107,.1)">401</span></div>
+        <div class="resp-body">
+          <span class="to">{</span><br>
+          &nbsp;&nbsp;<span class="tk">"error"</span><span class="to">: {</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="tk">"code"</span><span class="to">: </span><span
+            class="ts">"INVALID_KEY"</span><span class="to">,</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="tk">"message"</span><span class="to">: </span><span class="ts">"API key
+            invalid"</span><span class="to">,</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="tk">"status"</span><span class="to">: </span><span
+            class="tn">401</span><br>
+          &nbsp;&nbsp;<span class="to">}</span><br>
+          <span class="to">}</span>
+        </div>
+      </div>
+      <div class="code-panel-section">
+        <div class="resp-header"><span class="resp-title">// Rate limit headers</span><span
+            class="resp-status">200</span></div>
+        <div class="resp-body">
+          <span class="tk">X-RateLimit-Limit:</span> <span class="tn">60</span><br>
+          <span class="tk">X-RateLimit-Remaining:</span> <span class="tn">47</span><br>
+          <span class="tk">X-RateLimit-Reset:</span> <span class="tn">1705929600</span><br>
+          <span class="tk">X-Monthly-Limit:</span> <span class="tn">50000</span><br>
+          <span class="tk">X-Monthly-Remaining:</span> <span class="tn">49953</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(el, id) {
+      const panel = el.closest('.code-panel-section');
+      panel.querySelectorAll('.ctab').forEach(t => t.classList.remove('active'));
+      panel.querySelectorAll('.code-tab-content').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById(id).classList.add('active');
+    }
+    function copyCode(btn) {
+      const code = btn.closest('.code-block').querySelector('.cb-body').innerText;
+      navigator.clipboard.writeText(code).catch(() => { });
+      const orig = btn.innerHTML;
+      btn.innerHTML = '✓ Copied';
+      btn.style.color = 'var(--teal)';
+      setTimeout(() => { btn.innerHTML = orig; btn.style.color = ''; }, 2000);
+    }
+  </script>
+
+  <footer style="background:#060E1D;border-top:1px solid var(--border,#1E3352);padding:40px 32px 32px">
+    <div
+      style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+        <a href="index.html" style="display:flex;align-items:center;gap:8px;text-decoration:none">
+          <svg width="90" height="26" viewBox="0 0 140 42" fill="none">
+            <defs>
+              <linearGradient id="flg-d" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#8AD8A3" />
+                <stop offset="100%" stop-color="#34AE93" />
+              </linearGradient>
+            </defs>
+            <circle cx="21" cy="21" r="18" fill="url(#flg-d)" />
+            <text x="21" y="27" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#043E54"
+              text-anchor="middle">db</text>
+            <text x="50" y="27" font-family="Inter,sans-serif" font-size="20" font-weight="700"
+              fill="#E8F4FF">dreabee</text>
+          </svg>
+        </a>
+        <span style="font-size:12px;color:#6B8FAF">API Documentation · v2.1</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+        <a href="dreabee-api-docs.html" style="font-size:13px;color:#6B8FAF;text-decoration:none;transition:color .12s"
+          onmouseover="this.style.color='#34AE93'" onmouseout="this.style.color='#6B8FAF'">API Docs</a>
+        <a href="dreabee-get-api-key.html"
+          style="font-size:13px;color:#6B8FAF;text-decoration:none;transition:color .12s"
+          onmouseover="this.style.color='#34AE93'" onmouseout="this.style.color='#6B8FAF'">Get API Key</a>
+        <a href="dreabee-developers.html"
+          style="font-size:13px;color:#6B8FAF;text-decoration:none;transition:color .12s"
+          onmouseover="this.style.color='#34AE93'" onmouseout="this.style.color='#6B8FAF'">Developer Hub</a>
+        <a href="index.html" style="font-size:13px;color:#6B8FAF;text-decoration:none;transition:color .12s"
+          onmouseover="this.style.color='#34AE93'" onmouseout="this.style.color='#6B8FAF'">← Main Site</a>
+        <span style="font-size:12px;color:#3a5470">© 2025 Dreabee</span>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>

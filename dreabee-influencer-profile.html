@@ -1,0 +1,3744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>@luxestyle — Instagram Creator Profile · Dreabee</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ═══ DREABEE MASTER NAV + FOOTER CSS ═══ */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    /* NAV */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* FOOTER */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden;
+      padding: 0
+    }
+
+    .gfoot-soc:hover {
+      border-color: #34AE93;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 174, 147, .2)
+    }
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px) {
+      .gnav-links {
+        gap: 0
+      }
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 6px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --primary: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --grad: linear-gradient(135deg, #8AD8A3, #34AE93);
+      --border: #DFF0EC;
+      --muted: #4A7A84;
+      --tint: #EAF6F3;
+      --surface: #F4FAFA
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--primary);
+      background: var(--surface);
+      overflow-x: hidden
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    /* ── NAV ── */
+    .top .topnav-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color .15s
+    }
+
+    .topnav-left:hover {
+      color: var(--teal)
+    }
+
+    .topnav-left svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      flex-shrink: 0
+    }
+
+    .topnav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .btn-api:hover {
+      border-color: var(--teal);
+      color: var(--teal)
+    }
+
+
+    /* ── PROFILE HERO ── */
+    .profile-hero {
+      background: var(--primary);
+      padding: 80px 0 0;
+      position: relative;
+      overflow: hidden
+    }
+
+    .profile-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 800px 500px at 75% 60%, rgba(138, 216, 163, .09), transparent 60%);
+      pointer-events: none
+    }
+
+    .hero-content {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1
+    }
+
+    .hero-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px
+    }
+
+    .hero-avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--primary);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 3px rgba(138, 216, 163, .35), 0 0 0 6px rgba(138, 216, 163, .12);
+      margin-top: 4px
+    }
+
+    .hero-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .hero-platform {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, .45);
+      margin-bottom: 8px
+    }
+
+    .hero-platform .ig {
+      color: #E1306C
+    }
+
+    .hero-name {
+      font-size: clamp(20px, 2.5vw, 30px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -.8px;
+      margin-bottom: 4px
+    }
+
+    .hero-handle {
+      font-size: 14.5px;
+      color: rgba(255, 255, 255, .45);
+      margin-bottom: 12px
+    }
+
+    .hero-bio {
+      font-size: 14px;
+      color: rgba(255, 255, 255, .65);
+      line-height: 1.65;
+      max-width: 480px;
+      margin-bottom: 14px
+    }
+
+    .hero-tags {
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap
+    }
+
+    .hero-tag {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .55);
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .11);
+      padding: 3px 11px;
+      border-radius: 50px
+    }
+
+    .hero-score {
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 14px;
+      padding: 18px 22px;
+      text-align: center;
+      flex-shrink: 0;
+      min-width: 180px;
+      margin-top: 4px
+    }
+
+    .hs-val {
+      font-size: 48px;
+      font-weight: 900;
+      letter-spacing: -3px;
+      line-height: 1;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .hs-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255, 255, 255, .45);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      margin-top: 4px
+    }
+
+    .hs-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mint);
+      background: rgba(52, 174, 147, .2);
+      border: 1px solid rgba(52, 174, 147, .3);
+      padding: 4px 10px;
+      border-radius: 50px;
+      margin-top: 9px
+    }
+
+    .hs-badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal);
+      display: inline-block
+    }
+
+    /* TABS */
+    .hero-tabs {
+      border-top: 1px solid rgba(255, 255, 255, .07);
+      margin-top: 26px
+    }
+
+    .tabs-row {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      overflow-x: auto
+    }
+
+    .tabs-row::-webkit-scrollbar {
+      display: none
+    }
+
+    .htab {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .4);
+      padding: 14px 18px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: all .2s;
+      flex-shrink: 0
+    }
+
+    .htab:hover {
+      color: rgba(255, 255, 255, .7)
+    }
+
+    .htab.active {
+      color: #fff;
+      border-bottom-color: var(--teal)
+    }
+
+    /* ── BODY ── */
+    .page-body {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 32px 80px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 24px;
+      align-items: start
+    }
+
+    /* STATS ROW — spans full width */
+    .stats-row {
+      grid-column: 1/-1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 4px
+    }
+
+    .stat-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px 20px
+    }
+
+    .sc-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px
+    }
+
+    .sc-icon svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round
+    }
+
+    .sc-icon.tl {
+      background: var(--tint);
+      color: var(--teal)
+    }
+
+    .sc-icon.bl {
+      background: #EFF6FF;
+      color: #3B82F6
+    }
+
+    .sc-icon.pu {
+      background: #F5F3FF;
+      color: #7C3AED
+    }
+
+    .sc-icon.or {
+      background: #FEF9EC;
+      color: #D97706
+    }
+
+    .sc-val {
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--primary);
+      letter-spacing: -.8px
+    }
+
+    .sc-lbl {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 3px
+    }
+
+    .sc-delta {
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 5px;
+      color: #10B981
+    }
+
+    /* MAIN COLUMN */
+    .main-col {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px
+    }
+
+    /* SIDEBAR COLUMN */
+    .side-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: sticky;
+      top: 80px
+    }
+
+    /* CARD */
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px
+    }
+
+    .card-hd {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between
+    }
+
+    .card-hd-badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--teal);
+      background: var(--tint);
+      padding: 2px 8px;
+      border-radius: 4px;
+      text-transform: none;
+      letter-spacing: 0
+    }
+
+    /* GAUGE */
+    .gauge-outer {
+      display: flex;
+      align-items: center;
+      gap: 28px
+    }
+
+    .gauge-left {
+      flex-shrink: 0
+    }
+
+    .gauge-wrap {
+      position: relative;
+      width: 160px;
+      height: 88px;
+      overflow: hidden
+    }
+
+    .gauge-bg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 160px;
+      height: 160px;
+      border-radius: 80px 80px 0 0;
+      background: conic-gradient(from 180deg at 50% 100%, #EF4444 0deg, #F59E0B 50deg, #10B981 100deg, #10B981 180deg, transparent 180deg);
+      opacity: .14
+    }
+
+    .gauge-fill {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 160px;
+      height: 160px;
+      border-radius: 80px 80px 0 0;
+      background: conic-gradient(from 180deg at 50% 100%, var(--teal) 0deg, var(--teal) calc(180deg * .914), transparent 0)
+    }
+
+    .gauge-mid {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      padding-bottom: 4px
+    }
+
+    .gauge-mid .gv {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .gauge-mid .gl {
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 600
+    }
+
+    .gauge-right {
+      flex: 1
+    }
+
+    .ab-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 7px
+    }
+
+    .ab-lbl {
+      font-size: 12.5px;
+      color: var(--muted);
+      width: 90px;
+      flex-shrink: 0
+    }
+
+    .ab-bar {
+      flex: 1;
+      height: 5px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden
+    }
+
+    .ab-fill {
+      height: 100%;
+      border-radius: 3px
+    }
+
+    .ab-v {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary);
+      width: 38px;
+      text-align: right;
+      flex-shrink: 0
+    }
+
+    /* SPARKLINE */
+    .spark-wrap {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 56px;
+      margin-bottom: 10px
+    }
+
+    .spark-bar {
+      flex: 1;
+      border-radius: 2px 2px 0 0;
+      min-height: 3px;
+      transition: opacity .15s;
+      cursor: pointer
+    }
+
+    .spark-bar:hover {
+      opacity: .75
+    }
+
+    .spark-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      color: var(--muted)
+    }
+
+    .growth-row {
+      display: flex;
+      gap: 24px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border)
+    }
+
+    .gr-item .gr-val {
+      font-size: 18px;
+      font-weight: 900;
+      letter-spacing: -.8px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .gr-item .gr-lbl {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 2px
+    }
+
+    /* POST GRID */
+    .post-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px
+    }
+
+    .post-thumb {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      background: var(--surface)
+    }
+
+    .post-thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(4, 62, 84, 0);
+      transition: .2s
+    }
+
+    .post-thumb:hover::after {
+      background: rgba(4, 62, 84, .4)
+    }
+
+    .post-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px
+    }
+
+    .post-hover {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      opacity: 0;
+      transition: opacity .2s
+    }
+
+    .post-thumb:hover .post-hover {
+      opacity: 1
+    }
+
+    .ph-stat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #fff
+    }
+
+    .ph-stat svg {
+      width: 13px;
+      height: 13px;
+      fill: currentColor
+    }
+
+    /* LOCKED */
+    .lock-wrap {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden
+    }
+
+    .lock-content {
+      pointer-events: none;
+      user-select: none
+    }
+
+    .lock-blur {
+      filter: blur(5px)
+    }
+
+    .lock-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(244, 250, 250, 0) 10%, rgba(244, 250, 250, .8) 45%, rgba(244, 250, 250, .98) 65%);
+      z-index: 10;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 28px
+    }
+
+    .lock-cta {
+      text-align: center
+    }
+
+    .lock-cta .lc-icon {
+      font-size: 22px;
+      margin-bottom: 8px
+    }
+
+    .lock-cta .lc-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 5px
+    }
+
+    .lock-cta .lc-text {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.55;
+      max-width: 240px
+    }
+
+    .lock-cta .lc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--grad);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 10px 20px;
+      border-radius: 9px;
+      transition: opacity .2s
+    }
+
+    .lock-cta .lc-btn:hover {
+      opacity: .9
+    }
+
+    .lock-cta .lc-note {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 7px
+    }
+
+    /* SIDEBAR CARDS */
+    .unlock-card {
+      background: var(--primary);
+      border-radius: 16px;
+      padding: 22px
+    }
+
+    .uc-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 7px
+    }
+
+    .uc-desc {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .55);
+      line-height: 1.6;
+      margin-bottom: 16px
+    }
+
+    .uc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px
+    }
+
+    .uc-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .7)
+    }
+
+    .uc-item::before {
+      content: '✓';
+      color: var(--mint);
+      font-weight: 800;
+      flex-shrink: 0
+    }
+
+    .uc-btn {
+      display: block;
+      background: var(--grad);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 11px;
+      border-radius: 9px;
+      text-align: center;
+      transition: opacity .2s
+    }
+
+    .uc-btn:hover {
+      opacity: .9
+    }
+
+    .uc-note {
+      font-size: 11.5px;
+      color: rgba(255, 255, 255, .35);
+      margin-top: 8px;
+      text-align: center
+    }
+
+    .similar-item {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: opacity .2s
+    }
+
+    .similar-item:hover {
+      opacity: .75
+    }
+
+    .similar-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0
+    }
+
+    .sim-av {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0
+    }
+
+    .sim-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary)
+    }
+
+    .sim-meta {
+      font-size: 11.5px;
+      color: var(--muted)
+    }
+
+    .sim-score {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--teal);
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .qs-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px
+    }
+
+    .qs-row:last-child {
+      border-bottom: none
+    }
+
+    .qs-key {
+      color: var(--muted)
+    }
+
+    .qs-val {
+      font-weight: 700;
+      color: var(--primary)
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:960px) {
+      .page-body {
+        grid-template-columns: 1fr;
+        padding: 20px 20px 60px
+      }
+
+      .hero-score {
+        display: none
+      }
+
+      .side-col {
+        position: static
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    @media(max-width:640px) {
+      .hero-content {
+        padding: 0 20px
+      }
+
+      .tabs-row {
+        padding: 0 20px
+      }
+
+      .stats-row {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .hero-row {
+        gap: 16px
+      }
+
+      .hero-avatar {
+        width: 68px;
+        height: 68px;
+        font-size: 24px
+      }
+
+      .topnav-left span {
+        display: none
+      }
+    }
+
+    @media(max-width:480px) {
+      .stats-row {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .gauge-outer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px
+      }
+    }
+
+    /* ──────── GLOBAL NAV ──────── */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .g .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    .gnav-link,
+    .gnav-toggle {
+      padding: 6px 8px;
+      font-size: 13px
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .g .gfoot-grid {
+        grid-template-columns: 1fr !important
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+      }
+    }
+
+    /* ──────── REDESIGNED FOOTER ──────── */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    .gfoot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4A7A84;
+      margin-bottom: 16px
+    }
+
+    .gfoot-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #34AE93;
+      border-radius: 50%
+    }
+  </style>
+  <style id="dreabee-nav-css">
+    /* ── Dreabee Unified Nav & Footer — hardcoded, no CSS var deps ── */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: #ECF7F3;
+      color: #043E54
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: #D5EBE5;
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: #043E54
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #043E54;
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid #D5EBE5
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #043E54;
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid #D5EBE5;
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: #34AE93
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #4A7A84;
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* Footer */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%) !important;
+      border-top: 1px solid #D5EBE5 !important;
+      padding: 64px 0 0 !important
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* Responsive */
+    @media(max-width:1024px) {
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 5px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-inner {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" id="gnav-logo" href="index.html">
+        <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
+      </div>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost" id="gnav-login">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
+      </div>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink" id="gnav-mob-login">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+  </div>
+  </div>
+
+  <!-- NAV -->
+  <!-- PROFILE HERO -->
+  <div class="profile-hero">
+    <div class="hero-content">
+      <div class="hero-row">
+        <div class="hero-avatar">LS</div>
+        <div class="hero-info">
+          <div class="hero-platform">
+            <span style="font-size:14px">📷</span>
+            <span class="ig">Instagram</span>
+            <span style="color:rgba(255,255,255,.2)">·</span>
+            Fashion &amp; Lifestyle
+          </div>
+          <div class="hero-name">Lux Style</div>
+          <div class="hero-handle">@luxestyle &nbsp;·&nbsp; 🇬🇧 United Kingdom</div>
+          <div class="hero-bio">Minimal fashion. Considered living. Based in London. Collab enquiries:
+            hello@luxestyle.co</div>
+          <div class="hero-tags">
+            <span class="hero-tag">Fashion</span>
+            <span class="hero-tag">Lifestyle</span>
+            <span class="hero-tag">Beauty</span>
+            <span class="hero-tag">Travel</span>
+            <span class="hero-tag">Wellness</span>
+          </div>
+        </div>
+        <div class="hero-score">
+          <div class="hs-val">91.4</div>
+          <div class="hs-label">Authenticity Score</div>
+          <div class="hs-badge">High quality</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-tabs">
+      <div class="tabs-row">
+        <div class="htab active" data-tab="overview">Overview</div>
+        <div class="htab" data-tab="audience">Audience</div>
+        <div class="htab" data-tab="content">Content</div>
+        <div class="htab" data-tab="mentions">Brand Mentions</div>
+        <div class="htab" data-tab="similar">Similar Creators</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE BODY -->
+  <div class="page-body" data-panel="overview">
+
+    <!-- STATS ROW — full width -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="sc-icon tl"><svg viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+          </svg></div>
+        <div class="sc-val">284.9K</div>
+        <div class="sc-lbl">Followers</div>
+        <div class="sc-delta">↑ +2.1% this month</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon bl"><svg viewBox="0 0 24 24">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg></div>
+        <div class="sc-val">3.87%</div>
+        <div class="sc-lbl">Engagement Rate</div>
+        <div class="sc-delta">↑ Above category avg</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon pu"><svg viewBox="0 0 24 24">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg></div>
+        <div class="sc-val">11,022</div>
+        <div class="sc-lbl">Avg Likes / Post</div>
+        <div class="sc-delta">↑ +8% vs last quarter</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon or"><svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          </svg></div>
+        <div class="sc-val">341</div>
+        <div class="sc-lbl">Avg Comments / Post</div>
+        <div class="sc-delta">↑ Strong ratio</div>
+      </div>
+    </div>
+
+    <!-- MAIN COLUMN -->
+    <div class="main-col">
+
+      <!-- AUTHENTICITY -->
+      <div class="card">
+        <div class="card-hd">Audience Authenticity <span class="card-hd-badge">High Quality</span></div>
+        <div class="gauge-outer">
+          <div class="gauge-left">
+            <div class="gauge-wrap">
+              <div class="gauge-bg"></div>
+              <div class="gauge-fill"></div>
+              <div class="gauge-mid">
+                <div class="gv">91.4</div>
+                <div class="gl">/ 100</div>
+              </div>
+            </div>
+          </div>
+          <div class="gauge-right">
+            <div class="ab-row"><span class="ab-lbl">Real people</span>
+              <div class="ab-bar">
+                <div class="ab-fill" style="width:78.3%;background:var(--grad)"></div>
+              </div><span class="ab-v">78.3%</span>
+            </div>
+            <div class="ab-row"><span class="ab-lbl">Influencers</span>
+              <div class="ab-bar">
+                <div class="ab-fill" style="width:8.1%;background:#34AE93"></div>
+              </div><span class="ab-v">8.1%</span>
+            </div>
+            <div class="ab-row"><span class="ab-lbl">Mass followers</span>
+              <div class="ab-bar">
+                <div class="ab-fill" style="width:5.3%;background:#F59E0B"></div>
+              </div><span class="ab-v">5.3%</span>
+            </div>
+            <div class="ab-row"><span class="ab-lbl">Suspicious</span>
+              <div class="ab-bar">
+                <div class="ab-fill" style="width:5.2%;background:#F59E0B"></div>
+              </div><span class="ab-v">5.2%</span>
+            </div>
+            <div class="ab-row" style="margin-bottom:0"><span class="ab-lbl">Fake / Bots</span>
+              <div class="ab-bar">
+                <div class="ab-fill" style="width:3.1%;background:#EF4444"></div>
+              </div><span class="ab-v">3.1%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOLLOWER GROWTH -->
+      <div class="card">
+        <div class="card-hd">Follower Growth <span class="card-hd-badge">Last 12 months</span></div>
+        <div class="spark-wrap" id="sparkline"></div>
+        <div class="spark-labels">
+          <span>Jan</span><span>Mar</span><span>May</span><span>Jul</span><span>Sep</span><span>Nov</span><span>Dec</span>
+        </div>
+        <div class="growth-row">
+          <div class="gr-item">
+            <div class="gr-val">+28.4K</div>
+            <div class="gr-lbl">New followers (12m)</div>
+          </div>
+          <div class="gr-item">
+            <div class="gr-val" style="background:none;-webkit-text-fill-color:var(--primary)">2.4K</div>
+            <div class="gr-lbl">Avg per month</div>
+          </div>
+          <div class="gr-item">
+            <div class="gr-val" style="background:none;-webkit-text-fill-color:#10B981">+11.1%</div>
+            <div class="gr-lbl">Growth rate</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECENT POSTS — 3 visible -->
+      <div class="card">
+        <div class="card-hd">Recent Posts <span class="card-hd-badge">3 of 847 shown</span></div>
+        <div class="post-grid-3" id="post-grid"></div>
+
+        <!-- LOCKED MORE POSTS -->
+        <div class="lock-wrap" style="margin-top:8px">
+          <div class="lock-content lock-blur">
+            <div class="post-grid-3" style="gap:8px">
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--border)"></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:#DFF0EC"></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--tint)"></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:#EAF6F3"></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:var(--border)"></div>
+              <div style="aspect-ratio:1;border-radius:10px;background:#DFF0EC"></div>
+            </div>
+          </div>
+          <div class="lock-fade">
+            <div class="lock-cta">
+              <div class="lc-icon">🖼️</div>
+              <div class="lc-title">844 more posts</div>
+              <div class="lc-text">Access all posts with likes, comments, reach, and saves per post.</div>
+              <a href="dreabee-register.html" class="lc-btn">Unlock Free →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BENCHMARKS — locked -->
+      <div class="lock-wrap">
+        <div class="card lock-content" style="margin-bottom:0">
+          <div class="card-hd">vs. Industry Benchmarks <span class="card-hd-badge">Fashion · 100K–500K</span></div>
+          <div>
+            <div class="ab-row" style="margin-bottom:10px"><span class="ab-lbl"
+                style="width:130px;font-size:13px">Engagement rate</span>
+              <div class="ab-bar" style="height:8px;position:relative;overflow:visible">
+                <div class="ab-fill" style="width:77%;background:var(--grad);height:100%"></div>
+                <div
+                  style="position:absolute;top:-5px;bottom:-5px;left:50%;width:2px;background:var(--muted);border-radius:1px">
+                </div>
+              </div><span class="ab-v" style="color:#10B981">3.87%</span>
+            </div>
+            <div class="ab-row lock-blur" style="margin-bottom:10px"><span class="ab-lbl"
+                style="width:130px;font-size:13px">Avg likes/post</span>
+              <div class="ab-bar" style="height:8px">
+                <div class="ab-fill" style="width:65%;background:var(--teal);height:100%"></div>
+              </div><span class="ab-v">11K</span>
+            </div>
+            <div class="ab-row lock-blur" style="margin-bottom:10px"><span class="ab-lbl"
+                style="width:130px;font-size:13px">Comment rate</span>
+              <div class="ab-bar" style="height:8px">
+                <div class="ab-fill" style="width:72%;background:#8AD8A3;height:100%"></div>
+              </div><span class="ab-v">0.12%</span>
+            </div>
+            <div class="ab-row lock-blur"><span class="ab-lbl" style="width:130px;font-size:13px">Story view rate</span>
+              <div class="ab-bar" style="height:8px">
+                <div class="ab-fill" style="width:58%;background:#DFF0EC;height:100%"></div>
+              </div><span class="ab-v">18%</span>
+            </div>
+          </div>
+        </div>
+        <div class="lock-fade"
+          style="background:linear-gradient(to bottom,rgba(244,250,250,0) 0%,rgba(244,250,250,.82) 40%,rgba(244,250,250,.98) 58%)">
+          <div class="lock-cta">
+            <div class="lc-icon">📊</div>
+            <div class="lc-title">Full benchmark report</div>
+            <div class="lc-text">Compare @luxestyle against 8,400+ Fashion creators in the same tier.</div>
+            <a href="dreabee-register.html" class="lc-btn">Unlock Free →</a>
+            <div class="lc-note">Free plan · No credit card</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEMOGRAPHICS — locked -->
+      <div class="lock-wrap" style="margin-top:18px">
+        <div class="card lock-content lock-blur" style="margin-bottom:0">
+          <div class="card-hd">Audience Demographics</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:20px">
+            <div>
+              <div
+                style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:12px">
+                Gender</div>
+              <div style="display:flex;align-items:center;gap:16px">
+                <svg width="90" height="90" viewBox="0 0 90 90" style="transform:rotate(-90deg);flex-shrink:0">
+                  <circle cx="45" cy="45" r="34" fill="none" stroke="#DFF0EC" stroke-width="16" />
+                  <circle cx="45" cy="45" r="34" fill="none" stroke="url(#dg2)" stroke-width="16"
+                    stroke-dasharray="135 79" stroke-linecap="round" />
+                  <defs>
+                    <linearGradient id="dg2" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stop-color="#8AD8A3" />
+                      <stop offset="100%" stop-color="#34AE93" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div style="display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:7px;font-size:12.5px">
+                    <div style="width:9px;height:9px;border-radius:2px;background:var(--teal)"></div><span
+                      style="color:var(--muted)">Female</span><strong style="margin-left:auto">63%</strong>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:7px;font-size:12.5px">
+                    <div style="width:9px;height:9px;border-radius:2px;background:#DFF0EC"></div><span
+                      style="color:var(--muted)">Male</span><strong style="margin-left:auto">34%</strong>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:7px;font-size:12.5px">
+                    <div style="width:9px;height:9px;border-radius:2px;background:var(--surface)"></div><span
+                      style="color:var(--muted)">Other</span><strong style="margin-left:auto">3%</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div
+                style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:12px">
+                Age Groups</div>
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <div class="ab-row"><span class="ab-lbl" style="width:42px">18–24</span>
+                  <div class="ab-bar">
+                    <div class="ab-fill" style="width:32%;background:var(--grad)"></div>
+                  </div><span class="ab-v">32%</span>
+                </div>
+                <div class="ab-row"><span class="ab-lbl" style="width:42px">25–34</span>
+                  <div class="ab-bar">
+                    <div class="ab-fill" style="width:41%;background:var(--teal)"></div>
+                  </div><span class="ab-v">41%</span>
+                </div>
+                <div class="ab-row"><span class="ab-lbl" style="width:42px">35–44</span>
+                  <div class="ab-bar">
+                    <div class="ab-fill" style="width:16%;background:#8AD8A3"></div>
+                  </div><span class="ab-v">16%</span>
+                </div>
+                <div class="ab-row"><span class="ab-lbl" style="width:42px">45+</span>
+                  <div class="ab-bar">
+                    <div class="ab-fill" style="width:11%;background:#DFF0EC"></div>
+                  </div><span class="ab-v">11%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:12px">
+              Top Locations</div>
+            <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px">
+              <div style="text-align:center;background:var(--tint);border-radius:9px;padding:10px 6px">
+                <div style="font-size:18px;margin-bottom:4px">🇬🇧</div>
+                <div style="font-size:14px;font-weight:900;color:var(--primary)">??%</div>
+                <div style="font-size:10px;color:var(--muted)">UK</div>
+              </div>
+              <div
+                style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 6px">
+                <div style="font-size:18px;margin-bottom:4px">🇺🇸</div>
+                <div style="font-size:14px;font-weight:900;color:var(--primary)">??%</div>
+                <div style="font-size:10px;color:var(--muted)">USA</div>
+              </div>
+              <div
+                style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 6px">
+                <div style="font-size:18px;margin-bottom:4px">🇦🇪</div>
+                <div style="font-size:14px;font-weight:900;color:var(--primary)">??%</div>
+                <div style="font-size:10px;color:var(--muted)">UAE</div>
+              </div>
+              <div
+                style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 6px">
+                <div style="font-size:18px;margin-bottom:4px">🇩🇪</div>
+                <div style="font-size:14px;font-weight:900;color:var(--primary)">??%</div>
+                <div style="font-size:10px;color:var(--muted)">DE</div>
+              </div>
+              <div
+                style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 6px">
+                <div style="font-size:18px;margin-bottom:4px">🇫🇷</div>
+                <div style="font-size:14px;font-weight:900;color:var(--primary)">??%</div>
+                <div style="font-size:10px;color:var(--muted)">FR</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="lock-fade"
+          style="background:linear-gradient(to bottom,rgba(244,250,250,0) 0%,rgba(244,250,250,.8) 35%,rgba(244,250,250,.98) 55%)">
+          <div class="lock-cta">
+            <div class="lc-icon">👥</div>
+            <div class="lc-title">Audience Demographics</div>
+            <div class="lc-text">Unlock full gender, age, location, and interest category breakdown.</div>
+            <a href="dreabee-register.html" class="lc-btn">Unlock Free →</a>
+            <div class="lc-note">Free plan · 10 full profiles / month</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main-col -->
+
+    <!-- SIDEBAR COLUMN -->
+    <div class="side-col">
+
+      <!-- UNLOCK CTA -->
+      <div class="unlock-card">
+        <div class="uc-title">🔓 Unlock full profile</div>
+        <div class="uc-desc">You're viewing a preview. Sign up free to access complete analytics for 100M+ creators.
+        </div>
+        <div class="uc-list">
+          <div class="uc-item">Contact info &amp; collab history</div>
+          <div class="uc-item">All 847 posts with stats</div>
+          <div class="uc-item">Audience interest categories</div>
+          <div class="uc-item">Brand partnership history</div>
+          <div class="uc-item">Estimated post value (EPV)</div>
+        </div>
+        <a href="dreabee-register.html" class="uc-btn">Get Full Access Free</a>
+        <div class="uc-note">No credit card · Free trial</div>
+      </div>
+
+      <!-- QUICK STATS -->
+      <div class="card">
+        <div class="card-hd">Quick stats</div>
+        <div class="qs-row"><span class="qs-key">Posts total</span><span class="qs-val">847</span></div>
+        <div class="qs-row"><span class="qs-key">Avg Reels views</span><span class="qs-val">82.4K</span></div>
+        <div class="qs-row"><span class="qs-key">Post frequency</span><span class="qs-val">4.2× / week</span></div>
+        <div class="qs-row"><span class="qs-key">Branded content</span><span class="qs-val">18% of posts</span></div>
+        <div class="qs-row"><span class="qs-key">Est. post value</span><span class="qs-val" style="color:var(--teal)">🔒
+            Unlock</span></div>
+        <div class="qs-row"><span class="qs-key">Last updated</span><span class="qs-val">2 hours ago</span></div>
+      </div>
+
+      <!-- SIMILAR CREATORS -->
+      <div class="card">
+        <div class="card-hd">Similar creators</div>
+        <div class="similar-item">
+          <div class="sim-av" style="background:linear-gradient(135deg,#f093fb,#f5576c)">SM</div>
+          <div style="min-width:0">
+            <div class="sim-name">@styledbymia</div>
+            <div class="sim-meta">198K · 4.2% eng</div>
+          </div>
+          <div class="sim-score">89.1</div>
+        </div>
+        <div class="similar-item">
+          <div class="sim-av" style="background:linear-gradient(135deg,#4facfe,#00f2fe)">TL</div>
+          <div style="min-width:0">
+            <div class="sim-name">@theluxelist</div>
+            <div class="sim-meta">312K · 3.1% eng</div>
+          </div>
+          <div class="sim-score">84.7</div>
+        </div>
+        <div class="similar-item">
+          <div class="sim-av" style="background:linear-gradient(135deg,#43e97b,#38f9d7)">MW</div>
+          <div style="min-width:0">
+            <div class="sim-name">@minimalwear</div>
+            <div class="sim-meta">156K · 5.0% eng</div>
+          </div>
+          <div class="sim-score">92.3</div>
+        </div>
+        <div class="similar-item">
+          <div class="sim-av" style="background:linear-gradient(135deg,#fa709a,#fee140)">CF</div>
+          <div style="min-width:0">
+            <div class="sim-name">@curated.fit</div>
+            <div class="sim-meta">89K · 6.1% eng</div>
+          </div>
+          <div class="sim-score">87.8</div>
+        </div>
+      </div>
+
+    </div><!-- /side-col -->
+
+  </div><!-- /page-body -->
+
+  <!-- ═══════════════ AUDIENCE TAB ═══════════════ -->
+  <div class="page-body" data-panel="audience" style="display:none">
+
+    <!-- AUDIENCE QUALITY OVERVIEW — full width -->
+    <div class="stats-row" style="grid-column:1/-1">
+      <div class="stat-card">
+        <div class="sc-icon tl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+          </svg></div>
+        <div class="sc-val">78.3%</div>
+        <div class="sc-lbl">Real people</div>
+        <div class="sc-delta">↑ Top 12% in niche</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon bl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+          </svg></div>
+        <div class="sc-val">63%</div>
+        <div class="sc-lbl">Female audience</div>
+        <div class="sc-delta">Skews 25–34</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg></div>
+        <div class="sc-val">🇬🇧 42%</div>
+        <div class="sc-lbl">Top country</div>
+        <div class="sc-delta">United Kingdom</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon or"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg></div>
+        <div class="sc-val">3.1%</div>
+        <div class="sc-lbl">Fake / Bot followers</div>
+        <div class="sc-delta" style="color:#10B981">↓ Well below avg</div>
+      </div>
+    </div>
+
+    <div class="main-col">
+      <!-- GENDER + AGE -->
+      <div class="card">
+        <div class="card-hd">Gender &amp; Age Breakdown</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:28px">
+          <div>
+            <div
+              style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:14px">
+              Gender</div>
+            <div style="display:flex;align-items:center;gap:20px">
+              <svg width="100" height="100" viewBox="0 0 100 100" style="transform:rotate(-90deg);flex-shrink:0">
+                <circle cx="50" cy="50" r="38" fill="none" stroke="#DFF0EC" stroke-width="18" />
+                <circle cx="50" cy="50" r="38" fill="none" stroke="url(#dga)" stroke-width="18"
+                  stroke-dasharray="151 88" stroke-linecap="round" />
+                <defs>
+                  <linearGradient id="dga">
+                    <stop offset="0%" stop-color="#8AD8A3" />
+                    <stop offset="100%" stop-color="#34AE93" />
+                  </linearGradient>
+                </defs>
+              </svg>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px">
+                  <div style="width:10px;height:10px;border-radius:3px;background:var(--teal);flex-shrink:0"></div><span
+                    style="color:var(--muted)">Female</span><strong style="margin-left:8px">63%</strong>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px">
+                  <div style="width:10px;height:10px;border-radius:3px;background:#DFF0EC;flex-shrink:0"></div><span
+                    style="color:var(--muted)">Male</span><strong style="margin-left:8px">34%</strong>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13px">
+                  <div
+                    style="width:10px;height:10px;border-radius:3px;background:var(--surface);border:1px solid var(--border);flex-shrink:0">
+                  </div><span style="color:var(--muted)">Other</span><strong style="margin-left:8px">3%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);margin-bottom:14px">
+              Age Groups</div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <div class="ab-row"><span class="ab-lbl" style="width:48px">18–24</span>
+                <div class="ab-bar">
+                  <div class="ab-fill" style="width:32%;background:var(--grad)"></div>
+                </div><span class="ab-v">32%</span>
+              </div>
+              <div class="ab-row"><span class="ab-lbl" style="width:48px">25–34</span>
+                <div class="ab-bar">
+                  <div class="ab-fill" style="width:41%;background:var(--teal)"></div>
+                </div><span class="ab-v">41%</span>
+              </div>
+              <div class="ab-row"><span class="ab-lbl" style="width:48px">35–44</span>
+                <div class="ab-bar">
+                  <div class="ab-fill" style="width:16%;background:#8AD8A3"></div>
+                </div><span class="ab-v">16%</span>
+              </div>
+              <div class="ab-row"><span class="ab-lbl" style="width:48px">45–54</span>
+                <div class="ab-bar">
+                  <div class="ab-fill" style="width:7%;background:#DFF0EC"></div>
+                </div><span class="ab-v">7%</span>
+              </div>
+              <div class="ab-row" style="margin-bottom:0"><span class="ab-lbl" style="width:48px">55+</span>
+                <div class="ab-bar">
+                  <div class="ab-fill" style="width:4%;background:#EAF6F3"></div>
+                </div><span class="ab-v">4%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- TOP COUNTRIES -->
+      <div class="card">
+        <div class="card-hd">Audience Locations</div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px">
+          <div style="text-align:center;background:var(--tint);border-radius:10px;padding:12px 8px">
+            <div style="font-size:22px;margin-bottom:6px">🇬🇧</div>
+            <div style="font-size:16px;font-weight:900;color:var(--primary)">42%</div>
+            <div style="font-size:11px;color:var(--muted)">UK</div>
+          </div>
+          <div
+            style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 8px">
+            <div style="font-size:22px;margin-bottom:6px">🇺🇸</div>
+            <div style="font-size:16px;font-weight:900;color:var(--primary)">18%</div>
+            <div style="font-size:11px;color:var(--muted)">USA</div>
+          </div>
+          <div
+            style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 8px">
+            <div style="font-size:22px;margin-bottom:6px">🇦🇪</div>
+            <div style="font-size:16px;font-weight:900;color:var(--primary)">9%</div>
+            <div style="font-size:11px;color:var(--muted)">UAE</div>
+          </div>
+          <div
+            style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 8px">
+            <div style="font-size:22px;margin-bottom:6px">🇩🇪</div>
+            <div style="font-size:16px;font-weight:900;color:var(--primary)">7%</div>
+            <div style="font-size:11px;color:var(--muted)">Germany</div>
+          </div>
+          <div
+            style="text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 8px">
+            <div style="font-size:22px;margin-bottom:6px">🇫🇷</div>
+            <div style="font-size:16px;font-weight:900;color:var(--primary)">5%</div>
+            <div style="font-size:11px;color:var(--muted)">France</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--muted)">Remaining 19% spread across 40+ countries.</div>
+      </div>
+      <!-- INTEREST CATEGORIES -->
+      <div class="lock-wrap">
+        <div class="card lock-content lock-blur" style="margin-bottom:0">
+          <div class="card-hd">Audience Interest Categories <span class="card-hd-badge">40+ categories</span></div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span
+              style="background:var(--tint);color:var(--teal);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid var(--border)">Fashion
+              & Style</span>
+            <span
+              style="background:var(--tint);color:var(--teal);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid var(--border)">Beauty</span>
+            <span
+              style="background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid var(--border)">Travel</span>
+            <span
+              style="background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid var(--border)">Wellness</span>
+            <span
+              style="background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid var(--border)">Interiors</span>
+            <span
+              style="background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid var(--border)">Food
+              & Drink</span>
+            <span
+              style="background:var(--surface);color:var(--muted);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px;border:1px solid var(--border)">Luxury</span>
+            <span
+              style="background:#F0F0F0;color:#ccc;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px">+
+              33 more</span>
+          </div>
+        </div>
+        <div class="lock-fade">
+          <div class="lock-cta">
+            <div class="lc-icon">🎯</div>
+            <div class="lc-title">Audience Interest Categories</div>
+            <div class="lc-text">See all 40+ topics your audience cares about — ideal for brand fit analysis.</div><a
+              href="dreabee-register.html" class="lc-btn">Unlock Free →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col">
+      <div class="unlock-card">
+        <div class="uc-title">🔓 Unlock full audience</div>
+        <div class="uc-desc">Get full city-level breakdown, audience overlap, and brand affinity data.</div><a
+          href="dreabee-register.html" class="uc-btn">Get Access Free</a>
+        <div class="uc-note">No credit card · Free trial</div>
+      </div>
+      <div class="card">
+        <div class="card-hd">Audience quality</div>
+        <div class="qs-row"><span class="qs-key">Real people</span><span class="qs-val"
+            style="color:#10B981">78.3%</span></div>
+        <div class="qs-row"><span class="qs-key">Influencers</span><span class="qs-val">8.1%</span></div>
+        <div class="qs-row"><span class="qs-key">Mass followers</span><span class="qs-val">5.3%</span></div>
+        <div class="qs-row"><span class="qs-key">Suspicious</span><span class="qs-val" style="color:#F59E0B">5.2%</span>
+        </div>
+        <div class="qs-row"><span class="qs-key">Fake / Bots</span><span class="qs-val"
+            style="color:#10B981">3.1%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ CONTENT TAB ═══════════════ -->
+  <div class="page-body" data-panel="content" style="display:none">
+    <div class="stats-row" style="grid-column:1/-1">
+      <div class="stat-card">
+        <div class="sc-icon tl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <path d="M3 9h18M9 21V9" />
+          </svg></div>
+        <div class="sc-val">847</div>
+        <div class="sc-lbl">Total Posts</div>
+        <div class="sc-delta">4.2× / week avg</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon bl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <polygon points="23 7 16 12 23 17 23 7" />
+            <rect x="1" y="5" width="15" height="14" rx="2" />
+          </svg></div>
+        <div class="sc-val">82.4K</div>
+        <div class="sc-lbl">Avg Reel Views</div>
+        <div class="sc-delta">↑ +14% vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg></div>
+        <div class="sc-val">Tue / Thu</div>
+        <div class="sc-lbl">Best posting days</div>
+        <div class="sc-delta">6–8pm GMT peak</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon or"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg></div>
+        <div class="sc-val">18%</div>
+        <div class="sc-lbl">Sponsored content</div>
+        <div class="sc-delta">↓ Below avg (25%)</div>
+      </div>
+    </div>
+
+    <div class="main-col">
+      <div class="card">
+        <div class="card-hd">Top Posts <span class="card-hd-badge">All time</span></div>
+        <div class="post-grid-3">
+          <div class="post-thumb">
+            <div class="post-inner" style="background:#EAF6F3">👗</div>
+            <div class="post-hover">
+              <div class="ph-stat"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>22.1K</div>
+              <div class="ph-stat"><svg viewBox="0 0 24 24">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>891</div>
+            </div>
+          </div>
+          <div class="post-thumb">
+            <div class="post-inner" style="background:#FDF4FF">🌸</div>
+            <div class="post-hover">
+              <div class="ph-stat"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>18.4K</div>
+              <div class="ph-stat"><svg viewBox="0 0 24 24">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>634</div>
+            </div>
+          </div>
+          <div class="post-thumb">
+            <div class="post-inner" style="background:#F0F9FF">🌿</div>
+            <div class="post-hover">
+              <div class="ph-stat"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+                </svg>16.3K</div>
+              <div class="ph-stat"><svg viewBox="0 0 24 24">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>521</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hd">Content Format Mix</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="ab-row"><span class="ab-lbl" style="width:80px">Reels</span>
+            <div class="ab-bar" style="height:10px">
+              <div class="ab-fill" style="width:55%;background:var(--grad)"></div>
+            </div><span class="ab-v">55%</span>
+          </div>
+          <div class="ab-row"><span class="ab-lbl" style="width:80px">Carousels</span>
+            <div class="ab-bar" style="height:10px">
+              <div class="ab-fill" style="width:30%;background:var(--teal)"></div>
+            </div><span class="ab-v">30%</span>
+          </div>
+          <div class="ab-row"><span class="ab-lbl" style="width:80px">Static</span>
+            <div class="ab-bar" style="height:10px">
+              <div class="ab-fill" style="width:15%;background:#8AD8A3"></div>
+            </div><span class="ab-v">15%</span>
+          </div>
+        </div>
+        <div
+          style="margin-top:16px;padding-top:14px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)">
+          Reels generate <strong style="color:var(--primary)">3.2×</strong> more reach than static posts for this
+          creator.</div>
+      </div>
+      <div class="lock-wrap">
+        <div class="card lock-content lock-blur" style="margin-bottom:0">
+          <div class="card-hd">Top Hashtags &amp; Captions</div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span
+              style="background:var(--tint);color:var(--teal);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px">#minimalfashion</span>
+            <span
+              style="background:var(--tint);color:var(--teal);font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px">#ootd</span>
+            <span
+              style="background:var(--surface);color:#ccc;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px">#••••••••</span>
+            <span
+              style="background:var(--surface);color:#ccc;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px">#••••••••</span>
+            <span
+              style="background:var(--surface);color:#ccc;font-size:12.5px;font-weight:600;padding:5px 12px;border-radius:50px">#•••••</span>
+          </div>
+        </div>
+        <div class="lock-fade">
+          <div class="lock-cta">
+            <div class="lc-icon">🏷️</div>
+            <div class="lc-title">Hashtags &amp; caption analysis</div>
+            <div class="lc-text">See all hashtags, posting patterns, and caption sentiment analysis.</div><a
+              href="dreabee-register.html" class="lc-btn">Unlock Free →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col">
+      <div class="unlock-card">
+        <div class="uc-title">🔓 Unlock content data</div>
+        <div class="uc-desc">Get full post history, scheduling insights, and caption analysis.</div><a
+          href="dreabee-register.html" class="uc-btn">Get Access Free</a>
+        <div class="uc-note">No credit card · Free trial</div>
+      </div>
+      <div class="card">
+        <div class="card-hd">Posting schedule</div>
+        <div class="qs-row"><span class="qs-key">Avg posts/week</span><span class="qs-val">4.2</span></div>
+        <div class="qs-row"><span class="qs-key">Best day</span><span class="qs-val">Tuesday</span></div>
+        <div class="qs-row"><span class="qs-key">Best time</span><span class="qs-val">6–8pm GMT</span></div>
+        <div class="qs-row"><span class="qs-key">Sponsored %</span><span class="qs-val">18%</span></div>
+        <div class="qs-row"><span class="qs-key">Story posts/day</span><span class="qs-val">🔒 Unlock</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ BRAND MENTIONS TAB ═══════════════ -->
+  <div class="page-body" data-panel="mentions" style="display:none">
+    <div class="stats-row" style="grid-column:1/-1">
+      <div class="stat-card">
+        <div class="sc-icon tl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+            <line x1="7" y1="7" x2="7.01" y2="7" />
+          </svg></div>
+        <div class="sc-val">34</div>
+        <div class="sc-lbl">Brand mentions</div>
+        <div class="sc-delta">Last 12 months</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon bl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <line x1="12" y1="1" x2="12" y2="23" />
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+          </svg></div>
+        <div class="sc-val">£1,850</div>
+        <div class="sc-lbl">Est. post value</div>
+        <div class="sc-delta">Per sponsored post</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon pu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+          </svg></div>
+        <div class="sc-val">4.1%</div>
+        <div class="sc-lbl">Sponsored eng. rate</div>
+        <div class="sc-delta">vs 3.87% organic</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-icon or"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+            <circle cx="9" cy="7" r="4" />
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+          </svg></div>
+        <div class="sc-val">12</div>
+        <div class="sc-lbl">Unique brands worked with</div>
+        <div class="sc-delta">Repeat collab rate: 42%</div>
+      </div>
+    </div>
+
+    <div class="main-col">
+      <div class="card">
+        <div class="card-hd">Recent Brand Collaborations</div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div
+              style="width:44px;height:44px;border-radius:10px;background:var(--tint);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">
+              💄</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:14px;font-weight:700;color:var(--primary)">Luxé Skin</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px">Beauty · 3 posts · Oct 2024</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:13.5px;font-weight:700;color:#10B981">5.2% eng</div>
+              <div style="font-size:11.5px;color:var(--muted)">↑ Above avg</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div
+              style="width:44px;height:44px;border-radius:10px;background:#FEF9EC;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">
+              👗</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:14px;font-weight:700;color:var(--primary)">Arket</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px">Fashion · 2 posts · Aug 2024</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:13.5px;font-weight:700;color:#10B981">4.8% eng</div>
+              <div style="font-size:11.5px;color:var(--muted)">↑ Above avg</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div
+              style="width:44px;height:44px;border-radius:10px;background:#F0F9FF;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">
+              🌿</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:14px;font-weight:700;color:var(--primary)">Aesop</div>
+              <div style="font-size:12px;color:var(--muted);margin-top:2px">Beauty · 1 post · Jun 2024</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-size:13.5px;font-weight:700;color:#10B981">4.4% eng</div>
+              <div style="font-size:11.5px;color:var(--muted)">↑ Above avg</div>
+            </div>
+          </div>
+          <div class="lock-wrap" style="border-radius:0">
+            <div style="display:flex;flex-direction:column;gap:0" class="lock-content lock-blur">
+              <div
+                style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)">
+                <div
+                  style="width:44px;height:44px;border-radius:10px;background:#F5F3FF;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">
+                  👜</div>
+                <div style="flex:1">
+                  <div style="font-size:14px;font-weight:700;color:var(--primary)">████████</div>
+                  <div style="font-size:12px;color:var(--muted);margin-top:2px">Fashion · 2 posts · Apr 2024</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:14px;padding:14px 0">
+                <div
+                  style="width:44px;height:44px;border-radius:10px;background:var(--tint);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">
+                  ✈️</div>
+                <div style="flex:1">
+                  <div style="font-size:14px;font-weight:700;color:var(--primary)">████████</div>
+                  <div style="font-size:12px;color:var(--muted);margin-top:2px">Travel · 4 posts · Mar 2024</div>
+                </div>
+              </div>
+            </div>
+            <div class="lock-fade"
+              style="background:linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,.95) 55%)">
+              <div class="lock-cta">
+                <div class="lc-icon">🤝</div>
+                <div class="lc-title">Full brand history</div>
+                <div class="lc-text">See all 12 brands, rates, and partnership details.</div><a
+                  href="dreabee-register.html" class="lc-btn">Unlock Free →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col">
+      <div class="unlock-card">
+        <div class="uc-title">🔓 Unlock collab data</div>
+        <div class="uc-desc">Get contact info, rate cards, and full brand history.</div><a href="dreabee-register.html"
+          class="uc-btn">Get Access Free</a>
+        <div class="uc-note">No credit card · Free trial</div>
+      </div>
+      <div class="card">
+        <div class="card-hd">Collab summary</div>
+        <div class="qs-row"><span class="qs-key">Brands (12 months)</span><span class="qs-val">12</span></div>
+        <div class="qs-row"><span class="qs-key">Sponsored posts</span><span class="qs-val">34</span></div>
+        <div class="qs-row"><span class="qs-key">Repeat brands</span><span class="qs-val">42%</span></div>
+        <div class="qs-row"><span class="qs-key">Est. post value</span><span class="qs-val">£1,850</span></div>
+        <div class="qs-row"><span class="qs-key">Contact info</span><span class="qs-val" style="color:var(--teal)">🔒
+            Unlock</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ SIMILAR CREATORS TAB ═══════════════ -->
+  <div class="page-body" data-panel="similar" style="display:none">
+    <div class="main-col" style="grid-column:1/-1">
+      <div class="card">
+        <div class="card-hd">Similar Creators <span class="card-hd-badge">Matched by niche, tier & audience</span></div>
+        <div style="display:flex;flex-direction:column;gap:0">
+          <div
+            style="display:grid;grid-template-columns:auto 1fr repeat(4,auto);gap:16px;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)">
+            <div style="width:40px"></div>
+            <div>Creator</div>
+            <div style="text-align:right">Followers</div>
+            <div style="text-align:right">Eng. rate</div>
+            <div style="text-align:right">Auth. score</div>
+            <div style="text-align:right"></div>
+          </div>
+          <div
+            style="display:grid;grid-template-columns:auto 1fr repeat(4,auto);gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div
+              style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff">
+              SM</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--primary)">@styledbymia</div>
+              <div style="font-size:12px;color:var(--muted)">Fashion · London</div>
+            </div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--primary)">198K</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--primary)">4.2%</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--teal)">89.1</div>
+            <a href="dreabee-influencer-profile.html"
+              style="display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--teal);white-space:nowrap">View
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></a>
+          </div>
+          <div
+            style="display:grid;grid-template-columns:auto 1fr repeat(4,auto);gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div
+              style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff">
+              TL</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--primary)">@theluxelist</div>
+              <div style="font-size:12px;color:var(--muted)">Fashion · Dubai</div>
+            </div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--primary)">312K</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--primary)">3.1%</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--teal)">84.7</div>
+            <a href="dreabee-influencer-profile.html"
+              style="display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--teal);white-space:nowrap">View
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></a>
+          </div>
+          <div
+            style="display:grid;grid-template-columns:auto 1fr repeat(4,auto);gap:16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)">
+            <div
+              style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff">
+              MW</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--primary)">@minimalwear</div>
+              <div style="font-size:12px;color:var(--muted)">Fashion · Berlin</div>
+            </div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--primary)">156K</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--primary)">5.0%</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--teal)">92.3</div>
+            <a href="dreabee-influencer-profile.html"
+              style="display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--teal);white-space:nowrap">View
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></a>
+          </div>
+          <div
+            style="display:grid;grid-template-columns:auto 1fr repeat(4,auto);gap:16px;align-items:center;padding:14px 0">
+            <div
+              style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#fa709a,#fee140);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff">
+              CF</div>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--primary)">@curated.fit</div>
+              <div style="font-size:12px;color:var(--muted)">Fashion · London</div>
+            </div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--primary)">89K</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--primary)">6.1%</div>
+            <div style="text-align:right;font-size:13.5px;font-weight:700;color:var(--teal)">87.8</div>
+            <a href="dreabee-influencer-profile.html"
+              style="display:inline-flex;align-items:center;gap:5px;font-size:12.5px;font-weight:700;color:var(--teal);white-space:nowrap">View
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></a>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:20px 0">
+        <div style="font-size:14px;color:var(--muted);margin-bottom:14px">Unlock the full list of 40+ similar creators
+          matched to @luxestyle</div>
+        <a href="dreabee-register.html"
+          style="display:inline-flex;align-items:center;gap:8px;background:var(--grad);color:var(--primary);font-weight:700;font-size:14.5px;padding:12px 28px;border-radius:10px">Get
+          Full Access Free →</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sparkline
+    const sparkData = [1800, 2200, 1600, 2800, 3100, 2400, 2900, 3400, 2100, 3800, 2600, 3200];
+    const maxS = Math.max(...sparkData);
+    const sl = document.getElementById('sparkline');
+    if (sl) sparkData.forEach((v, i) => {
+      const b = document.createElement('div');
+      b.className = 'spark-bar';
+      b.style.height = (v / maxS * 100) + '%';
+      b.style.background = i === sparkData.length - 1 ? 'var(--grad)' : 'var(--border)';
+      sl.appendChild(b);
+    });
+
+    // Post grid — 3 posts
+    const posts = [{ e: '👗', l: 14200, c: 412 }, { e: '🌿', l: 9800, c: 287 }, { e: '☕', l: 18400, c: 634 }];
+    const colors = ['#EAF6F3', '#F0F9FF', '#FDF4FF'];
+    const pg = document.getElementById('post-grid');
+    if (pg) posts.forEach(({ e, l, c }, i) => {
+      const t = document.createElement('div');
+      t.className = 'post-thumb';
+      t.innerHTML = `<div class="post-inner" style="background:${colors[i]}">${e}</div>
+    <div class="post-hover">
+      <div class="ph-stat"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>${(l / 1000).toFixed(1)}K</div>
+      <div class="ph-stat"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>${c}</div>
+    </div>`;
+      pg.appendChild(t);
+    });
+
+    // TAB SWITCHING
+    function switchTab(targetPanel) {
+      // Update tab button styles
+      document.querySelectorAll('.htab').forEach(t => {
+        t.classList.toggle('active', t.dataset.tab === targetPanel);
+      });
+
+      // Show/hide page-body panels
+      document.querySelectorAll('.page-body[data-panel]').forEach(panel => {
+        panel.style.display = panel.dataset.panel === targetPanel ? 'grid' : 'none';
+      });
+
+      window.scrollTo({ top: document.querySelector('.profile-hero').offsetHeight + 16, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.htab').forEach(tab => {
+      tab.addEventListener('click', () => switchTab(tab.dataset.tab));
+    });
+  </script>
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+
+        <!-- Brand column -->
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X" title="Twitter / X"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn" title="LinkedIn"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram" title="Instagram"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="5%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube" title="YouTube"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links">
+            <a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a>
+            <a href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a>
+            <a href="dreabee-pricing.html" class="gfoot-link">Pricing</a>
+          </div>
+        </div>
+
+        <!-- Free Tools -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links">
+            <a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links">
+            <a href="dreabee-about.html" class="gfoot-link">About Us</a>
+            <a href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a>
+            <a href="dreabee-press.html" class="gfoot-link">Press</a>
+            <a href="dreabee-blog.html" class="gfoot-link">Blog</a>
+            <a href="dreabee-contact.html" class="gfoot-link">Contact</a>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links">
+            <a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gfoot-link">API Reference</a>
+            <a href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a>
+            <a href="dreabee-changelog.html" class="gfoot-link">Changelog</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Resources</span>
+          <div class="gfoot-links">
+            <a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a>
+            <a href="dreabee-for-creators.html" class="gfoot-link">For Creators</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+            <a href="dreabee-compare.html" class="gfoot-link">Compare Platforms</a>
+            <a href="dreabee-faq.html" class="gfoot-link">FAQ</a>
+            <a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links">
+            <a href="dreabee-login.html" class="gfoot-link">Login</a>
+            <a href="dreabee-register.html" class="gfoot-link">Get Started Free</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links">
+            <a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a>
+            <a href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a>
+            <a href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a>
+          </div>
+        </div>
+
+      </div><!-- /gfoot-top -->
+    </div><!-- /gfoot-inner -->
+
+    <hr class="gfoot-divider">
+
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2025 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal">
+        <a href="dreabee-terms.html">Terms</a>
+        <a href="dreabee-privacy-policy.html">Privacy</a>
+        <a href="dreabee-cookie-policy.html">Cookies</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+  </script>
+</body>
+
+</html>

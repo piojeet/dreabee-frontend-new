@@ -1,0 +1,2922 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Your API Key — Dreabee</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --bg: #0A1628;
+      --surface: #0F1F38;
+      --surface2: #162540;
+      --border: #1E3352;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --grad: linear-gradient(135deg, #8AD8A3, #34AE93);
+      --muted: #6B8FAF;
+      --text: #C8D8E8;
+      --bright: #E8F4FF;
+      --orange: #F5A623;
+      --blue: #4A9EFF;
+      --red: #FF6B6B;
+      --line: rgba(255, 255, 255, .06)
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text)
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    /* TOP BAR */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: 60px;
+      background: rgba(10, 22, 40, .95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      justify-content: space-between
+    }
+
+    .topbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .topbar-logo-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--bright)
+    }
+
+    .topbar-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 600;
+      background: rgba(52, 174, 147, .2);
+      border: 1px solid rgba(52, 174, 147, .4);
+      color: var(--teal);
+      padding: 2px 8px;
+      border-radius: 4px
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px
+    }
+
+    .topbar-link {
+      font-size: 13.5px;
+      color: var(--muted);
+      transition: color .15s
+    }
+
+    .topbar-link:hover {
+      color: var(--bright)
+    }
+
+    .topbar-login {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--teal);
+      border: 1px solid rgba(52, 174, 147, .35);
+      padding: 6px 16px;
+      border-radius: 7px;
+      transition: background .15s
+    }
+
+    .topbar-login:hover {
+      background: rgba(52, 174, 147, .1)
+    }
+
+    /* MAIN SPLIT LAYOUT */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 500px;
+      height: 100vh;
+      padding-top: 60px;
+      overflow: hidden
+    }
+
+    /* LEFT INFO PANEL */
+    .info-panel {
+      padding: 52px 56px;
+      overflow-y: auto;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative
+    }
+
+    .info-panel::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 1px;
+      bottom: 0;
+      background: var(--border)
+    }
+
+    /* Grid bg */
+    .info-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 600px 400px at 50% 30%, black, transparent 70%)
+    }
+
+    .info-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1
+    }
+
+    .info-h1 {
+      font-size: clamp(24px, 3vw, 40px);
+      font-weight: 800;
+      color: var(--bright);
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1
+    }
+
+    .info-h1 .hl {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .info-sub {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+      max-width: 440px
+    }
+
+    /* PLAN TABS */
+    .plan-tabs {
+      display: flex;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1
+    }
+
+    .plan-tab {
+      flex: 1;
+      text-align: center;
+      padding: 9px 0;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      border-radius: 9px;
+      transition: all .2s;
+      border: none;
+      background: none;
+      font-family: 'Inter', sans-serif
+    }
+
+    .plan-tab.active {
+      background: var(--surface2);
+      color: var(--bright);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .3)
+    }
+
+    .plan-tab .tab-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      font-weight: 700;
+      background: rgba(52, 174, 147, .2);
+      color: var(--teal);
+      padding: 1px 5px;
+      border-radius: 3px;
+      margin-left: 6px
+    }
+
+    /* PLAN DETAIL CARDS */
+    .plan-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+      display: none
+    }
+
+    .plan-card.active {
+      display: block
+    }
+
+    .plan-card.featured {
+      border-color: rgba(52, 174, 147, .4);
+      background: linear-gradient(180deg, rgba(52, 174, 147, .06) 0%, var(--surface) 40%)
+    }
+
+    .plan-name {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 4px
+    }
+
+    .plan-price {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--bright);
+      letter-spacing: -2px;
+      line-height: 1
+    }
+
+    .plan-price .period {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0
+    }
+
+    .plan-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-top: 8px;
+      line-height: 1.6;
+      margin-bottom: 20px
+    }
+
+    .plan-limits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px
+    }
+
+    .pl-item {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px
+    }
+
+    .pl-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--bright)
+    }
+
+    .pl-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px
+    }
+
+    .plan-features {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .pf-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13.5px;
+      color: var(--text)
+    }
+
+    .pf-check {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .pf-check.yes {
+      background: rgba(52, 174, 147, .2)
+    }
+
+    .pf-check.yes svg {
+      width: 10px;
+      height: 10px;
+      fill: none;
+      stroke: var(--teal);
+      stroke-width: 2.5;
+      stroke-linecap: round
+    }
+
+    .pf-check.no {
+      background: rgba(107, 143, 175, .1)
+    }
+
+    .pf-check.no svg {
+      width: 10px;
+      height: 10px;
+      fill: none;
+      stroke: rgba(107, 143, 175, .4);
+      stroke-width: 2.5;
+      stroke-linecap: round
+    }
+
+    /* TRUST SIGNALS */
+    .trust-row {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .trust-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: rgba(52, 174, 147, .1);
+      border: 1px solid rgba(52, 174, 147, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .trust-icon svg {
+      width: 13px;
+      height: 13px;
+      fill: none;
+      stroke: var(--teal);
+      stroke-width: 2;
+      stroke-linecap: round
+    }
+
+    /* RIGHT FORM PANEL */
+    .form-panel {
+      background: var(--surface);
+      overflow-y: auto;
+      padding: 0
+    }
+
+    /* Stepper */
+    .step-header {
+      padding: 28px 36px 24px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      z-index: 10
+    }
+
+    .step-progress {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 20px
+    }
+
+    .step-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      transition: all .3s
+    }
+
+    .sd-done {
+      background: var(--teal);
+      color: #0A1628
+    }
+
+    .sd-active {
+      background: rgba(52, 174, 147, .2);
+      border: 2px solid var(--teal);
+      color: var(--teal)
+    }
+
+    .sd-todo {
+      background: var(--surface2);
+      border: 2px solid var(--border);
+      color: var(--muted)
+    }
+
+    .step-line {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      margin: 0 4px;
+      transition: background .3s
+    }
+
+    .step-line.done {
+      background: var(--teal)
+    }
+
+    .step-titles {
+      display: flex;
+      justify-content: space-between
+    }
+
+    .st-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted);
+      text-align: center;
+      flex: 1
+    }
+
+    .st-label.active {
+      color: var(--teal)
+    }
+
+    .st-label.done {
+      color: var(--bright)
+    }
+
+    /* FORM STEPS */
+    .form-steps {
+      padding: 32px 36px 36px
+    }
+
+    .form-step {
+      display: none
+    }
+
+    .form-step.active {
+      display: block
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--bright);
+      letter-spacing: -.5px;
+      margin-bottom: 6px
+    }
+
+    .step-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.6
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px
+    }
+
+    .form-group {
+      margin-bottom: 14px
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 7px;
+      letter-spacing: .3px
+    }
+
+    .form-label .req {
+      color: var(--teal);
+      margin-left: 2px
+    }
+
+    .form-input,
+    .form-select {
+      width: 100%;
+      height: 44px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      padding: 0 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: var(--bright);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s
+    }
+
+    .form-input::placeholder {
+      color: var(--muted)
+    }
+
+    .form-input:focus,
+    .form-select:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(52, 174, 147, .1)
+    }
+
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%236B8FAF' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      background-color: var(--bg)
+    }
+
+    .form-select option {
+      background: var(--surface2);
+      color: var(--bright)
+    }
+
+    /* Password field */
+    .pass-wrap {
+      position: relative
+    }
+
+    .pass-wrap .form-input {
+      padding-right: 44px
+    }
+
+    .pass-toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      transition: color .15s;
+      padding: 4px
+    }
+
+    .pass-toggle:hover {
+      color: var(--teal)
+    }
+
+    .pass-toggle svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round
+    }
+
+    /* Password strength */
+    .pass-strength {
+      margin-top: 8px
+    }
+
+    .ps-bars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 5px
+    }
+
+    .ps-bar {
+      flex: 1;
+      height: 3px;
+      border-radius: 2px;
+      background: var(--border);
+      transition: background .3s
+    }
+
+    .ps-bar.weak {
+      background: #FF6B6B
+    }
+
+    .ps-bar.fair {
+      background: var(--orange)
+    }
+
+    .ps-bar.good {
+      background: var(--teal)
+    }
+
+    .ps-label {
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    /* Use case select */
+    .usecase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px
+    }
+
+    .uc-option {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all .2s;
+      text-align: left
+    }
+
+    .uc-option.selected {
+      border-color: var(--teal);
+      background: rgba(52, 174, 147, .06)
+    }
+
+    .uc-option:hover {
+      border-color: rgba(52, 174, 147, .4)
+    }
+
+    .uc-icon {
+      font-size: 18px;
+      margin-bottom: 6px
+    }
+
+    .uc-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text)
+    }
+
+    .uc-desc {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 2px;
+      line-height: 1.4
+    }
+
+    /* API key reveal */
+    .apikey-reveal {
+      background: var(--bg);
+      border: 1.5px solid rgba(52, 174, 147, .4);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 24px
+    }
+
+    .akr-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      margin-bottom: 10px;
+      font-family: 'JetBrains Mono', monospace
+    }
+
+    .akr-key {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--teal);
+      word-break: break-all;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      user-select: all
+    }
+
+    .akr-actions {
+      display: flex;
+      gap: 8px
+    }
+
+    .akr-btn {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+      border: none;
+      font-family: 'Inter', sans-serif;
+      transition: all .15s;
+      display: flex;
+      align-items: center;
+      gap: 5px
+    }
+
+    .akr-btn svg {
+      width: 12px;
+      height: 12px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round
+    }
+
+    .akr-copy {
+      background: rgba(52, 174, 147, .15);
+      color: var(--teal)
+    }
+
+    .akr-copy:hover {
+      background: rgba(52, 174, 147, .25)
+    }
+
+    .akr-dl {
+      background: rgba(107, 143, 175, .1);
+      color: var(--muted)
+    }
+
+    .akr-dl:hover {
+      background: rgba(107, 143, 175, .2);
+      color: var(--text)
+    }
+
+    .akr-warn {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: rgba(245, 166, 35, .08);
+      border: 1px solid rgba(245, 166, 35, .25);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12.5px;
+      color: rgba(200, 180, 100, .8);
+      margin-top: 12px;
+      line-height: 1.5
+    }
+
+    .akr-warn svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: var(--orange);
+      stroke-width: 2;
+      stroke-linecap: round;
+      flex-shrink: 0;
+      margin-top: 1px
+    }
+
+    /* Next steps */
+    .next-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px
+    }
+
+    .ns-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px
+    }
+
+    .ns-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: rgba(52, 174, 147, .15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .ns-icon svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: var(--teal);
+      stroke-width: 2;
+      stroke-linecap: round
+    }
+
+    .ns-title {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--bright);
+      margin-bottom: 3px
+    }
+
+    .ns-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5
+    }
+
+    /* TERMS checkbox */
+    .terms-check {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 20px
+    }
+
+    .terms-check input[type=checkbox] {
+      width: 16px;
+      height: 16px;
+      margin-top: 2px;
+      accent-color: var(--teal);
+      flex-shrink: 0;
+      cursor: pointer
+    }
+
+    .terms-check label {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+      cursor: pointer
+    }
+
+    .terms-check label a {
+      color: var(--teal)
+    }
+
+    /* BUTTONS */
+    .btn-next {
+      width: 100%;
+      height: 48px;
+      background: var(--grad);
+      color: #0A1628;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity .2s, transform .2s
+    }
+
+    .btn-next:hover {
+      opacity: .9;
+      transform: translateY(-1px)
+    }
+
+    .btn-next svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round
+    }
+
+    .btn-next.loading {
+      opacity: .7;
+      pointer-events: none
+    }
+
+    .btn-docs-cta {
+      width: 100%;
+      height: 48px;
+      background: transparent;
+      color: var(--teal);
+      font-weight: 700;
+      font-size: 15px;
+      border: 1.5px solid rgba(52, 174, 147, .35);
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background .2s;
+      margin-top: 10px
+    }
+
+    .btn-docs-cta:hover {
+      background: rgba(52, 174, 147, .08)
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.55
+    }
+
+    .form-note a {
+      color: var(--teal)
+    }
+
+    /* Divider */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0;
+      color: var(--muted);
+      font-size: 12px
+    }
+
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border)
+    }
+
+    /* OAuth */
+    .oauth-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px
+    }
+
+    .oauth-btn {
+      flex: 1;
+      height: 42px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color .2s, background .2s
+    }
+
+    .oauth-btn:hover {
+      border-color: rgba(255, 255, 255, .2);
+      background: rgba(255, 255, 255, .04)
+    }
+
+    .oauth-btn svg {
+      width: 18px;
+      height: 18px
+    }
+
+    @media(max-width:900px) {
+
+      html,
+      body {
+        overflow: auto
+      }
+
+      .page {
+        grid-template-columns: 1fr;
+        height: auto
+      }
+
+      .info-panel {
+        display: none
+      }
+
+      .form-panel {
+        height: auto
+      }
+    }
+
+    /* ──────── GLOBAL NAV ──────── */
+    :root {
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bdr: #D5EBE5;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+
+    /* ── GLOBAL RESPONSIVE SAFETY NET ── */
+    @media(max-width:1024px) {
+      .gnav-links {
+        gap: 2px
+      }
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 6px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-grid {
+        grid-template-columns: 1fr !important
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+      }
+    }
+
+    /* ──────── REDESIGNED FOOTER ──────── */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    .gfoot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4A7A84;
+      margin-bottom: 16px
+    }
+
+    .gfoot-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #34AE93;
+      border-radius: 50%
+    }
+  </style>
+  <style id="dreabee-nav-css">
+    /* ── Dreabee Unified Nav & Footer — hardcoded, no CSS var deps ── */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: #ECF7F3;
+      color: #043E54
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: #D5EBE5;
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: #043E54
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #043E54;
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid #D5EBE5
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #043E54;
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid #D5EBE5;
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: #34AE93
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #4A7A84;
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* Footer */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%) !important;
+      border-top: 1px solid #D5EBE5 !important;
+      padding: 64px 0 0 !important
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* Responsive */
+    @media(max-width:1024px) {
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 5px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-inner {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" id="gnav-logo" href="index.html">
+        <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
+      </div>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost" id="gnav-login">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
+      </div>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink" id="gnav-mob-login">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+  </div>
+  </div>
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <a href="dreabee-developers.html" class="topbar-logo">
+      <svg width="20" height="20" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gD" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#8AD8A3" />
+            <stop offset="100%" stop-color="#34AE93" />
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="14" height="14" rx="7" fill="url(#gD)" />
+        <rect x="18" y="0" width="14" height="14" rx="4" fill="url(#gD)" opacity="0.7" />
+        <rect x="0" y="18" width="14" height="14" rx="4" fill="url(#gD)" opacity="0.7" />
+        <rect x="18" y="18" width="14" height="14" rx="7" fill="url(#gD)" />
+      </svg>
+      <span class="topbar-logo-text">dreabee</span>
+      <span class="topbar-badge">API</span>
+    </a>
+    <div class="topbar-right">
+      <a href="dreabee-api-docs.html" class="topbar-link">Documentation</a>
+      <a href="dreabee-changelog.html" class="topbar-link">Changelog</a>
+      <a href="#" class="topbar-login">Sign in</a>
+    </div>
+  </div>
+
+  <div class="page">
+    <!-- LEFT INFO PANEL -->
+    <div class="info-panel">
+      <div class="info-eyebrow">// Get API Access</div>
+      <h1 class="info-h1">Start building with the <span class="hl">Dreabee API</span></h1>
+      <p class="info-sub">Access 100M+ creator profiles, audience analytics, and brand data. Free tier included — no
+        credit card required to get started.</p>
+
+      <!-- PLAN TABS -->
+      <div class="plan-tabs">
+        <button class="plan-tab" onclick="switchPlan('free',this)">Free</button>
+        <button class="plan-tab active" onclick="switchPlan('starter',this)">Starter<span
+            class="tab-badge">Popular</span></button>
+        <button class="plan-tab" onclick="switchPlan('growth',this)">Growth</button>
+        <button class="plan-tab" onclick="switchPlan('enterprise',this)">Enterprise</button>
+      </div>
+
+      <!-- FREE PLAN -->
+      <div class="plan-card" id="plan-free">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">£0<span class="period"> / month</span></div>
+        <div class="plan-desc">Perfect for experimenting. No credit card needed. Full API access within your limits.
+        </div>
+        <div class="plan-limits">
+          <div class="pl-item">
+            <div class="pl-val">5,000</div>
+            <div class="pl-label">Requests / month</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">20 / min</div>
+            <div class="pl-label">Rate limit</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">10</div>
+            <div class="pl-label">Batch size</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">200 / day</div>
+            <div class="pl-label">Creator lookups</div>
+          </div>
+        </div>
+        <div class="plan-features">
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Creator profile data
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Basic audience data
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>All 3 platforms (IG, YT, TT)
+          </div>
+          <div class="pf-item">
+            <div class="pf-check no"><svg viewBox="0 0 24 24">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg></div><span style="color:var(--muted)">Batch API</span>
+          </div>
+          <div class="pf-item">
+            <div class="pf-check no"><svg viewBox="0 0 24 24">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg></div><span style="color:var(--muted)">Brand endpoints</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STARTER PLAN -->
+      <div class="plan-card featured active" id="plan-starter">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">£79<span class="period"> / month</span></div>
+        <div class="plan-desc">For teams running live influencer campaigns. Enough headroom for serious usage.</div>
+        <div class="plan-limits">
+          <div class="pl-item">
+            <div class="pl-val">50K</div>
+            <div class="pl-label">Requests / month</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">60 / min</div>
+            <div class="pl-label">Rate limit</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">50</div>
+            <div class="pl-label">Batch size</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">1K / day</div>
+            <div class="pl-label">Creator lookups</div>
+          </div>
+        </div>
+        <div class="plan-features">
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Everything in Free
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Full audience demographics
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Brand endpoints
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Batch API (50 creators)
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Email support
+          </div>
+        </div>
+      </div>
+
+      <!-- GROWTH PLAN -->
+      <div class="plan-card" id="plan-growth">
+        <div class="plan-name">Growth</div>
+        <div class="plan-price">£299<span class="period"> / month</span></div>
+        <div class="plan-desc">For agencies and power users running high-volume workflows and client campaigns.</div>
+        <div class="plan-limits">
+          <div class="pl-item">
+            <div class="pl-val">500K</div>
+            <div class="pl-label">Requests / month</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">300 / min</div>
+            <div class="pl-label">Rate limit</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">200</div>
+            <div class="pl-label">Batch size</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">10K / day</div>
+            <div class="pl-label">Creator lookups</div>
+          </div>
+        </div>
+        <div class="plan-features">
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Everything in Starter
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Webhook support
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Historical data access
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Priority support & SLA
+          </div>
+        </div>
+      </div>
+
+      <!-- ENTERPRISE PLAN -->
+      <div class="plan-card" id="plan-enterprise">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">Custom</div>
+        <div class="plan-desc">Unlimited requests, custom rate limits, dedicated infrastructure, and SLA guarantees.
+        </div>
+        <div class="plan-limits">
+          <div class="pl-item">
+            <div class="pl-val">∞</div>
+            <div class="pl-label">Requests</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">Custom</div>
+            <div class="pl-label">Rate limit</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">Custom</div>
+            <div class="pl-label">Batch size</div>
+          </div>
+          <div class="pl-item">
+            <div class="pl-val">∞</div>
+            <div class="pl-label">Creator lookups</div>
+          </div>
+        </div>
+        <div class="plan-features">
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Everything in Growth
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Dedicated infrastructure
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Custom data licensing
+          </div>
+          <div class="pf-item">
+            <div class="pf-check yes"><svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>Dedicated account manager
+          </div>
+        </div>
+      </div>
+
+      <!-- TRUST SIGNALS -->
+      <div class="trust-row">
+        <div class="trust-item">
+          <div class="trust-icon"><svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg></div>SOC 2 Type II
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon"><svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg></div>99.9% uptime SLA
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon"><svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg></div>&lt;120ms avg
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon"><svg viewBox="0 0 24 24">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            </svg></div>GDPR compliant
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT FORM PANEL -->
+    <div class="form-panel">
+      <!-- STEP HEADER -->
+      <div class="step-header">
+        <div class="step-progress">
+          <div class="step-dot sd-active" id="dot1">1</div>
+          <div class="step-line" id="line1"></div>
+          <div class="step-dot sd-todo" id="dot2">2</div>
+          <div class="step-line" id="line2"></div>
+          <div class="step-dot sd-todo" id="dot3">3</div>
+          <div class="step-line" id="line3"></div>
+          <div class="step-dot sd-todo" id="dot4">4</div>
+        </div>
+        <div class="step-titles">
+          <div class="st-label active" id="stl1">Account</div>
+          <div class="st-label" id="stl2">About you</div>
+          <div class="st-label" id="stl3">Use case</div>
+          <div class="st-label" id="stl4">Your key</div>
+        </div>
+      </div>
+
+      <div class="form-steps">
+        <!-- STEP 1: ACCOUNT -->
+        <div class="form-step active" id="step1">
+          <div class="step-title">Create your account</div>
+          <div class="step-desc">Your API key will be tied to this account. Use a work email for team access.</div>
+
+          <div class="oauth-row">
+            <button class="oauth-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  fill="#4285F4" />
+                <path
+                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  fill="#34A853" />
+                <path
+                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  fill="#FBBC05" />
+                <path
+                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  fill="#EA4335" />
+              </svg>
+              Continue with Google
+            </button>
+            <button class="oauth-btn">
+              <svg viewBox="0 0 24 24" fill="var(--bright)">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+              Continue with GitHub
+            </button>
+          </div>
+
+          <div class="or-divider">or sign up with email</div>
+
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">First name <span class="req">*</span></label><input
+                class="form-input" type="text" placeholder="Aryan" /></div>
+            <div class="form-group"><label class="form-label">Last name <span class="req">*</span></label><input
+                class="form-input" type="text" placeholder="Kapoor" /></div>
+          </div>
+          <div class="form-group"><label class="form-label">Work email <span class="req">*</span></label><input
+              class="form-input" type="email" placeholder="aryan@company.com" /></div>
+          <div class="form-group">
+            <label class="form-label">Password <span class="req">*</span></label>
+            <div class="pass-wrap">
+              <input class="form-input" type="password" id="pass-input" placeholder="Min. 8 characters"
+                oninput="checkStrength(this.value)" />
+              <button class="pass-toggle" onclick="togglePass()" type="button"><svg id="eye-icon" viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg></button>
+            </div>
+            <div class="pass-strength">
+              <div class="ps-bars">
+                <div class="ps-bar" id="pb1"></div>
+                <div class="ps-bar" id="pb2"></div>
+                <div class="ps-bar" id="pb3"></div>
+                <div class="ps-bar" id="pb4"></div>
+              </div>
+              <div class="ps-label" id="ps-label">Enter a password</div>
+            </div>
+          </div>
+          <div class="terms-check">
+            <input type="checkbox" id="terms-cb" />
+            <label for="terms-cb">I agree to the <a href="dreabee-terms.html">Terms of Service</a> and <a
+                href="dreabee-privacy-policy.html">Privacy Policy</a>. I understand Dreabee will process my data as
+              described.</label>
+          </div>
+          <button class="btn-next" onclick="goStep(2)">
+            Continue <svg viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+          <p class="form-note">Already have an account? <a href="#">Sign in here</a></p>
+        </div>
+
+        <!-- STEP 2: ABOUT YOU -->
+        <div class="form-step" id="step2">
+          <div class="step-title">Tell us about yourself</div>
+          <div class="step-desc">This helps us set up your account and surface the most relevant features.</div>
+          <div class="form-row">
+            <div class="form-group"><label class="form-label">Company <span class="req">*</span></label><input
+                class="form-input" type="text" placeholder="Acme Agency" /></div>
+            <div class="form-group"><label class="form-label">Job title</label><input class="form-input" type="text"
+                placeholder="CTO" /></div>
+          </div>
+          <div class="form-group"><label class="form-label">Company size <span class="req">*</span></label>
+            <select class="form-select">
+              <option value="">Select size</option>
+              <option>Solo / Freelancer</option>
+              <option>2–10 employees</option>
+              <option>11–50 employees</option>
+              <option>51–200 employees</option>
+              <option>200+ employees</option>
+            </select>
+          </div>
+          <div class="form-group"><label class="form-label">How did you hear about Dreabee?</label>
+            <select class="form-select">
+              <option value="">Select one</option>
+              <option>Google / search</option>
+              <option>Twitter / X</option>
+              <option>LinkedIn</option>
+              <option>Colleague referral</option>
+              <option>Blog or article</option>
+              <option>Product Hunt</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <button class="btn-next" onclick="goStep(3)">Continue <svg viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></button>
+          <p class="form-note"><a href="#" onclick="goStep(1);return false" style="color:var(--muted)">← Back</a></p>
+        </div>
+
+        <!-- STEP 3: USE CASE -->
+        <div class="form-step" id="step3">
+          <div class="step-title">What will you build?</div>
+          <div class="step-desc">Select all that apply. This helps us tailor your onboarding and API docs.</div>
+          <div class="usecase-grid">
+            <button class="uc-option" onclick="toggleUC(this)">
+              <div class="uc-icon">🔍</div>
+              <div class="uc-label">Creator Discovery</div>
+              <div class="uc-desc">Build search & vetting tools</div>
+            </button>
+            <button class="uc-option" onclick="toggleUC(this)">
+              <div class="uc-icon">📊</div>
+              <div class="uc-label">Analytics Dashboard</div>
+              <div class="uc-desc">Visualise creator & campaign data</div>
+            </button>
+            <button class="uc-option" onclick="toggleUC(this)">
+              <div class="uc-icon">🤖</div>
+              <div class="uc-label">Automation</div>
+              <div class="uc-desc">Automate vetting & reporting</div>
+            </button>
+            <button class="uc-option" onclick="toggleUC(this)">
+              <div class="uc-icon">🏢</div>
+              <div class="uc-label">Internal Tool</div>
+              <div class="uc-desc">Power an internal platform</div>
+            </button>
+            <button class="uc-option" onclick="toggleUC(this)">
+              <div class="uc-icon">🔗</div>
+              <div class="uc-label">Integration</div>
+              <div class="uc-desc">Connect to existing software</div>
+            </button>
+            <button class="uc-option" onclick="toggleUC(this)">
+              <div class="uc-icon">🧪</div>
+              <div class="uc-label">Research / ML</div>
+              <div class="uc-desc">Data science & experimentation</div>
+            </button>
+          </div>
+          <button class="btn-next" id="gen-key-btn" onclick="generateKey()">
+            Generate my API key <svg viewBox="0 0 24 24">
+              <path
+                d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4" />
+            </svg>
+          </button>
+          <p class="form-note"><a href="#" onclick="goStep(2);return false" style="color:var(--muted)">← Back</a></p>
+        </div>
+
+        <!-- STEP 4: API KEY REVEAL -->
+        <div class="form-step" id="step4">
+          <div class="step-title">Your API key is ready 🎉</div>
+          <div class="step-desc">Copy it now — for security, we only show it once.</div>
+          <div class="apikey-reveal">
+            <div class="akr-label">Live API Key</div>
+            <div class="akr-key" id="api-key-display">drea_live_sk_••••••••••••••••••••••••••••••••••••••••</div>
+            <div class="akr-actions">
+              <button class="akr-btn akr-copy" onclick="copyKey()"><svg viewBox="0 0 24 24">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg> Copy key</button>
+              <button class="akr-btn akr-dl"><svg viewBox="0 0 24 24">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg> Download .env</button>
+              <button class="akr-btn akr-dl" onclick="revealKey()"><svg viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg> Reveal</button>
+            </div>
+            <div class="akr-warn"><svg viewBox="0 0 24 24">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+              </svg>Store this key securely. Never commit it to git or expose it client-side. Rotate it in your
+              dashboard if compromised.</div>
+          </div>
+          <div class="next-steps">
+            <div class="ns-item">
+              <div class="ns-icon"><svg viewBox="0 0 24 24">
+                  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                </svg></div>
+              <div>
+                <div class="ns-title">Read the Quick Start guide</div>
+                <div class="ns-desc">Make your first API call in under 5 minutes</div>
+              </div>
+            </div>
+            <div class="ns-item">
+              <div class="ns-icon"><svg viewBox="0 0 24 24">
+                  <polyline points="16 18 22 12 16 6" />
+                  <polyline points="8 6 2 12 8 18" />
+                </svg></div>
+              <div>
+                <div class="ns-title">Install an SDK</div>
+                <div class="ns-desc">Python, Node.js, Ruby, and PHP available</div>
+              </div>
+            </div>
+            <div class="ns-item">
+              <div class="ns-icon"><svg viewBox="0 0 24 24">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg></div>
+              <div>
+                <div class="ns-title">Join the developer community</div>
+                <div class="ns-desc">Slack, GitHub discussions, and monthly office hours</div>
+              </div>
+            </div>
+          </div>
+          <a href="dreabee-api-docs.html" class="btn-next" style="text-decoration:none">Go to API Docs <svg
+              viewBox="0 0 24 24">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg></a>
+          <button class="btn-docs-cta" onclick="window.location='/developers'">← Back to Developer Overview</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const GENERATED_KEY = 'drea_live_sk_' + Array.from({ length: 40 }, () => 'abcdefghijklmnopqrstuvwxyz0123456789'[Math.floor(Math.random() * 36)]).join('');
+    let keyRevealed = false;
+
+    function goStep(n) {
+      document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step' + n).classList.add('active');
+      // Update stepper
+      for (let i = 1; i <= 4; i++) {
+        const dot = document.getElementById('dot' + i);
+        const stl = document.getElementById('stl' + i);
+        dot.className = 'step-dot ' + (i < n ? 'sd-done' : i === n ? 'sd-active' : 'sd-todo');
+        dot.textContent = i < n ? '✓' : i;
+        stl.className = 'st-label' + (i === n ? ' active' : i < n ? ' done' : '');
+        if (i < 4) {
+          document.getElementById('line' + i).className = 'step-line' + (i < n ? ' done' : '');
+        }
+      }
+    }
+
+    function generateKey() {
+      const btn = document.getElementById('gen-key-btn');
+      btn.textContent = '⟳ Generating…';
+      btn.classList.add('loading');
+      setTimeout(() => { goStep(4); }, 1200);
+    }
+
+    function revealKey() {
+      if (!keyRevealed) {
+        document.getElementById('api-key-display').textContent = GENERATED_KEY;
+        keyRevealed = true;
+      } else {
+        document.getElementById('api-key-display').textContent = 'drea_live_sk_••••••••••••••••••••••••••••••••••••••••';
+        keyRevealed = false;
+      }
+    }
+
+    function copyKey() {
+      const key = keyRevealed ? GENERATED_KEY : GENERATED_KEY;
+      navigator.clipboard.writeText(key).catch(() => { });
+      const btn = event.currentTarget;
+      const orig = btn.innerHTML;
+      btn.textContent = '✓ Copied!';
+      btn.style.background = 'rgba(52,174,147,.3)';
+      setTimeout(() => { btn.innerHTML = orig; btn.style.background = ''; }, 2000);
+    }
+
+    function togglePass() {
+      const inp = document.getElementById('pass-input');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+    }
+
+    function checkStrength(val) {
+      const bars = [document.getElementById('pb1'), document.getElementById('pb2'), document.getElementById('pb3'), document.getElementById('pb4')];
+      const label = document.getElementById('ps-label');
+      bars.forEach(b => { b.className = 'ps-bar'; });
+      if (!val) { label.textContent = 'Enter a password'; return; }
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+      const classes = ['weak', 'fair', 'good', 'good'];
+      const labels = ['Too weak', 'Fair', 'Good', 'Strong'];
+      for (let i = 0; i < score; i++) bars[i].classList.add(classes[score - 1]);
+      label.textContent = labels[Math.min(score - 1, 3)] || 'Enter a password';
+      label.style.color = score <= 1 ? 'var(--red)' : score === 2 ? 'var(--orange)' : 'var(--teal)';
+    }
+
+    function toggleUC(el) { el.classList.toggle('selected'); }
+
+    function switchPlan(plan, el) {
+      document.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      document.getElementById('plan-' + plan).classList.add('active');
+    }
+  </script>
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+
+        <!-- Brand column -->
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X" title="Twitter / X"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn" title="LinkedIn"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram" title="Instagram"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="5%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube" title="YouTube"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links">
+            <a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a>
+            <a href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a>
+            <a href="dreabee-pricing.html" class="gfoot-link">Pricing</a>
+          </div>
+        </div>
+
+        <!-- Free Tools -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links">
+            <a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links">
+            <a href="dreabee-about.html" class="gfoot-link">About Us</a>
+            <a href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a>
+            <a href="dreabee-press.html" class="gfoot-link">Press</a>
+            <a href="dreabee-blog.html" class="gfoot-link">Blog</a>
+            <a href="dreabee-contact.html" class="gfoot-link">Contact</a>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links">
+            <a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gfoot-link">API Reference</a>
+            <a href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a>
+            <a href="dreabee-changelog.html" class="gfoot-link">Changelog</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Resources</span>
+          <div class="gfoot-links">
+            <a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a>
+            <a href="dreabee-for-creators.html" class="gfoot-link">For Creators</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+            <a href="dreabee-compare.html" class="gfoot-link">Compare Platforms</a>
+            <a href="dreabee-faq.html" class="gfoot-link">FAQ</a>
+            <a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links">
+            <a href="dreabee-login.html" class="gfoot-link">Login</a>
+            <a href="dreabee-register.html" class="gfoot-link">Get Started Free</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links">
+            <a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a>
+            <a href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a>
+            <a href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a>
+          </div>
+        </div>
+
+      </div><!-- /gfoot-top -->
+    </div><!-- /gfoot-inner -->
+
+    <hr class="gfoot-divider">
+
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2025 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal">
+        <a href="dreabee-terms.html">Terms</a>
+        <a href="dreabee-privacy-policy.html">Privacy</a>
+        <a href="dreabee-cookie-policy.html">Cookies</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+  </script>
+</body>
+
+</html>

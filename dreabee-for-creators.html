@@ -1,0 +1,4088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Creators — Dreabee</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ═══ DREABEE MASTER NAV + FOOTER CSS ═══ */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    /* NAV */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* FOOTER */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden;
+      padding: 0
+    }
+
+    .gfoot-soc:hover {
+      border-color: #34AE93;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 174, 147, .2)
+    }
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px) {
+      .gnav-links {
+        gap: 0
+      }
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 6px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --primary: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --grad: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --surface: #F7FAFA;
+      --border: #E2EDEC;
+      --tp: #043E54;
+      --ts: #4A7A84;
+      --tint: #EDF7F5;
+      --nav-h: 64px;
+      --s-sm: 0 1px 5px rgba(4, 62, 84, .05);
+      --s-md: 0 4px 18px rgba(4, 62, 84, .08);
+      --s-lg: 0 12px 40px rgba(4, 62, 84, .12);
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fff;
+      color: var(--tp);
+      line-height: 1.6;
+      overflow-x: hidden
+    }
+
+    .nav-link:hover,
+
+    .nav-dd-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      background: none;
+      font-family: inherit;
+      transition: .15s
+    }
+
+    .nav-dd-btn:hover {
+      color: var(--primary);
+      background: var(--tint)
+    }
+
+    .chev {
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .nav-dd.open .chev {
+      transform: rotate(180deg)
+    }
+
+    .dd-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--s-lg);
+      min-width: 220px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+      transition: .15s
+    }
+
+    .nav-dd.open .dd-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0)
+    }
+
+    .btn-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ts);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 7px
+    }
+
+    .btn-ghost:hover {
+      color: var(--primary)
+    }
+
+    .btn-pill {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--grad);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: .15s;
+      font-family: inherit
+    }
+
+    .btn-pill:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 14px rgba(52, 174, 147, .35)
+    }
+
+    .mob-hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 8px 0
+    }
+
+    .fi {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .5s ease, transform .5s ease
+    }
+
+    .fi.vis {
+      opacity: 1;
+      transform: none
+    }
+
+    .d1 {
+      transition-delay: .1s
+    }
+
+    .d2 {
+      transition-delay: .2s
+    }
+
+    .d3 {
+      transition-delay: .3s
+    }
+
+    .d4 {
+      transition-delay: .4s
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--grad);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: .15s;
+      font-family: inherit
+    }
+
+    .btn-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 22px rgba(52, 174, 147, .4)
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: transparent;
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px 26px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(255, 255, 255, .3);
+      color: #fff;
+      text-decoration: none;
+      transition: .15s
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, .1)
+    }
+
+    /* HERO — full dark */
+    #hero {
+      background: var(--primary);
+      padding: 80px 24px 72px;
+      position: relative;
+      overflow: hidden
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(52, 174, 147, .15) 0%, transparent 65%);
+      top: -250px;
+      right: -200px;
+      pointer-events: none
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(138, 216, 163, .08) 0%, transparent 65%);
+      bottom: -100px;
+      left: -100px;
+      pointer-events: none
+    }
+
+    .hero-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative
+    }
+
+    .creator-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(52, 174, 147, .15);
+      border: 1px solid rgba(52, 174, 147, .3);
+      color: var(--mint);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 28px
+    }
+
+    .creator-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--mint);
+      animation: blink 2s infinite
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .4
+      }
+    }
+
+    #hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 6vw, 68px);
+      font-weight: 400;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -.025em;
+      margin-bottom: 24px
+    }
+
+    #hero h1 span {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    #hero h1 em {
+      font-style: italic;
+      opacity: .65
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 2vw, 18px);
+      color: rgba(255, 255, 255, .7);
+      line-height: 1.75;
+      max-width: 580px;
+      margin: 0 auto 36px
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px
+    }
+
+    .hero-platforms {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap
+    }
+
+    .hp-label {
+      font-size: 12px;
+      color: rgba(255, 255, 255, .45);
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase
+    }
+
+    .platform-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, .07);
+      border: 1px solid rgba(255, 255, 255, .12);
+      padding: 5px 12px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, .7)
+    }
+
+    /* SOCIAL PROOF STRIP */
+    #proof {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 24px
+    }
+
+    .proof-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 20px
+    }
+
+    .proof-item {
+      text-align: center
+    }
+
+    .proof-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--primary);
+      line-height: 1
+    }
+
+    .proof-label {
+      font-size: 12px;
+      color: var(--ts);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-top: 4px
+    }
+
+    /* WHY DREABEE */
+    #why {
+      padding: 80px 24px
+    }
+
+    .why-inner {
+      max-width: 1100px;
+      margin: 0 auto
+    }
+
+    .sec-label {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--teal);
+      text-align: center;
+      margin-bottom: 12px
+    }
+
+    .sec-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 400;
+      color: var(--primary);
+      text-align: center;
+      line-height: 1.2;
+      margin-bottom: 14px
+    }
+
+    .sec-sub {
+      font-size: 15px;
+      color: var(--ts);
+      text-align: center;
+      max-width: 540px;
+      margin: 0 auto 52px;
+      line-height: 1.7
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px
+    }
+
+    @media(min-width:600px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    @media(min-width:900px) {
+      .features-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    .feat-card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      background: #fff;
+      box-shadow: var(--s-sm);
+      transition: .2s
+    }
+
+    .feat-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--s-md);
+      border-color: rgba(52, 174, 147, .25)
+    }
+
+    .feat-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 20px
+    }
+
+    .feat-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px
+    }
+
+    .feat-text {
+      font-size: 13.5px;
+      color: var(--ts);
+      line-height: 1.7
+    }
+
+    .feat-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--teal);
+      text-decoration: none;
+      transition: .15s
+    }
+
+    .feat-cta:hover {
+      gap: 8px
+    }
+
+    /* PROFILE DEMO */
+    #demo {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border)
+    }
+
+    .demo-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: center
+    }
+
+    @media(min-width:860px) {
+      .demo-inner {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    .demo-text .sec-label,
+    .demo-text .sec-title {
+      text-align: left
+    }
+
+    .demo-text .sec-title {
+      margin-bottom: 14px
+    }
+
+    .demo-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px
+    }
+
+    .demo-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px
+    }
+
+    .demo-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px
+    }
+
+    .demo-item-text {
+      font-size: 14px;
+      color: #2a5062;
+      line-height: 1.65
+    }
+
+    .demo-item-text strong {
+      color: var(--primary);
+      font-weight: 700
+    }
+
+    /* Mock profile card */
+    .profile-mock {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--s-lg)
+    }
+
+    .pm-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px
+    }
+
+    .pm-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      color: #fff;
+      font-family: 'DM Serif Display', serif;
+      flex-shrink: 0
+    }
+
+    .pm-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--primary)
+    }
+
+    .pm-handle {
+      font-size: 13px;
+      color: var(--ts)
+    }
+
+    .pm-verified {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      background: var(--tint);
+      padding: 2px 8px;
+      border-radius: 100px;
+      margin-top: 3px
+    }
+
+    .pm-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px
+    }
+
+    .pm-kpi {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center
+    }
+
+    .pm-kpi-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--primary)
+    }
+
+    .pm-kpi-label {
+      font-size: 11px;
+      color: var(--ts);
+      font-weight: 600
+    }
+
+    .pm-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 5px
+    }
+
+    .pm-bar-label span:first-child {
+      color: var(--tp)
+    }
+
+    .pm-bar-label span:last-child {
+      color: var(--teal)
+    }
+
+    .pm-bar {
+      height: 7px;
+      background: var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+      margin-bottom: 10px
+    }
+
+    .pm-bar-fill {
+      height: 100%;
+      background: var(--grad);
+      border-radius: 100px
+    }
+
+    .pm-footer {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px
+    }
+
+    .pm-tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: var(--tint);
+      color: var(--teal);
+      border: 1px solid rgba(52, 174, 147, .2)
+    }
+
+    /* BRAND LOGOS (how brands find you) */
+    #brands {
+      padding: 80px 24px;
+      border-top: 1px solid var(--border)
+    }
+
+    .brands-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center
+    }
+
+    .brand-logos {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 40px 0
+    }
+
+    .brand-logo-pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ts)
+    }
+
+    /* HOW IT WORKS */
+    #how {
+      padding: 80px 24px;
+      background: var(--surface);
+      border-top: 1px solid var(--border)
+    }
+
+    .how-inner {
+      max-width: 840px;
+      margin: 0 auto
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin-top: 48px;
+      position: relative
+    }
+
+    @media(min-width:600px) {
+      .steps {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 24px;
+      position: relative
+    }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: #fff;
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px
+    }
+
+    .step-text {
+      font-size: 13.5px;
+      color: var(--ts);
+      line-height: 1.65
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 44px;
+      left: 25%;
+      right: 25%;
+      height: 2px;
+      background: var(--border);
+      display: none
+    }
+
+    @media(min-width:600px) {
+      .steps::before {
+        display: block
+      }
+    }
+
+    /* TESTIMONIALS */
+    #testimonials {
+      padding: 80px 24px;
+      border-top: 1px solid var(--border)
+    }
+
+    .test-inner {
+      max-width: 1000px;
+      margin: 0 auto
+    }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 48px
+    }
+
+    @media(min-width:600px) {
+      .test-grid {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    .test-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative
+    }
+
+    .test-quote {
+      font-size: 13.5px;
+      color: #2a5062;
+      line-height: 1.75;
+      margin-bottom: 18px;
+      font-style: italic
+    }
+
+    .test-author {
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .test-av {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0
+    }
+
+    .test-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary)
+    }
+
+    .test-handle {
+      font-size: 11px;
+      color: var(--ts)
+    }
+
+    .test-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 14px
+    }
+
+    .star {
+      color: #f59e0b;
+      font-size: 13px
+    }
+
+    /* FAQ */
+    #faq {
+      padding: 64px 24px 80px;
+      background: var(--surface);
+      border-top: 1px solid var(--border)
+    }
+
+    .faq-inner {
+      max-width: 700px;
+      margin: 0 auto
+    }
+
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #fff;
+      margin-bottom: 10px;
+      overflow: hidden
+    }
+
+    .faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 17px 20px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--tp);
+      cursor: pointer;
+      text-align: left
+    }
+
+    .faq-q:hover {
+      color: var(--teal)
+    }
+
+    .faq-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: .25s
+    }
+
+    .faq-item.open .faq-icon {
+      background: var(--teal);
+      border-color: var(--teal);
+      transform: rotate(45deg)
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 200px
+    }
+
+    .faq-a-inner {
+      padding: 0 20px 16px;
+      font-size: 13.5px;
+      color: var(--ts);
+      line-height: 1.7;
+      border-top: 1px solid var(--border)
+    }
+
+    /* CTA */
+    #cta {
+      background: var(--primary);
+      padding: 80px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden
+    }
+
+    #cta::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(52, 174, 147, .15) 0%, transparent 65%);
+      top: -200px;
+      right: -100px;
+      pointer-events: none
+    }
+
+    #cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 400;
+      color: #fff;
+      margin-bottom: 14px;
+      line-height: 1.1;
+      position: relative
+    }
+
+    #cta h2 span {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    #cta .sub {
+      font-size: 16px;
+      color: rgba(255, 255, 255, .75);
+      max-width: 500px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+      position: relative
+    }
+
+    .btn-white {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #fff;
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 13px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: .15s;
+      font-family: inherit
+    }
+
+    .btn-white:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(4, 62, 84, .2)
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 52px 24px 0
+    }
+
+    .foot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px
+    }
+
+    @media(min-width:768px) {
+      .foot-inner {
+        grid-template-columns: 2fr 1fr 1fr 1fr
+      }
+    }
+
+    .ft-col-t {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--primary);
+      margin-bottom: 12px
+    }
+
+    .foot-tag {
+      font-size: 14px;
+      color: var(--ts);
+      line-height: 1.6;
+      max-width: 220px
+    }
+
+    .foot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
+
+    .foot-link {
+      font-size: 14px;
+      color: var(--ts);
+      text-decoration: none;
+      transition: .12s
+    }
+
+    .foot-link:hover {
+      color: var(--primary)
+    }
+
+    .foot-bot {
+      max-width: 1200px;
+      margin: 36px auto 0;
+      border-top: 1px solid var(--border);
+      padding: 18px 0;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between
+    }
+
+    .foot-copy {
+      font-size: 13px;
+      color: var(--ts)
+    }
+
+    .foot-blinks {
+      display: flex;
+      gap: 20px
+    }
+
+    .foot-blinks a {
+      font-size: 13px;
+      color: var(--ts);
+      text-decoration: none
+    }
+
+    .foot-blinks a:hover {
+      color: var(--primary)
+    }
+
+    /* ──────── GLOBAL NAV ──────── */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .g .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* ──────── GLOBAL FOOTER ──────── */
+
+    .gnav-link,
+    .gnav-toggle {
+      padding: 6px 8px;
+      font-size: 13px
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .g .gfoot-grid {
+        grid-template-columns: 1fr !important
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+      }
+    }
+
+    /* ──────── REDESIGNED FOOTER ──────── */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    .gfoot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4A7A84;
+      margin-bottom: 16px
+    }
+
+    .gfoot-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #34AE93;
+      border-radius: 50%
+    }
+
+    /* ═══ CREATOR LISTING SECTION ═══ */
+    #list-profile {
+      padding: 100px 0;
+      background: #fff;
+      position: relative;
+      overflow: hidden
+    }
+
+    #list-profile::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -180px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(138, 216, 163, .12) 0%, transparent 65%);
+      pointer-events: none
+    }
+
+    #list-profile::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(52, 174, 147, .08) 0%, transparent 65%);
+      pointer-events: none
+    }
+
+    .clf-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative
+    }
+
+    .clf-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 64px;
+      align-items: start
+    }
+
+    @media(max-width:900px) {
+      .clf-grid {
+        grid-template-columns: 1fr;
+        gap: 40px
+      }
+    }
+
+    /* Left panel */
+    .clf-info {}
+
+    .clf-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #ECF7F3;
+      border: 1px solid #D5EBE5;
+      color: #34AE93;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px
+    }
+
+    .clf-chip::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #34AE93;
+      border-radius: 50%;
+      animation: cpulse 2s ease-in-out infinite
+    }
+
+    @keyframes cpulse {
+
+      0%,
+      100% {
+        transform: scale(1)
+      }
+
+      50% {
+        transform: scale(1.6);
+        opacity: .4
+      }
+    }
+
+    .clf-info h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 800;
+      color: #043E54;
+      letter-spacing: -.03em;
+      line-height: 1.12;
+      margin-bottom: 16px
+    }
+
+    .clf-info p {
+      font-size: 16px;
+      color: #4A7A84;
+      line-height: 1.75;
+      margin-bottom: 32px
+    }
+
+    .clf-perks {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 36px
+    }
+
+    .clf-perk {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px
+    }
+
+    .clf-perk-ico {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #e8f6f0, #D5EBE5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px
+    }
+
+    .clf-perk-text {}
+
+    .clf-perk-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #043E54;
+      margin-bottom: 2px
+    }
+
+    .clf-perk-sub {
+      font-size: 13px;
+      color: #4A7A84;
+      line-height: 1.5
+    }
+
+    .clf-platforms {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap
+    }
+
+    .clf-plat {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #F2F9F7;
+      border: 1px solid #D5EBE5;
+      border-radius: 8px;
+      padding: 7px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4A7A84
+    }
+
+    /* Right: Form card */
+    .clf-card {
+      background: #fff;
+      border: 1.5px solid #D5EBE5;
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 24px 80px rgba(4, 62, 84, .08), 0 4px 16px rgba(4, 62, 84, .04)
+    }
+
+    .clf-card-head {
+      margin-bottom: 28px
+    }
+
+    .clf-card-head h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #043E54;
+      margin-bottom: 6px
+    }
+
+    .clf-card-head p {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .clf-steps {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+      border-bottom: 2px solid #F2F9F7
+    }
+
+    .clf-step-tab {
+      font-size: 12px;
+      font-weight: 700;
+      color: #4A7A84;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all .15s;
+      white-space: nowrap
+    }
+
+    .clf-step-tab.active {
+      color: #34AE93;
+      border-bottom-color: #34AE93
+    }
+
+    /* Field styles */
+    .clf-section {
+      display: none
+    }
+
+    .clf-section.active {
+      display: block
+    }
+
+    .clf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px
+    }
+
+    @media(max-width:500px) {
+      .clf-row {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .clf-field {
+      margin-bottom: 16px
+    }
+
+    .clf-field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #043E54;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+      letter-spacing: .04em
+    }
+
+    .clf-field .clf-hint {
+      font-size: 11px;
+      color: #4A7A84;
+      margin-bottom: 5px
+    }
+
+    .clf-inp {
+      width: 100%;
+      padding: 10px 13px;
+      border: 1.5px solid #D5EBE5;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #043E54;
+      background: #fff;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+      font-family: inherit;
+      box-sizing: border-box
+    }
+
+    .clf-inp:focus {
+      border-color: #34AE93;
+      box-shadow: 0 0 0 3px rgba(52, 174, 147, .1)
+    }
+
+    .clf-inp::placeholder {
+      color: #9ab5bc
+    }
+
+    .clf-inp.error {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, .08)
+    }
+
+    .clf-sel {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' stroke='%234A7A84' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+      cursor: pointer
+    }
+
+    .clf-soc-wrap {
+      position: relative
+    }
+
+    .clf-soc-ico {
+      position: absolute;
+      left: 11px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 14px;
+      pointer-events: none;
+      line-height: 1
+    }
+
+    .clf-soc-wrap .clf-inp {
+      padding-left: 34px
+    }
+
+    .clf-textarea {
+      min-height: 80px;
+      resize: vertical
+    }
+
+    .clf-err {
+      display: none;
+      font-size: 11px;
+      color: #ef4444;
+      margin-top: 4px;
+      font-weight: 500
+    }
+
+    .clf-err.show {
+      display: block
+    }
+
+    .clf-divider {
+      border: none;
+      border-top: 1px solid #F2F9F7;
+      margin: 20px 0
+    }
+
+    .clf-section-lbl {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #4A7A84;
+      margin-bottom: 12px;
+      display: block
+    }
+
+    .clf-socials-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    @media(max-width:500px) {
+      .clf-socials-grid {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .clf-check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 8px
+    }
+
+    .clf-check-row input[type=checkbox] {
+      width: 15px;
+      height: 15px;
+      accent-color: #34AE93;
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer
+    }
+
+    .clf-check-row label {
+      font-size: 12px;
+      color: #4A7A84;
+      line-height: 1.5;
+      cursor: pointer
+    }
+
+    .clf-check-row label a {
+      color: #34AE93;
+      text-decoration: none
+    }
+
+    .clf-check-row label a:hover {
+      text-decoration: underline
+    }
+
+    .clf- .clf-btn-next {
+      flex: 1;
+      padding: 12px 20px;
+      background: linear-gradient(140deg, #7ed5a0, #25967a);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Sora', sans-serif;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s
+    }
+
+    .clf-btn-next:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(52, 174, 147, .35)
+    }
+
+    .clf-btn-back {
+      padding: 12px 20px;
+      background: #F2F9F7;
+      border: 1.5px solid #D5EBE5;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #4A7A84;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: inherit
+    }
+
+    .clf-btn-back:hover {
+      background: #D5EBE5;
+      color: #043E54
+    }
+
+    .clf-progress {
+      display: flex;
+      gap: 6px;
+      align-items: center
+    }
+
+    .clf-prog-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #D5EBE5;
+      transition: all .2s
+    }
+
+    .clf-prog-dot.active {
+      background: #34AE93;
+      width: 20px;
+      border-radius: 4px
+    }
+
+    /* Success */
+    .clf-success {
+      display: none;
+      text-align: center;
+      padding: 32px 16px
+    }
+
+    .clf-success-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8AD8A3, #34AE93);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 12px 36px rgba(52, 174, 147, .35)
+    }
+
+    .clf-success h3 {
+      font-family: 'Sora', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #043E54;
+      margin-bottom: 10px
+    }
+
+    .clf-success p {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      max-width: 360px;
+      margin: 0 auto
+    }
+  </style>
+  <style id="dreabee-nav-css">
+    /* ── Dreabee Unified Nav & Footer — hardcoded, no CSS var deps ── */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: #ECF7F3;
+      color: #043E54
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: #D5EBE5;
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: #043E54
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #043E54;
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid #D5EBE5
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #043E54;
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid #D5EBE5;
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: #34AE93
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #4A7A84;
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* Footer */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%) !important;
+      border-top: 1px solid #D5EBE5 !important;
+      padding: 64px 0 0 !important
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* Responsive */
+    @media(max-width:1024px) {
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 5px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-inner {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" id="gnav-logo" href="index.html">
+        <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
+      </div>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost" id="gnav-login">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
+      </div>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink" id="gnav-mob-login">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner fi">
+      <div class="creator-badge"><span class="creator-badge-dot"></span> For Content Creators</div>
+      <h1>Get discovered by<br>brands that <span>actually</span><br><em>value</em> your work</h1>
+      <p class="hero-sub">Dreabee connects authentic creators with brands looking for real engagement — not inflated
+        numbers. List your profile for free and let your audience quality speak for itself.</p>
+      <div class="hero-btns">
+        <a href="#list-profile" class="btn-cta" style="font-size:16px;padding:14px 32px;">List My Profile Free →</a>
+        <a href="#how" class="btn-outline">How it Works</a>
+      </div>
+      <div class="hero-platforms">
+        <span class="hp-label">Works with</span>
+        <span class="platform-pill">📸 Instagram</span>
+        <span class="platform-pill">▶️ YouTube</span>
+        <span class="platform-pill">🎵 TikTok</span>
+        <span class="platform-pill">💼 LinkedIn</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF STRIP -->
+  <section id="proof">
+    <div class="proof-inner fi">
+      <div class="proof-item">
+        <div class="proof-num">200K+</div>
+        <div class="proof-label">Creators Listed</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">8K+</div>
+        <div class="proof-label">Brands Searching</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">Free</div>
+        <div class="proof-label">Always, for Creators</div>
+      </div>
+      <div class="proof-item">
+        <div class="proof-num">4</div>
+        <div class="proof-label">Platforms Supported</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY DREABEE -->
+  <section id="why">
+    <div class="why-inner">
+      <div class="fi">
+        <div class="sec-label">Why Dreabee</div>
+        <h2 class="sec-title">The platform that rewards authenticity</h2>
+        <p class="sec-sub">Dreabee's audience quality scoring puts genuine creators at the top — not the ones with the
+          most bought followers.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card fi">
+          <div class="feat-icon" style="background:#d4f0e0;">🔍</div>
+          <div class="feat-title">Get Found by the Right Brands</div>
+          <div class="feat-text">8,000+ brands and agencies use Dreabee to discover creators. Your profile appears in
+            branded searches filtered by niche, platform, engagement, and audience demographics.</div>
+          <a href="dreabee-search-influencer.html" class="feat-cta">List your profile →</a>
+        </div>
+        <div class="feat-card fi d1">
+          <div class="feat-icon" style="background:#dde8f8;">📊</div>
+          <div class="feat-title">See Your Own Analytics</div>
+          <div class="feat-text">Access the same audience quality data that brands see. Know your engagement rate,
+            audience authenticity score, top demographics, and how you compare to peers in your niche.</div>
+          <a href="dreabee-influencer-analytics.html" class="feat-cta">View your analytics →</a>
+        </div>
+        <div class="feat-card fi d2">
+          <div class="feat-icon" style="background:#fce8d4;">💰</div>
+          <div class="feat-title">Negotiate with Real Data</div>
+          <div class="feat-text">Stop underselling yourself. Walk into brand conversations with your audience quality
+            report in hand. Show exactly what makes your community valuable — beyond vanity metrics.</div>
+          <a href="dreabee-instagram-fake-followers.html" class="feat-cta">Check your profile →</a>
+        </div>
+        <div class="feat-card fi">
+          <div class="feat-icon" style="background:#f0e8fc;">🛡️</div>
+          <div class="feat-title">Your Authentic Work Rises First</div>
+          <div class="feat-text">Our Audience Quality Score measures real engagement depth, comment authenticity, and
+            follower legitimacy. Creators who have built real communities score higher — and get found first.</div>
+        </div>
+        <div class="feat-card fi d1">
+          <div class="feat-icon" style="background:#fef9c3;">📧</div>
+          <div class="feat-title">Direct Brand Outreach</div>
+          <div class="feat-text">Brands can reach you directly through your Dreabee profile. No middleman, no agency
+            fees. You control which enquiries you respond to and how you work together.</div>
+        </div>
+        <div class="feat-card fi d2">
+          <div class="feat-icon" style="background:#d4f0e0;">🎯</div>
+          <div class="feat-title">It's Completely Free for Creators</div>
+          <div class="feat-text">Dreabee is free for creators — always. We charge brands and agencies for discovery and
+            analytics access. Your profile, your data, your analytics: zero cost.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEMO PROFILE -->
+  <section id="demo">
+    <div class="demo-inner wrap">
+      <div class="demo-text fi">
+        <div class="sec-label">Your Profile</div>
+        <h2 class="sec-title">What brands see when they find you</h2>
+        <div class="demo-list">
+          <div class="demo-item">
+            <div class="demo-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white"
+                stroke-width="3" stroke-linecap="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>
+            <div class="demo-item-text"><strong>Audience Quality Score</strong> — a 0–100 rating of how authentic your
+              followers are, derived from our analysis of engagement patterns, follower behaviour, and comment depth.
+            </div>
+          </div>
+          <div class="demo-item">
+            <div class="demo-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white"
+                stroke-width="3" stroke-linecap="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>
+            <div class="demo-item-text"><strong>Verified engagement rate</strong> — your average likes, comments, and
+              shares per post calculated against your real (not total) follower count.</div>
+          </div>
+          <div class="demo-item">
+            <div class="demo-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white"
+                stroke-width="3" stroke-linecap="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>
+            <div class="demo-item-text"><strong>Audience demographics</strong> — top locations, age groups, and gender
+              split of your real audience — the data brands actually use to decide on fit.</div>
+          </div>
+          <div class="demo-item">
+            <div class="demo-check"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="white"
+                stroke-width="3" stroke-linecap="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></div>
+            <div class="demo-item-text"><strong>Content niche tags</strong> — automatically categorised so the right
+              brands can find you even if they're not searching your exact handle.</div>
+          </div>
+        </div>
+        <a href="dreabee-search-influencer.html" class="btn-cta">See My Profile →</a>
+      </div>
+      <div class="fi d1">
+        <div class="profile-mock">
+          <div class="pm-header">
+            <div class="pm-avatar">AR</div>
+            <div>
+              <div class="pm-name">Anika Rawat</div>
+              <div class="pm-handle">@anikarawat · Fashion & Lifestyle</div>
+              <div class="pm-verified">✓ Verified Creator</div>
+            </div>
+          </div>
+          <div class="pm-kpis">
+            <div class="pm-kpi">
+              <div class="pm-kpi-val">248K</div>
+              <div class="pm-kpi-label">Followers</div>
+            </div>
+            <div class="pm-kpi">
+              <div class="pm-kpi-val">6.2%</div>
+              <div class="pm-kpi-label">Eng. Rate</div>
+            </div>
+            <div class="pm-kpi">
+              <div class="pm-kpi-val">84</div>
+              <div class="pm-kpi-label">Quality Score</div>
+            </div>
+          </div>
+          <div class="pm-bar-label"><span>Real People</span><span>76.4%</span></div>
+          <div class="pm-bar">
+            <div class="pm-bar-fill" style="width:76%"></div>
+          </div>
+          <div class="pm-bar-label"><span>Fake Followers</span><span style="color:#f59e0b">9.2%</span></div>
+          <div class="pm-bar">
+            <div class="pm-bar-fill" style="width:9%;background:linear-gradient(90deg,#fbbf24,#f59e0b)"></div>
+          </div>
+          <div class="pm-bar-label"><span>Mass Followers</span><span>8.1%</span></div>
+          <div class="pm-bar">
+            <div class="pm-bar-fill" style="width:8%"></div>
+          </div>
+          <div class="pm-footer">
+            <span class="pm-tag">Fashion</span>
+            <span class="pm-tag">Lifestyle</span>
+            <span class="pm-tag">Beauty</span>
+            <span class="pm-tag">Mumbai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="how-inner wrap">
+      <div class="fi" style="text-align:center">
+        <div class="sec-label">Getting Started</div>
+        <h2 class="sec-title">Three steps to get discovered</h2>
+      </div>
+      <div class="steps">
+        <div class="step fi">
+          <div class="step-num">1</div>
+          <div class="step-title">Connect your profile</div>
+          <div class="step-text">Enter your social handle in our search tool. Dreabee will analyse your public profile
+            and generate your audience quality report automatically.</div>
+        </div>
+        <div class="step fi d1">
+          <div class="step-num">2</div>
+          <div class="step-title">Your profile goes live</div>
+          <div class="step-text">Your profile is now visible to 8,000+ brands and agencies searching for creators in
+            your niche, follower tier, and location.</div>
+        </div>
+        <div class="step fi d2">
+          <div class="step-num">3</div>
+          <div class="step-title">Brands reach out</div>
+          <div class="step-text">Interested brands contact you directly via the details on your profile. You choose who
+            you work with, on your own terms.</div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:36px" class="fi">
+        <a href="dreabee-search-influencer.html" class="btn-cta">Get Started Free →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="test-inner wrap">
+      <div class="fi" style="text-align:center">
+        <div class="sec-label">Creator Stories</div>
+        <h2 class="sec-title">What creators say about Dreabee</h2>
+      </div>
+      <div class="test-grid">
+        <div class="test-card fi">
+          <div class="test-stars">★★★★★</div>
+          <div class="test-quote">"I used to lose brand deals to creators with more followers but worse engagement.
+            Dreabee's quality score helped me prove my audience was worth more. Got 3 deals in my first month."</div>
+          <div class="test-author">
+            <div class="test-av">SJ</div>
+            <div>
+              <div class="test-name">Sanya Joshi</div>
+              <div class="test-handle">@sanyajoshi · 92K followers</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card fi d1">
+          <div class="test-stars">★★★★★</div>
+          <div class="test-quote">"Seeing my own analytics was eye-opening. Dreabee showed me my top performing content
+            categories and I adjusted my strategy. My engagement rate went up 2.4% in 6 weeks."</div>
+          <div class="test-author">
+            <div class="test-av">RV</div>
+            <div>
+              <div class="test-name">Rohan Verma</div>
+              <div class="test-handle">@rohanv · 310K followers</div>
+            </div>
+          </div>
+        </div>
+        <div class="test-card fi d2">
+          <div class="test-stars">★★★★★</div>
+          <div class="test-quote">"Brands found me through Dreabee that I never would have pitched myself. The platform
+            matched my audience demographics to what they needed perfectly."</div>
+          <div class="test-author">
+            <div class="test-av">PM</div>
+            <div>
+              <div class="test-name">Preeti Malhotra</div>
+              <div class="test-handle">@preetim · 175K followers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="faq-inner fi">
+      <div style="text-align:center;margin-bottom:36px">
+        <div class="sec-label">Questions</div>
+        <h2 class="sec-title">Creator FAQs</h2>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <button class="faq-q">Is Dreabee really free for creators?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ts)"
+              stroke-width="2.5" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Yes, 100%. Creators never pay to be listed, discovered, or to see their own
+            analytics. We charge brands and agencies for advanced discovery and campaign features. Your listing and
+            basic analytics are always free.</div>
+        </div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <button class="faq-q">What if I don't want to be listed?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ts)"
+              stroke-width="2.5" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">We analyse public social data so any public account may appear in brand searches. If
+            you'd like to be removed or have your profile hidden, email hello@dreabee.com and we'll process the request
+            within 48 hours.</div>
+        </div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <button class="faq-q">How does the Audience Quality Score work?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ts)"
+              stroke-width="2.5" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">It's a 0–100 composite score that measures: the percentage of real vs fake followers,
+            engagement rate vs follower tier benchmarks, comment authenticity, follower growth pattern, and posting
+            consistency. A score above 75 is considered high quality.</div>
+        </div>
+      </div>
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <button class="faq-q">Can I update my profile information?
+          <span class="faq-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--ts)"
+              stroke-width="2.5" stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg></span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Your public social profile data is refreshed automatically every 7 days. For niche
+            tags, contact preferences, and additional context, you can claim your profile via the Search Influencer page
+            and update it directly.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="wrap fi" style="text-align:center;position:relative">
+      <h2>Your authentic audience is<br>your biggest <span>competitive advantage</span></h2>
+      <p class="sub">8,000+ brands are actively searching for creators like you right now. List your profile in 30
+        seconds — it's free, always.</p>
+      <a href="dreabee-search-influencer.html" class="btn-white" style="font-size:16px;padding:14px 32px;">List My
+        Profile Free →</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+
+
+
+
+
+  <!-- ═══ LIST YOUR PROFILE ═══ -->
+  <section id="list-profile">
+    <div class="clf-inner">
+      <div class="clf-grid">
+
+        <!-- LEFT: Info panel -->
+        <div class="clf-info">
+          <div class="clf-chip">Free • No Credit Card</div>
+          <h2>Get discovered by<br>the right brands</h2>
+          <p>Add your profile to Dreabee's creator network. We analyse your social presence and match you with brands
+            looking for exactly your audience.</p>
+
+          <div class="clf-perks">
+            <div class="clf-perk">
+              <div class="clf-perk-ico">🔍</div>
+              <div class="clf-perk-text">
+                <div class="clf-perk-title">Instant profile analysis</div>
+                <div class="clf-perk-sub">We fetch your public stats automatically — no logins, no passwords.</div>
+              </div>
+            </div>
+            <div class="clf-perk">
+              <div class="clf-perk-ico">📊</div>
+              <div class="clf-perk-text">
+                <div class="clf-perk-title">Real audience insights</div>
+                <div class="clf-perk-sub">Brands see your genuine engagement rate, not just follower count.</div>
+              </div>
+            </div>
+            <div class="clf-perk">
+              <div class="clf-perk-ico">💼</div>
+              <div class="clf-perk-text">
+                <div class="clf-perk-title">Direct brand matches</div>
+                <div class="clf-perk-sub">Get inbound collaboration requests from verified brands in your niche.</div>
+              </div>
+            </div>
+            <div class="clf-perk">
+              <div class="clf-perk-ico">⚡</div>
+              <div class="clf-perk-text">
+                <div class="clf-perk-title">Live in 24–48 hours</div>
+                <div class="clf-perk-sub">Our team reviews your profile and activates it within two business days.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="clf-platforms">
+            <span class="clf-plat"><svg width="14" height="14" viewBox="0 0 24 24" style="flex-shrink:0">
+                <defs>
+                  <radialGradient id="ig-p" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-p)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg> Instagram</span>
+            <span class="clf-plat"><svg width="14" height="14" viewBox="0 0 24 24" style="flex-shrink:0">
+                <rect width="24" height="24" rx="4" fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg> YouTube</span>
+            <span class="clf-plat"><svg width="14" height="14" viewBox="0 0 24 24"
+                style="flex-shrink:0;background:#010101;border-radius:3px">
+                <path
+                  d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 015.82 7.5V16.7a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.4a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.07a7.16 7.16 0 004.17 1.33V6.95a4.27 4.27 0 01-3.01-1.13z"
+                  fill="white" />
+              </svg> TikTok</span>
+            <span class="clf-plat"><svg width="14" height="14" viewBox="0 0 24 24" style="flex-shrink:0">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg> X / Twitter</span>
+            <span class="clf-plat"><svg width="14" height="14" viewBox="0 0 24 24" style="flex-shrink:0">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg> LinkedIn</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: Multi-step form -->
+        <div class="clf-card">
+          <!-- Progress -->
+          <div class="clf-card-head">
+            <h3>Create your creator profile</h3>
+            <p>Takes about 3 minutes · 100% free</p>
+          </div>
+
+          <div class="clf-steps">
+            <span class="clf-step-tab active" id="clf-tab-1">① Personal</span>
+            <span class="clf-step-tab" id="clf-tab-2">② Socials</span>
+            <span class="clf-step-tab" id="clf-tab-3">③ About you</span>
+          </div>
+
+          <!-- ── STEP 1: Personal ── -->
+          <div class="clf-section active" id="clf-s1">
+            <div class="clf-row">
+              <div class="clf-field">
+                <label for="clf-fname">First Name *</label>
+                <input type="text" id="clf-fname" class="clf-inp" placeholder="Priya">
+                <div class="clf-err" id="clf-fname-e">Required</div>
+              </div>
+              <div class="clf-field">
+                <label for="clf-lname">Last Name *</label>
+                <input type="text" id="clf-lname" class="clf-inp" placeholder="Sharma">
+                <div class="clf-err" id="clf-lname-e">Required</div>
+              </div>
+            </div>
+            <div class="clf-field">
+              <label for="clf-email">Email Address *</label>
+              <input type="email" id="clf-email" class="clf-inp" placeholder="you@email.com">
+              <div class="clf-err" id="clf-email-e">Enter a valid email</div>
+            </div>
+            <div class="clf-row">
+              <div class="clf-field">
+                <label for="clf-phone">WhatsApp / Phone</label>
+                <input type="tel" id="clf-phone" class="clf-inp" placeholder="+91 98765 43210">
+              </div>
+              <div class="clf-field">
+                <label for="clf-country">Country *</label>
+                <select id="clf-country" class="clf-inp clf-sel">
+                  <option value="">Select…</option>
+                  <option>India</option>
+                  <option>United Kingdom</option>
+                  <option>United States</option>
+                  <option>UAE</option>
+                  <option>Canada</option>
+                  <option>Australia</option>
+                  <option>Singapore</option>
+                  <option>Other</option>
+                </select>
+                <div class="clf-err" id="clf-country-e">Required</div>
+              </div>
+            </div>
+            <div class="clf-field">
+              <label for="clf-niche">Primary Niche *</label>
+              <select id="clf-niche" class="clf-inp clf-sel">
+                <option value="">Select your niche…</option>
+                <option>Fashion &amp; Style</option>
+                <option>Beauty &amp; Skincare</option>
+                <option>Fitness &amp; Health</option>
+                <option>Food &amp; Cooking</option>
+                <option>Travel &amp; Lifestyle</option>
+                <option>Tech &amp; Gaming</option>
+                <option>Finance &amp; Business</option>
+                <option>Education &amp; Career</option>
+                <option>Entertainment &amp; Comedy</option>
+                <option>Parenting &amp; Family</option>
+                <option>Other</option>
+              </select>
+              <div class="clf-err" id="clf-niche-e">Required</div>
+            </div>
+            <div class="clf-nav">
+              <div class="clf-progress">
+                <div class="clf-prog-dot active" id="clf-d1"></div>
+                <div class="clf-prog-dot" id="clf-d2"></div>
+                <div class="clf-prog-dot" id="clf-d3"></div>
+              </div>
+              <button class="clf-btn-next" onclick="clfNext(1)">Next: Social handles →</button>
+            </div>
+          </div>
+
+          <!-- ── STEP 2: Socials ── -->
+          <div class="clf-section" id="clf-s2">
+            <div class="clf-hint" style="font-size:13px;color:#4A7A84;margin-bottom:16px;line-height:1.6">Add at least
+              one social handle. We'll pull your public stats automatically — no password needed.</div>
+            <div class="clf-socials-grid">
+              <div class="clf-field clf-soc-wrap">
+                <label for="clf-ig">Instagram</label>
+                <span class="clf-soc-ico" style="left:10px"><svg width="16" height="16" viewBox="0 0 24 24">
+                    <defs>
+                      <radialGradient id="ig-f" cx="30%" cy="107%" r="150%">
+                        <stop offset="0%" stop-color="#fdf497" />
+                        <stop offset="45%" stop-color="#fd5949" />
+                        <stop offset="60%" stop-color="#d6249f" />
+                        <stop offset="90%" stop-color="#285AEB" />
+                      </radialGradient>
+                    </defs>
+                    <rect width="24" height="24" rx="5.5" fill="url(#ig-f)" />
+                    <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                    <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+                  </svg></span>
+                <input type="text" id="clf-ig" class="clf-inp" placeholder="@username">
+              </div>
+              <div class="clf-field clf-soc-wrap">
+                <label for="clf-yt">YouTube</label>
+                <span class="clf-soc-ico" style="left:10px"><svg width="16" height="16" viewBox="0 0 24 24">
+                    <rect width="24" height="24" rx="4" fill="#FF0000" />
+                    <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+                  </svg></span>
+                <input type="text" id="clf-yt" class="clf-inp" placeholder="Channel name or URL">
+              </div>
+              <div class="clf-field clf-soc-wrap">
+                <label for="clf-tt">TikTok</label>
+                <span class="clf-soc-ico" style="left:10px"><svg width="16" height="16" viewBox="0 0 24 24"
+                    style="background:#010101;border-radius:3px">
+                    <path
+                      d="M16.6 5.82s.5.5 0 0A4.28 4.28 0 0112.4 2H9v13.67a2.89 2.89 0 11-3.67-2.79V9.44a6.34 6.34 0 104.07 5.96V8.69a7.16 7.16 0 004.18 1.33V6.77a4.27 4.27 0 01-3.03-1.13c.33.12.66.18 1.04.18z"
+                      fill="white" />
+                  </svg></span>
+                <input type="text" id="clf-tt" class="clf-inp" placeholder="@username">
+              </div>
+              <div class="clf-field clf-soc-wrap">
+                <label for="clf-tw">X / Twitter</label>
+                <span class="clf-soc-ico" style="left:10px"><svg width="16" height="16" viewBox="0 0 24 24">
+                    <rect width="24" height="24" rx="4" fill="#000" />
+                    <path
+                      d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                      fill="white" />
+                  </svg></span>
+                <input type="text" id="clf-tw" class="clf-inp" placeholder="@username">
+              </div>
+              <div class="clf-field clf-soc-wrap">
+                <label for="clf-li">LinkedIn</label>
+                <span class="clf-soc-ico" style="left:10px"><svg width="16" height="16" viewBox="0 0 24 24">
+                    <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                    <path
+                      d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                      fill="white" />
+                  </svg></span>
+                <input type="text" id="clf-li" class="clf-inp" placeholder="Profile URL or name">
+              </div>
+              <div class="clf-field clf-soc-wrap">
+                <label for="clf-web">Website / Blog</label>
+                <span class="clf-soc-ico" style="left:10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="#4A7A84" stroke-width="2" stroke-linecap="round">
+                    <circle cx="12" cy="12" r="9" />
+                    <path d="M12 3a14.5 14.5 0 010 18M12 3a14.5 14.5 0 000 18M3 12h18" />
+                  </svg></span>
+                <input type="url" id="clf-web" class="clf-inp" placeholder="https://yoursite.com">
+              </div>
+            </div>
+            <div class="clf-err" id="clf-social-e" style="margin-top:-4px;margin-bottom:8px">Add at least one social
+              handle to continue.</div>
+            <div class="clf-nav">
+              <button class="clf-btn-back" onclick="clfBack(2)">← Back</button>
+              <div class="clf-progress">
+                <div class="clf-prog-dot" id="clf-d1b"></div>
+                <div class="clf-prog-dot active" id="clf-d2b"></div>
+                <div class="clf-prog-dot" id="clf-d3b"></div>
+              </div>
+              <button class="clf-btn-next" onclick="clfNext(2)">Next: About you →</button>
+            </div>
+          </div>
+
+          <!-- ── STEP 3: About ── -->
+          <div class="clf-section" id="clf-s3">
+            <div class="clf-field">
+              <label for="clf-bio">Short Bio</label>
+              <div class="clf-hint">Tell brands what makes you unique. 2–3 sentences.</div>
+              <textarea id="clf-bio" class="clf-inp clf-textarea"
+                placeholder="e.g. Fitness creator from Mumbai helping 200K+ followers build sustainable habits…"></textarea>
+            </div>
+            <div class="clf-row">
+              <div class="clf-field">
+                <label for="clf-collab">Open to *</label>
+                <select id="clf-collab" class="clf-inp clf-sel">
+                  <option value="">Select…</option>
+                  <option>Paid promotions</option>
+                  <option>Gifted collaborations</option>
+                  <option>Both paid &amp; gifted</option>
+                  <option>Brand ambassador roles only</option>
+                </select>
+                <div class="clf-err" id="clf-collab-e">Required</div>
+              </div>
+              <div class="clf-field">
+                <label for="clf-rate">Rate per post</label>
+                <input type="text" id="clf-rate" class="clf-inp" placeholder="₹15,000 – ₹50,000">
+              </div>
+            </div>
+            <hr class="clf-divider">
+            <div class="clf-check-row">
+              <input type="checkbox" id="clf-terms">
+              <label for="clf-terms">I agree to the <a href="dreabee-terms.html">Terms of Use</a> and <a
+                  href="dreabee-privacy-policy.html">Privacy Policy</a>. My handles are genuine and my own.</label>
+            </div>
+            <div class="clf-err" id="clf-terms-e" style="margin-bottom:8px">Please agree to continue.</div>
+            <div class="clf-nav">
+              <button class="clf-btn-back" onclick="clfBack(3)">← Back</button>
+              <div class="clf-progress">
+                <div class="clf-prog-dot" id="clf-d1c"></div>
+                <div class="clf-prog-dot" id="clf-d2c"></div>
+                <div class="clf-prog-dot active" id="clf-d3c"></div>
+              </div>
+              <button class="clf-btn-next" onclick="clfSubmit()">List My Profile Free 🚀</button>
+            </div>
+          </div>
+
+          <!-- ── SUCCESS ── -->
+          <div class="clf-success" id="clf-success">
+            <div class="clf-success-ring">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <h3>You're on the list! 🎉</h3>
+            <p>We've received your profile. Our team will review and activate your listing within 24–48 hours. Watch
+              your inbox for a confirmation.</p>
+          </div>
+        </div><!-- /clf-card -->
+      </div><!-- /clf-grid -->
+    </div><!-- /clf-inner -->
+  </section>
+
+  <script>
+    function clfShow(step) {
+      [1, 2, 3].forEach(function (i) {
+        document.getElementById('clf-s' + i).classList.toggle('active', i === step);
+        document.getElementById('clf-tab-' + i).classList.toggle('active', i === step);
+      });
+    }
+    function clfNext(step) {
+      var ok = true;
+      function req(id, errId, fn) { var v = document.getElementById(id) ? document.getElementById(id).value.trim() : ''; var valid = fn ? fn(v) : v.length > 0; var e = document.getElementById(errId); if (e) e.classList.toggle('show', !valid); if (!valid) ok = false; }
+      if (step === 1) {
+        req('clf-fname', 'clf-fname-e'); req('clf-lname', 'clf-lname-e');
+        req('clf-email', 'clf-email-e', function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); });
+        req('clf-country', 'clf-country-e'); req('clf-niche', 'clf-niche-e');
+        if (ok) clfShow(2);
+      } else if (step === 2) {
+        var hasSoc = ['clf-ig', 'clf-yt', 'clf-tt', 'clf-tw', 'clf-li', 'clf-web'].some(function (id) { var el = document.getElementById(id); return el && el.value.trim().length > 0; });
+        document.getElementById('clf-social-e').classList.toggle('show', !hasSoc);
+        if (hasSoc) clfShow(3);
+      }
+    }
+    function clfBack(step) { clfShow(step - 1); }
+    function clfSubmit() {
+      var ok = true;
+      var collab = document.getElementById('clf-collab').value;
+      var e1 = document.getElementById('clf-collab-e'); if (e1) e1.classList.toggle('show', !collab); if (!collab) ok = false;
+      var terms = document.getElementById('clf-terms').checked;
+      var e2 = document.getElementById('clf-terms-e'); if (e2) e2.classList.toggle('show', !terms); if (!terms) ok = false;
+      if (ok) {
+        document.getElementById('clf-s3').style.display = 'none';
+        document.getElementById('clf-success').style.display = 'block';
+        ['clf-tab-1', 'clf-tab-2', 'clf-tab-3'].forEach(function (id) { document.getElementById(id).style.display = 'none'; });
+        document.querySelector('.clf-card-head').style.display = 'none';
+        document.querySelector('.clf-steps').style.display = 'none';
+      }
+    }
+  </script>
+
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+
+        <!-- Brand column -->
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X" title="Twitter / X"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn" title="LinkedIn"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram" title="Instagram"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="5%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube" title="YouTube"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links">
+            <a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a>
+            <a href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a>
+            <a href="dreabee-pricing.html" class="gfoot-link">Pricing</a>
+          </div>
+        </div>
+
+        <!-- Free Tools -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links">
+            <a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links">
+            <a href="dreabee-about.html" class="gfoot-link">About Us</a>
+            <a href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a>
+            <a href="dreabee-press.html" class="gfoot-link">Press</a>
+            <a href="dreabee-blog.html" class="gfoot-link">Blog</a>
+            <a href="dreabee-contact.html" class="gfoot-link">Contact</a>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links">
+            <a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gfoot-link">API Reference</a>
+            <a href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a>
+            <a href="dreabee-changelog.html" class="gfoot-link">Changelog</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Resources</span>
+          <div class="gfoot-links">
+            <a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a>
+            <a href="dreabee-for-creators.html" class="gfoot-link">For Creators</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+            <a href="dreabee-compare.html" class="gfoot-link">Compare Platforms</a>
+            <a href="dreabee-faq.html" class="gfoot-link">FAQ</a>
+            <a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links">
+            <a href="dreabee-login.html" class="gfoot-link">Login</a>
+            <a href="dreabee-register.html" class="gfoot-link">Get Started Free</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links">
+            <a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a>
+            <a href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a>
+            <a href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a>
+          </div>
+        </div>
+
+      </div><!-- /gfoot-top -->
+    </div><!-- /gfoot-inner -->
+
+    <hr class="gfoot-divider">
+
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2025 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal">
+        <a href="dreabee-terms.html">Terms</a>
+        <a href="dreabee-privacy-policy.html">Privacy</a>
+        <a href="dreabee-cookie-policy.html">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleDD(id) { const el = document.getElementById(id), open = el.classList.contains('open'); document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open')); if (!open) el.classList.add('open') }
+    document.addEventListener('click', e => { if (!e.target.closest('.nav-dd')) document.querySelectorAll('.nav-dd.open').forEach(d => d.classList.remove('open')) })
+    function toggleMob() { document.getElementById('hamburger').classList.toggle('open'); document.getElementById('mob-menu').classList.toggle('open') }
+    const obs = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); obs.unobserve(e.target) } }), { threshold: .06 });
+    document.querySelectorAll('.fi').forEach(el => obs.observe(el));
+    function toggleFAQ(item) { const isOpen = item.classList.contains('open'); document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open')); if (!isOpen) item.classList.add('open') }
+  </script>
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+  </script>
+</body>
+
+</html>

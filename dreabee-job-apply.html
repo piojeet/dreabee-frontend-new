@@ -1,0 +1,3131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply — Senior Backend Engineer · Dreabee</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Lora:ital,wght@0,700;1,400&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ═══ DREABEE MASTER NAV + FOOTER CSS ═══ */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    /* NAV */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--bdr);
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* FOOTER */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden;
+      padding: 0
+    }
+
+    .gfoot-soc:hover {
+      border-color: #34AE93;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(52, 174, 147, .2)
+    }
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:1024px) {
+      .gnav-links {
+        gap: 0
+      }
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 6px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start
+      }
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    :root {
+      --primary: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --grad: linear-gradient(135deg, #8AD8A3, #34AE93);
+      --border: #DFF0EC;
+      --muted: #4A7A84;
+      --tint: #EAF6F3;
+      --surface: #F4FAFA;
+      --red: #EF4444
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--primary);
+      background: var(--surface);
+      overflow-x: hidden
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px
+    }
+
+    /* NAV */
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color .15s;
+      cursor: pointer
+    }
+
+    .nav-back:hover {
+      color: var(--teal)
+    }
+
+    .nav-back svg {
+      width: 15px;
+      height: 15px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round
+    }
+
+    /* JOB BANNER */
+    .job-banner {
+      background: var(--primary);
+      padding: 88px 0 40px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .job-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 600px 400px at 80% 50%, rgba(138, 216, 163, .08), transparent 60%)
+    }
+
+    .jb-inner {
+      position: relative;
+      z-index: 1
+    }
+
+    .jb-dept {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--teal);
+      background: rgba(52, 174, 147, .15);
+      border: 1px solid rgba(52, 174, 147, .3);
+      padding: 4px 12px;
+      border-radius: 50px;
+      margin-bottom: 16px
+    }
+
+    .jb-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: clamp(22px, 3vw, 36px);
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -.5px;
+      margin-bottom: 16px;
+      line-height: 1.15
+    }
+
+    .jb-meta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    .jb-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13.5px;
+      color: rgba(255, 255, 255, .6)
+    }
+
+    .jb-tag svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      flex-shrink: 0
+    }
+
+    /* PROGRESS STEPS */
+    .progress-bar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0
+    }
+
+    .progress-inner {
+      display: flex;
+      align-items: stretch;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 24px
+    }
+
+    .prog-step {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 24px 18px 0;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--muted);
+      position: relative;
+      cursor: pointer;
+      transition: color .2s
+    }
+
+    .prog-step:not(:last-child)::after {
+      content: '›';
+      position: absolute;
+      right: 8px;
+      color: var(--border);
+      font-size: 18px;
+      font-weight: 400
+    }
+
+    .prog-step.active {
+      color: var(--teal)
+    }
+
+    .prog-step.done {
+      color: var(--primary)
+    }
+
+    .prog-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+      color: var(--muted);
+      background: #fff;
+      transition: all .2s
+    }
+
+    .prog-step.active .prog-num {
+      border-color: var(--teal);
+      color: var(--teal);
+      background: var(--tint)
+    }
+
+    .prog-step.done .prog-num {
+      border-color: var(--teal);
+      background: var(--teal);
+      color: #fff;
+      font-size: 11px
+    }
+
+    /* MAIN LAYOUT */
+    .apply-layout {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 32px;
+      align-items: start
+    }
+
+    /* FORM */
+    .form-section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden
+    }
+
+    .fs-header {
+      padding: 28px 32px 0
+    }
+
+    .fs-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -.5px;
+      margin-bottom: 6px
+    }
+
+    .fs-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 28px
+    }
+
+    .fs-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 0 32px
+    }
+
+    .fs-body {
+      padding: 28px 32px 32px
+    }
+
+    /* FORM FIELDS */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px
+    }
+
+    .form-group {
+      margin-bottom: 16px
+    }
+
+    .form-group:last-child {
+      margin-bottom: 0
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 7px;
+      letter-spacing: .2px
+    }
+
+    .form-label .req {
+      color: var(--teal)
+    }
+
+    .form-label .opt {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 11.5px;
+      margin-left: 4px
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 14px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      color: var(--primary);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s
+    }
+
+    .form-input::placeholder,
+    .form-textarea::placeholder {
+      color: var(--muted)
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(52, 174, 147, .1);
+      background: #fff
+    }
+
+    .form-input.error,
+    .form-textarea.error {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, .08)
+    }
+
+    .error-msg {
+      font-size: 12px;
+      color: var(--red);
+      margin-top: 5px;
+      display: none
+    }
+
+    .form-input.error+.error-msg,
+    .form-textarea.error+.error-msg {
+      display: block
+    }
+
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4' fill='none' stroke='%234A7A84' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+      cursor: pointer
+    }
+
+    .form-select option {
+      background: #fff;
+      color: var(--primary)
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 110px;
+      line-height: 1.65
+    }
+
+    /* UPLOAD */
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      background: var(--surface);
+      position: relative
+    }
+
+    .upload-zone:hover {
+      border-color: var(--teal);
+      background: var(--tint)
+    }
+
+    .upload-zone.drag-over {
+      border-color: var(--teal);
+      background: var(--tint)
+    }
+
+    .upload-zone input[type=file] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%
+    }
+
+    .uz-icon {
+      font-size: 28px;
+      margin-bottom: 8px
+    }
+
+    .uz-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 4px
+    }
+
+    .uz-sub {
+      font-size: 12.5px;
+      color: var(--muted)
+    }
+
+    .uz-file-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      margin-top: 8px;
+      display: none
+    }
+
+    /* LINKS ROW */
+    .links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px
+    }
+
+    .link-input-wrap {
+      position: relative
+    }
+
+    .link-input-wrap .link-prefix {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .link-input-wrap .form-input {
+      padding-left: 44px
+    }
+
+    /* CHECKBOXES */
+    .check-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer
+    }
+
+    .check-item input[type=checkbox] {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      accent-color: var(--teal);
+      cursor: pointer
+    }
+
+    .check-item label {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.55;
+      cursor: pointer
+    }
+
+    .check-item label a {
+      color: var(--teal);
+      font-weight: 600
+    }
+
+    /* CHAR COUNT */
+    .char-wrap {
+      position: relative
+    }
+
+    .char-count {
+      position: absolute;
+      bottom: 10px;
+      right: 12px;
+      font-size: 11px;
+      color: var(--muted)
+    }
+
+    /* SECTION LABEL */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--teal);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    /* SUBMIT */
+    .submit-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border)
+    }
+
+    .btn-submit {
+      flex: 1;
+      height: 52px;
+      background: var(--grad);
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 16px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity .2s, transform .15s
+    }
+
+    .btn-submit:hover {
+      opacity: .9;
+      transform: translateY(-1px)
+    }
+
+    .btn-submit svg {
+      width: 17px;
+      height: 17px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round
+    }
+
+    .btn-submit.loading {
+      opacity: .7;
+      pointer-events: none
+    }
+
+    .btn-save {
+      height: 52px;
+      padding: 0 20px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .2s, color .2s
+    }
+
+    .btn-save:hover {
+      border-color: var(--teal);
+      color: var(--teal)
+    }
+
+    .submit-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px
+    }
+
+    /* SUCCESS STATE */
+    .success-screen {
+      display: none;
+      padding: 48px 32px;
+      text-align: center
+    }
+
+    .success-screen.show {
+      display: block
+    }
+
+    .form-screens {
+      display: block
+    }
+
+    .form-screens.hide {
+      display: none
+    }
+
+    .ss-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--grad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 28px
+    }
+
+    .ss-title {
+      font-family: 'Lora', Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -.5px;
+      margin-bottom: 12px
+    }
+
+    .ss-text {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 440px;
+      margin: 0 auto 28px
+    }
+
+    .ss-ref {
+      font-family: 'Inter', monospace;
+      font-size: 13px;
+      color: var(--teal);
+      background: var(--tint);
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 8px;
+      display: inline-block;
+      margin-bottom: 28px
+    }
+
+    .ss-next {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center
+    }
+
+    .ss-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--grad);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 14.5px;
+      padding: 12px 28px;
+      border-radius: 10px
+    }
+
+    .ss-link {
+      font-size: 13.5px;
+      color: var(--teal);
+      font-weight: 600
+    }
+
+    /* SIDEBAR */
+    .apply-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      position: sticky;
+      top: 88px
+    }
+
+    .sidebar-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px
+    }
+
+    .sc-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 14px
+    }
+
+    .fact-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px
+    }
+
+    .fact-row:last-child {
+      border-bottom: none
+    }
+
+    .fact-key {
+      color: var(--muted)
+    }
+
+    .fact-val {
+      font-weight: 700;
+      color: var(--primary);
+      text-align: right
+    }
+
+    /* TIMELINE */
+    .timeline-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px
+    }
+
+    .tl-step {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      position: relative
+    }
+
+    .tl-step:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 32px;
+      width: 2px;
+      height: calc(100% - 4px);
+      background: var(--border)
+    }
+
+    .tl-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+      z-index: 1
+    }
+
+    .tl-dot.active {
+      background: var(--grad);
+      color: var(--primary)
+    }
+
+    .tl-dot.todo {
+      background: #fff;
+      border: 2px solid var(--border);
+      color: var(--muted)
+    }
+
+    .tl-content {
+      padding-top: 4px
+    }
+
+    .tl-label {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2px
+    }
+
+    .tl-sub {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5
+    }
+
+    /* TEAM CARD */
+    .recruiter-card {
+      background: var(--primary);
+      border-radius: 16px;
+      padding: 22px;
+      text-align: center
+    }
+
+    .rc-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--grad);
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary)
+    }
+
+    .rc-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 3px
+    }
+
+    .rc-role {
+      font-size: 12.5px;
+      color: rgba(255, 255, 255, .55);
+      margin-bottom: 16px
+    }
+
+    .rc-note {
+      font-size: 13px;
+      color: rgba(255, 255, 255, .65);
+      line-height: 1.6;
+      margin-bottom: 16px
+    }
+
+    .rc-email {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--mint);
+      font-weight: 600
+    }
+
+    .rc-email svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round
+    }
+
+    @media(max-width:900px) {
+      .apply-layout {
+        grid-template-columns: 1fr
+      }
+
+      .apply-sidebar {
+        position: static
+      }
+    }
+
+    @media(max-width:768px) {
+      .form-row {
+        grid-template-columns: 1fr
+      }
+
+      .links-grid {
+        grid-template-columns: 1fr
+      }
+
+      .progress-inner {
+        gap: 0
+      }
+
+      .prog-step {
+        padding: 14px 16px 14px 0
+      }
+
+      .prog-step span {
+        display: none
+      }
+
+      .jb-meta {
+        gap: 10px
+      }
+    }
+
+    @media(max-width:480px) {
+      .nav-back span {
+        display: none
+      }
+
+      .progress-inner {
+        overflow-x: auto
+      }
+    }
+
+    /* ──────── GLOBAL NAV ──────── */
+    :root {
+      --ink: #043E54;
+      --teal: #34AE93;
+      --mint: #8AD8A3;
+      --g1: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      --g2: linear-gradient(140deg, #7ed5a0 0%, #25967a 100%);
+      --bg: #ffffff;
+      --surf: #F2F9F7;
+      --surf2: #E8F5F0;
+      --bdr: #D5EBE5;
+      --muted: #4A7A84;
+      --tint: #ECF7F3;
+      --nh: 64px
+    }
+
+    .g .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 4px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: var(--ink);
+      background: var(--tint)
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid var(--bdr);
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: var(--tint);
+      color: var(--ink)
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: var(--bdr);
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: var(--ink)
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--g1);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid var(--bdr)
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--bdr);
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: var(--teal)
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--muted);
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    .gnav-link,
+    .gnav-toggle {
+      padding: 6px 8px;
+      font-size: 13px
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .g .gfoot-grid {
+        grid-template-columns: 1fr !important
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px
+      }
+    }
+
+    /* ──────── REDESIGNED FOOTER ──────── */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%);
+      border-top: 1px solid #D5EBE5;
+      padding: 64px 0 0
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all .15s;
+      color: #4A7A84
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    .gfoot-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4A7A84;
+      margin-bottom: 16px
+    }
+
+    .gfoot-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #34AE93;
+      border-radius: 50%
+    }
+  </style>
+  <style id="dreabee-nav-css">
+    /* ── Dreabee Unified Nav & Footer — hardcoded, no CSS var deps ── */
+    .gnav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 255, 255, .97);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      padding: 0 24px
+    }
+
+    .gnav-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .gnav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+      margin-right: auto
+    }
+
+    .gnav-links {
+      display: none;
+      align-items: center;
+      gap: 2px;
+      justify-content: center;
+      flex: 1
+    }
+
+    @media(min-width:768px) {
+      .gnav-links {
+        display: flex
+      }
+    }
+
+    .gnav-link {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 6px 11px;
+      border-radius: 6px;
+      transition: .15s;
+      white-space: nowrap
+    }
+
+    .gnav-link:hover,
+    .gnav-link.gactive {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-dd {
+      position: relative
+    }
+
+    .gnav-toggle {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: .15s;
+      border: none;
+      background: none;
+      font-family: inherit;
+      white-space: nowrap
+    }
+
+    .gnav-toggle:hover {
+      color: #043E54;
+      background: #ECF7F3
+    }
+
+    .gnav-chev {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      transition: transform .2s
+    }
+
+    .gnav-dd.gopen .gnav-chev {
+      transform: rotate(180deg)
+    }
+
+    .gnav-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      border-radius: 12px;
+      box-shadow: 0 12px 40px rgba(4, 62, 84, .12);
+      min-width: 230px;
+      padding: 6px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .18s, transform .18s;
+      z-index: 1001
+    }
+
+    .gnav-dd.gopen .gnav-menu {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    .gnav-item {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 9px 12px;
+      border-radius: 8px;
+      transition: .12s;
+      white-space: nowrap
+    }
+
+    .gnav-item:hover {
+      background: #ECF7F3;
+      color: #043E54
+    }
+
+    .gnav-sep {
+      height: 1px;
+      background: #D5EBE5;
+      margin: 4px 0
+    }
+
+    .gnav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+      flex-shrink: 0
+    }
+
+    .gnav-ghost {
+      font-size: 14px;
+      font-weight: 500;
+      color: #4A7A84;
+      text-decoration: none;
+      padding: 7px 14px;
+      border-radius: 7px;
+      transition: .15s
+    }
+
+    .gnav-ghost:hover {
+      color: #043E54
+    }
+
+    .gnav-cta {
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: .15s;
+      white-space: nowrap;
+      border: none;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .gnav-cta:hover {
+      transform: scale(1.02);
+      box-shadow: 0 4px 16px rgba(52, 174, 147, .38)
+    }
+
+    .gnav-ham {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      margin-left: 12px;
+      flex-shrink: 0
+    }
+
+    @media(min-width:768px) {
+      .gnav-ham {
+        display: none
+      }
+    }
+
+    .gnav-ham span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #043E54;
+      border-radius: 2px;
+      transition: transform .2s, opacity .2s
+    }
+
+    .gnav-ham.gopen span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    .gnav-ham.gopen span:nth-child(2) {
+      opacity: 0
+    }
+
+    .gnav-ham.gopen span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    .gnav-mob {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #fff;
+      overflow-y: auto;
+      padding: 12px 20px 48px;
+      z-index: 999;
+      border-top: 1px solid #D5EBE5
+    }
+
+    .gnav-mob.gopen {
+      display: block
+    }
+
+    .gnav-mlink {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #043E54;
+      text-decoration: none;
+      padding: 12px 4px;
+      border-bottom: 1px solid #D5EBE5;
+      transition: .12s
+    }
+
+    .gnav-mlink:hover {
+      color: #34AE93
+    }
+
+    .gnav-msec {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: #4A7A84;
+      padding: 18px 4px 6px;
+      display: block
+    }
+
+    /* Footer */
+    .gfoot {
+      background: linear-gradient(180deg, #f0faf7 0%, #e8f5f0 100%) !important;
+      border-top: 1px solid #D5EBE5 !important;
+      padding: 64px 0 0 !important
+    }
+
+    .gfoot-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px
+    }
+
+    .gfoot-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px
+    }
+
+    @media(max-width:960px) {
+      .gfoot-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px
+      }
+    }
+
+    @media(max-width:560px) {
+      .gfoot-top {
+        grid-template-columns: 1fr;
+        gap: 24px
+      }
+    }
+
+    .gfoot-brand {}
+
+    .gfoot-brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 14px
+    }
+
+    .gfoot-tagline {
+      font-size: 14px;
+      color: #4A7A84;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      max-width: 220px
+    }
+
+    .gfoot-social {
+      display: flex;
+      gap: 8px
+    }
+
+    .gfoot-soc {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid #D5EBE5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: all .15s;
+      color: #4A7A84;
+      overflow: hidden
+    }
+
+    .gfoot-soc:hover {
+      background: #34AE93;
+      border-color: #34AE93;
+      color: #fff;
+      transform: translateY(-2px)
+    }
+
+    .gfoot-col {}
+
+    .gfoot-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: #043E54;
+      margin-bottom: 14px;
+      display: block
+    }
+
+    .gfoot-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .gfoot-link {
+      font-size: 14px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .gfoot-link:hover {
+      color: #34AE93
+    }
+
+    .gfoot-link-new {
+      font-size: 10px;
+      font-weight: 700;
+      background: #34AE93;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 4px;
+      letter-spacing: .04em
+    }
+
+    .gfoot-divider {
+      border: none;
+      border-top: 1px solid #D5EBE5;
+      margin: 0
+    }
+
+    .gfoot-bot {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px
+    }
+
+    .gfoot-copy {
+      font-size: 13px;
+      color: #4A7A84
+    }
+
+    .gfoot-copy strong {
+      color: #043E54
+    }
+
+    .gfoot-legal {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap
+    }
+
+    .gfoot-legal a {
+      font-size: 13px;
+      color: #4A7A84;
+      text-decoration: none;
+      transition: color .12s;
+      padding: 0 12px;
+      border-right: 1px solid #D5EBE5
+    }
+
+    .gfoot-legal a:first-child {
+      padding-left: 0
+    }
+
+    .gfoot-legal a:last-child {
+      border-right: none;
+      padding-right: 0
+    }
+
+    .gfoot-legal a:hover {
+      color: #043E54
+    }
+
+    /* Responsive */
+    @media(max-width:1024px) {
+
+      .gnav-link,
+      .gnav-toggle {
+        padding: 5px 8px;
+        font-size: 13px
+      }
+    }
+
+    @media(max-width:768px) {
+      .gnav-links {
+        display: none !important
+      }
+
+      .gnav-ham {
+        display: flex !important
+      }
+
+      .gnav-actions {
+        display: none !important
+      }
+    }
+
+    @media(max-width:480px) {
+      .gnav {
+        padding: 0 16px
+      }
+
+      .gfoot-inner {
+        padding: 0 16px
+      }
+
+      .gfoot-bot {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 16px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" id="gnav-logo" href="index.html">
+        <img
+        src="/assets/logo.webp"
+        alt="Dreabee" style="height:40px;width:auto;display:block">
+      </a>
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
+          </div>
+        </div>
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
+              fill="none">
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
+            </svg></button>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
+          </div>
+        </div>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
+      </div>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost" id="gnav-login">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
+      </div>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink" id="gnav-mob-login">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
+  </div>
+  </div>
+  </div><!-- JOB BANNER -->
+  <div class="job-banner">
+    <div class="container">
+      <div class="jb-inner">
+        <div class="jb-dept">Engineering</div>
+        <div class="jb-title">Senior Backend Engineer — Data Infrastructure</div>
+        <div class="jb-meta">
+          <span class="jb-tag"><svg viewBox="0 0 24 24">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>Remote / London</span>
+          <span class="jb-tag"><svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>Full-time</span>
+          <span class="jb-tag"><svg viewBox="0 0 24 24">
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>£90,000 – £115,000</span>
+          <span class="jb-tag" style="color:var(--mint)">● New role</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar">
+    <div class="progress-inner">
+      <div class="prog-step active" id="ps1">
+        <div class="prog-num" id="pn1">1</div><span>Your details</span>
+      </div>
+      <div class="prog-step" id="ps2">
+        <div class="prog-num" id="pn2">2</div><span>Experience</span>
+      </div>
+      <div class="prog-step" id="ps3">
+        <div class="prog-num" id="pn3">3</div><span>Questions</span>
+      </div>
+      <div class="prog-step" id="ps4">
+        <div class="prog-num" id="pn4">4</div><span>Review & submit</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LAYOUT -->
+  <div class="apply-layout">
+    <!-- FORM -->
+    <div class="form-section">
+
+      <!-- STEP 1 -->
+      <div id="step1" class="form-screens">
+        <div class="fs-header">
+          <div class="fs-title">Your details</div>
+          <div class="fs-desc">Basic information so we can keep you updated throughout the process.</div>
+        </div>
+        <div class="fs-divider"></div>
+        <div class="fs-body">
+          <div class="section-label">Personal information</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First name <span class="req">*</span></label>
+              <input class="form-input" id="fname" type="text" placeholder="Aryan" />
+              <div class="error-msg">Please enter your first name</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last name <span class="req">*</span></label>
+              <input class="form-input" id="lname" type="text" placeholder="Kapoor" />
+              <div class="error-msg">Please enter your last name</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email address <span class="req">*</span></label>
+            <input class="form-input" id="email" type="email" placeholder="aryan@example.com" />
+            <div class="error-msg">Please enter a valid email address</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Phone <span class="opt">(optional)</span></label>
+              <input class="form-input" type="tel" placeholder="+44 7700 900000" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Location <span class="req">*</span></label>
+              <input class="form-input" id="location" type="text" placeholder="London, UK" />
+              <div class="error-msg">Please enter your location</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Current / most recent job title <span class="opt">(optional)</span></label>
+            <input class="form-input" type="text" placeholder="Senior Software Engineer at Acme Corp" />
+          </div>
+
+          <div class="section-label" style="margin-top:24px">CV / Résumé</div>
+          <div class="upload-zone" id="cv-zone">
+            <input type="file" accept=".pdf,.doc,.docx" onchange="handleFile(this,'cv-zone','cv-fname')" />
+            <div class="uz-icon">📄</div>
+            <div class="uz-title">Drop your CV here or click to browse</div>
+            <div class="uz-sub">PDF, DOC or DOCX · Max 10MB</div>
+            <div class="uz-file-name" id="cv-fname"></div>
+          </div>
+
+          <div class="section-label" style="margin-top:24px">Online profiles</div>
+          <div class="links-grid">
+            <div class="form-group link-input-wrap">
+              <label class="form-label">LinkedIn <span class="opt">(optional)</span></label>
+              <span class="link-prefix">in/</span>
+              <input class="form-input" type="text" placeholder="yourprofile" />
+            </div>
+            <div class="form-group link-input-wrap">
+              <label class="form-label">GitHub <span class="opt">(optional)</span></label>
+              <span class="link-prefix">gh/</span>
+              <input class="form-input" type="text" placeholder="yourusername" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Portfolio / website <span class="opt">(optional)</span></label>
+              <input class="form-input" type="url" placeholder="https://yoursite.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">How did you hear about this role?</label>
+              <select class="form-select">
+                <option value="">Select one…</option>
+                <option>Dreabee careers page</option>
+                <option>LinkedIn</option>
+                <option>Twitter / X</option>
+                <option>Referral from employee</option>
+                <option>Job board (Indeed, Glassdoor etc.)</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="submit-row">
+            <button class="btn-save">Save draft</button>
+            <button class="btn-submit" onclick="goStep(2)">Continue to Experience <svg viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></button>
+          </div>
+          <div class="submit-note">Your progress is saved automatically. You can return to this application at any time.
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div id="step2" class="form-screens hide">
+        <div class="fs-header">
+          <div class="fs-title">Your experience</div>
+          <div class="fs-desc">Tell us about your background. We don't need a full work history — just what's most
+            relevant.</div>
+        </div>
+        <div class="fs-divider"></div>
+        <div class="fs-body">
+          <div class="section-label">Work history</div>
+          <div class="form-group">
+            <label class="form-label">Years of professional backend experience <span class="req">*</span></label>
+            <select class="form-select" id="years-exp">
+              <option value="">Select…</option>
+              <option>1–2 years</option>
+              <option>3–4 years</option>
+              <option>5–7 years</option>
+              <option>8–10 years</option>
+              <option>10+ years</option>
+            </select>
+            <div class="error-msg" id="years-err">Please select your experience level</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Most relevant previous role <span class="opt">(optional)</span></label>
+            <input class="form-input" type="text" placeholder="e.g. Senior Engineer at Spotify, 2021–2024" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Primary tech stack <span class="req">*</span></label>
+            <input class="form-input" id="stack" type="text"
+              placeholder="e.g. Python, PostgreSQL, Kafka, AWS, Kubernetes" />
+            <div class="error-msg">Please describe your primary stack</div>
+          </div>
+
+          <div class="section-label" style="margin-top:24px">Logistics</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Preferred work arrangement <span class="req">*</span></label>
+              <select class="form-select">
+                <option value="">Select…</option>
+                <option>Fully remote</option>
+                <option>Remote with occasional London visits</option>
+                <option>London hybrid (2–3 days/week)</option>
+                <option>Full-time London office</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Earliest start date <span class="req">*</span></label>
+              <input class="form-input" type="date" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Right to work in UK? <span class="req">*</span></label>
+              <select class="form-select">
+                <option value="">Select…</option>
+                <option>Yes — UK citizen / settled status</option>
+                <option>Yes — valid work visa</option>
+                <option>No — would need sponsorship</option>
+                <option>Not applicable (remote outside UK)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Salary expectation <span class="opt">(optional)</span></label>
+              <input class="form-input" type="text" placeholder="e.g. £95,000" />
+            </div>
+          </div>
+
+          <div class="submit-row">
+            <button class="btn-save" onclick="goStep(1)">← Back</button>
+            <button class="btn-submit" onclick="goStep(3)">Continue to Questions <svg viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div id="step3" class="form-screens hide">
+        <div class="fs-header">
+          <div class="fs-title">A few questions</div>
+          <div class="fs-desc">No trick questions — we're genuinely trying to understand how you think and what matters
+            to you. There are no correct answers.</div>
+        </div>
+        <div class="fs-divider"></div>
+        <div class="fs-body">
+          <div class="form-group">
+            <label class="form-label">Tell us about a time you improved the reliability or performance of a data system.
+              What was the problem, what did you do, and what was the outcome? <span class="req">*</span></label>
+            <div class="char-wrap">
+              <textarea class="form-textarea" id="q1" rows="5" maxlength="1000"
+                placeholder="Share a specific example — ideally with numbers. We care more about your thinking than the scale of the company."
+                oninput="updateCount(this,'q1c')"></textarea>
+              <div class="char-count"><span id="q1c">0</span>/1000</div>
+            </div>
+            <div class="error-msg">Please answer this question (50 chars minimum)</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">What draws you to Dreabee specifically — not just a backend role in general? <span
+                class="req">*</span></label>
+            <div class="char-wrap">
+              <textarea class="form-textarea" id="q2" rows="4" maxlength="600"
+                placeholder="Be specific. If you've used the product or read about the technical challenges we're working on, this is a good place to mention it."
+                oninput="updateCount(this,'q2c')"></textarea>
+              <div class="char-count"><span id="q2c">0</span>/600</div>
+            </div>
+            <div class="error-msg">Please answer this question (50 chars minimum)</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Is there anything important about your situation or application we should know?
+              <span class="opt">(optional)</span></label>
+            <textarea class="form-textarea" rows="3"
+              placeholder="e.g. gaps in your CV, part-time availability for first 3 months, a project you're finishing up, or anything else relevant."></textarea>
+          </div>
+          <div class="section-label" style="margin-top:24px">Additional materials</div>
+          <div class="upload-zone" id="extra-zone">
+            <input type="file" accept=".pdf,.doc,.docx,.zip" onchange="handleFile(this,'extra-zone','extra-fname')" />
+            <div class="uz-icon">📎</div>
+            <div class="uz-title">Cover letter, portfolio, or writing sample</div>
+            <div class="uz-sub">Completely optional · PDF, DOC or ZIP · Max 20MB</div>
+            <div class="uz-file-name" id="extra-fname"></div>
+          </div>
+          <div class="submit-row">
+            <button class="btn-save" onclick="goStep(2)">← Back</button>
+            <button class="btn-submit" onclick="goStep(4)">Review application <svg viewBox="0 0 24 24">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 — REVIEW -->
+      <div id="step4" class="form-screens hide">
+        <div class="fs-header">
+          <div class="fs-title">Review & submit</div>
+          <div class="fs-desc">Check everything looks right before you submit. You won't be able to edit after
+            submitting.</div>
+        </div>
+        <div class="fs-divider"></div>
+        <div class="fs-body">
+          <div class="section-label">Application summary</div>
+          <div id="review-content" style="display:flex;flex-direction:column;gap:0"></div>
+
+          <div style="margin-top:24px">
+            <div class="section-label">Confirm & consent</div>
+            <div class="check-group">
+              <div class="check-item"><input type="checkbox" id="consent1" /><label for="consent1">I confirm that all
+                  information I've provided in this application is accurate to the best of my knowledge.</label></div>
+              <div class="check-item"><input type="checkbox" id="consent2" /><label for="consent2">I agree to Dreabee's
+                  <a href="dreabee-privacy-policy.html">Privacy Policy</a> and consent to my data being processed for
+                  recruitment purposes.</label></div>
+              <div class="check-item"><input type="checkbox" id="consent3" /><label for="consent3">I understand Dreabee
+                  may contact me about this or future roles at the company.</label></div>
+            </div>
+          </div>
+          <div class="submit-row">
+            <button class="btn-save" onclick="goStep(3)">← Edit answers</button>
+            <button class="btn-submit" id="submit-btn" onclick="submitApp()">Submit application <svg
+                viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12" />
+              </svg></button>
+          </div>
+          <div class="submit-note">By submitting, you confirm your consent above. We'll email you a confirmation within
+            a few minutes.</div>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="success-screen" id="success-screen">
+        <div class="ss-icon">🎉</div>
+        <div class="ss-title">Application submitted!</div>
+        <div class="ss-text">Thanks for applying for the <strong>Senior Backend Engineer — Data Infrastructure</strong>
+          role. We've sent a confirmation to your email. Our team reviews every application personally — you'll hear
+          from us within 5 business days.</div>
+        <div class="ss-ref">Reference: DREA-2025-ENG-0184</div>
+        <div class="ss-next">
+          <a href="dreabee-careers.html" class="ss-btn">View other open roles</a>
+          <a href="index.html" class="ss-link">Back to Dreabee →</a>
+        </div>
+      </div>
+
+    </div><!-- /form-section -->
+
+    <!-- SIDEBAR -->
+    <div class="apply-sidebar">
+      <div class="sidebar-card">
+        <div class="sc-title">Role details</div>
+        <div class="fact-row"><span class="fact-key">Department</span><span class="fact-val">Engineering</span></div>
+        <div class="fact-row"><span class="fact-key">Team</span><span class="fact-val">Data Platform</span></div>
+        <div class="fact-row"><span class="fact-key">Reports to</span><span class="fact-val">CTO (Priya S.)</span></div>
+        <div class="fact-row"><span class="fact-key">Location</span><span class="fact-val">Remote / London</span></div>
+        <div class="fact-row"><span class="fact-key">Contract</span><span class="fact-val">Full-time</span></div>
+        <div class="fact-row"><span class="fact-key">Salary</span><span class="fact-val">£90K–£115K</span></div>
+        <div class="fact-row"><span class="fact-key">Equity</span><span class="fact-val">0.05–0.15%</span></div>
+        <div class="fact-row"><span class="fact-key">Posted</span><span class="fact-val">28 Feb 2025</span></div>
+      </div>
+
+      <div class="timeline-card">
+        <div class="sc-title">What happens next</div>
+        <div class="tl-step">
+          <div class="tl-dot active">1</div>
+          <div class="tl-content">
+            <div class="tl-label">Application review</div>
+            <div class="tl-sub">We read every application. Response within 5 business days.</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot todo">2</div>
+          <div class="tl-content">
+            <div class="tl-label">Intro call (30 min)</div>
+            <div class="tl-sub">Chat with our recruiter. Fully remote, no prep needed.</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot todo">3</div>
+          <div class="tl-content">
+            <div class="tl-label">Technical screen</div>
+            <div class="tl-sub">Async take-home task or live session — your choice.</div>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-dot todo">4</div>
+          <div class="tl-content">
+            <div class="tl-label">Team interviews (×2)</div>
+            <div class="tl-sub">Meet your future colleagues. Values + technical depth.</div>
+          </div>
+        </div>
+        <div class="tl-step" style="margin-bottom:0">
+          <div class="tl-dot todo">5</div>
+          <div class="tl-content">
+            <div class="tl-label">Offer</div>
+            <div class="tl-sub">Written offer within 48 hrs of final round.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recruiter-card">
+        <div class="rc-avatar">JS</div>
+        <div class="rc-name">Jamie Sullivan</div>
+        <div class="rc-role">Talent Partner · Engineering</div>
+        <div class="rc-note">Questions about this role? I'm happy to chat before or after you apply.</div>
+        <a href="mailto:jamie@dreabee.com" class="rc-email"><svg viewBox="0 0 24 24">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>jamie@dreabee.com</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 1;
+
+    function goStep(n) {
+      if (n > currentStep && !validateStep(currentStep)) return;
+      document.getElementById('step' + currentStep).classList.add('hide');
+      document.getElementById('step' + n)?.classList.remove('hide');
+      // Update progress
+      for (let i = 1; i <= 4; i++) {
+        const ps = document.getElementById('ps' + i);
+        const pn = document.getElementById('pn' + i);
+        ps.className = 'prog-step' + (i === n ? ' active' : i < n ? ' done' : '');
+        pn.textContent = i < n ? '✓' : i;
+      }
+      currentStep = n;
+      if (n === 4) buildReview();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep(s) {
+      let ok = true;
+      const checks = {
+        1: [['fname', 'First name is required'], ['lname', 'Last name is required'], ['email', 'Valid email required'], ['location', 'Location is required']],
+        2: [['years-exp', 'Please select your experience level'], ['stack', 'Please describe your stack']],
+        3: [['q1', 'Please answer (50 chars min)'], ['q2', 'Please answer (50 chars min)']]
+      };
+      (checks[s] || []).forEach(([id, msg]) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const isEmpty = !el.value.trim() || (s === 3 && el.value.trim().length < 50);
+        el.classList.toggle('error', isEmpty);
+        if (isEmpty) ok = false;
+      });
+      return ok;
+    }
+
+    function buildReview() {
+      const fields = [
+        { label: 'Name', val: (document.getElementById('fname')?.value || '') + ' ' + (document.getElementById('lname')?.value || '') },
+        { label: 'Email', val: document.getElementById('email')?.value || '' },
+        { label: 'Location', val: document.getElementById('location')?.value || '' },
+        { label: 'Experience', val: document.getElementById('years-exp')?.value || '' },
+        { label: 'Stack', val: document.getElementById('stack')?.value || '' },
+      ];
+      const rc = document.getElementById('review-content');
+      rc.innerHTML = fields.map(f => `
+    <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px">
+      <span style="color:var(--muted)">${f.label}</span>
+      <span style="font-weight:600;color:var(--primary);text-align:right;max-width:60%">${f.val || '<span style="color:var(--muted);font-style:italic">Not provided</span>'}</span>
+    </div>
+  `).join('');
+    }
+
+    function submitApp() {
+      const consents = ['consent1', 'consent2', 'consent3'];
+      const allChecked = consents.every(id => document.getElementById(id)?.checked);
+      if (!allChecked) {
+        alert('Please confirm all consent checkboxes before submitting.');
+        return;
+      }
+      const btn = document.getElementById('submit-btn');
+      btn.classList.add('loading');
+      btn.innerHTML = '⟳ Submitting…';
+      setTimeout(() => {
+        document.getElementById('step4').classList.add('hide');
+        document.getElementById('success-screen').classList.add('show');
+        // Mark progress all done
+        for (let i = 1; i <= 4; i++) {
+          document.getElementById('ps' + i).className = 'prog-step done';
+          document.getElementById('pn' + i).textContent = '✓';
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1800);
+    }
+
+    function handleFile(input, zoneId, nameId) {
+      const file = input.files[0];
+      if (!file) return;
+      const zone = document.getElementById(zoneId);
+      const nameEl = document.getElementById(nameId);
+      nameEl.textContent = '✓ ' + file.name;
+      nameEl.style.display = 'block';
+      zone.style.borderColor = 'var(--teal)';
+      zone.style.background = 'var(--tint)';
+    }
+
+    function updateCount(el, countId) {
+      document.getElementById(countId).textContent = el.value.length;
+    }
+
+    // Drag over visual feedback
+    document.querySelectorAll('.upload-zone').forEach(z => {
+      z.addEventListener('dragover', e => { e.preventDefault(); z.classList.add('drag-over'); });
+      z.addEventListener('dragleave', () => z.classList.remove('drag-over'));
+      z.addEventListener('drop', () => z.classList.remove('drag-over'));
+    });
+  </script>
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+
+        <!-- Brand column -->
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <img
+              src="/assets/logo.webp"
+              alt="Dreabee" style="height:40px;width:auto;display:block">
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X" title="Twitter / X"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn" title="LinkedIn"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram" title="Instagram"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="5%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube" title="YouTube"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links">
+            <a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a>
+            <a href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a>
+            <a href="dreabee-pricing.html" class="gfoot-link">Pricing</a>
+          </div>
+        </div>
+
+        <!-- Free Tools -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links">
+            <a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links">
+            <a href="dreabee-about.html" class="gfoot-link">About Us</a>
+            <a href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a>
+            <a href="dreabee-press.html" class="gfoot-link">Press</a>
+            <a href="dreabee-blog.html" class="gfoot-link">Blog</a>
+            <a href="dreabee-contact.html" class="gfoot-link">Contact</a>
+          </div>
+        </div>
+
+        <!-- Developers -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links">
+            <a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gfoot-link">API Reference</a>
+            <a href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a>
+            <a href="dreabee-changelog.html" class="gfoot-link">Changelog</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Resources</span>
+          <div class="gfoot-links">
+            <a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a>
+            <a href="dreabee-for-creators.html" class="gfoot-link">For Creators</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+            <a href="dreabee-compare.html" class="gfoot-link">Compare Platforms</a>
+            <a href="dreabee-faq.html" class="gfoot-link">FAQ</a>
+            <a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links">
+            <a href="dreabee-login.html" class="gfoot-link">Login</a>
+            <a href="dreabee-register.html" class="gfoot-link">Get Started Free</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links">
+            <a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a>
+            <a href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a>
+            <a href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a>
+          </div>
+        </div>
+
+      </div><!-- /gfoot-top -->
+    </div><!-- /gfoot-inner -->
+
+    <hr class="gfoot-divider">
+
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2025 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal">
+        <a href="dreabee-terms.html">Terms</a>
+        <a href="dreabee-privacy-policy.html">Privacy</a>
+        <a href="dreabee-cookie-policy.html">Cookies</a>
+      </div>
+    </div>
+  </footer>
+  <script>
+    function gdrop(id) { var e = document.getElementById(id), w = e.classList.contains('gopen'); document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); if (!w) e.classList.add('gopen'); }
+    document.addEventListener('click', function (e) { if (!e.target.closest('.gnav-dd')) document.querySelectorAll('.gnav-dd.gopen').forEach(function (d) { d.classList.remove('gopen') }); });
+    function gmob() { document.getElementById('gnav-ham').classList.toggle('gopen'); document.getElementById('gnav-mob').classList.toggle('gopen'); }
+  </script>
+</body>
+
+</html>
