@@ -5,1541 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minimum View Guarantees in Influencer Marketing — Dreabee Blog</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap"
-    rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
   <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --primary: #043E54;
-      --teal: #34AE93;
-      --mint: #8AD8A3;
-      --grad: linear-gradient(135deg, #8AD8A3 0%, #34AE93 100%);
-      --surface: #F7FAFA;
-      --border: #E2EDEC;
-      --tp: #043E54;
+        :root {
       --ts: #4A7A84;
-      --tint: #EDF7F5;
-      --nav-h: 64px;
-      --s-sm: 0 1px 5px rgba(4, 62, 84, .05);
-      --s-md: 0 4px 18px rgba(4, 62, 84, .08);
-      --s-lg: 0 12px 40px rgba(4, 62, 84, .12);
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #fff;
-      color: var(--tp);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      height: var(--nav-h);
-      background: rgba(255, 255, 255, .92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      padding: 0 24px;
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-logo {
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-
-    .nav-links {
-      display: none;
-      align-items: center;
-      gap: 4px;
-      /* margin-left: 24px; */
-      flex: 1;
-    }
-
-    .nav-link {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ts);
-      text-decoration: none;
-      padding: 6px 12px;
-      border-radius: 6px;
-      transition: .15s;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-      color: var(--primary);
-      background: var(--tint);
-    }
-
-    .nav-dd {
-      position: relative;
-    }
-
-    .nav-dd-btn {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ts);
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: none;
-      background: none;
-      font-family: inherit;
-      transition: .15s;
-    }
-
-    .nav-dd-btn:hover {
-      color: var(--primary);
-      background: var(--tint);
-    }
-
-    .chev {
-      width: 12px;
-      height: 12px;
-      transition: transform .2s;
-    }
-
-    .nav-dd.open .chev {
-      transform: rotate(180deg);
-    }
-
-    .dd-menu {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 0;
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      box-shadow: var(--s-lg);
-      min-width: 220px;
-      padding: 6px;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-6px);
-      transition: .15s;
-    }
-
-    .nav-dd.open .dd-menu {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
-    }
-
-    .dd-item {
-      display: block;
-      padding: 8px 12px;
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--ts);
-      text-decoration: none;
-      border-radius: 6px;
-      transition: .12s;
-    }
-
-    .dd-item:hover {
-      color: var(--primary);
-      background: var(--tint);
-    }
-
-    .nav-actions {
-      display: none;
-      align-items: center;
-      gap: 8px;
-      margin-left: auto;
-    }
-
-    .btn-ghost {
-      font-size: 14px;
-      font-weight: 500;
-      color: var(--ts);
-      text-decoration: none;
-      padding: 6px 14px;
-      border-radius: 7px;
-    }
-
-    .btn-ghost:hover {
-      color: var(--primary);
-    }
-
-    .btn-pill {
-      font-size: 14px;
-      font-weight: 600;
-      background: var(--grad);
-      color: #fff;
-      text-decoration: none;
-      padding: 8px 18px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: .15s;
-      font-family: inherit;
-    }
-
-    .btn-pill:hover {
-      transform: scale(1.02);
-      box-shadow: 0 4px 14px rgba(52, 174, 147, .35);
-    }
-
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 6px;
-      margin-left: auto;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--primary);
-      border-radius: 2px;
-      transition: .25s;
-    }
-
-    .hamburger.open span:nth-child(1) {
-      transform: translateY(6px) rotate(45deg);
-    }
-
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .hamburger.open span:nth-child(3) {
-      transform: translateY(-6px) rotate(-45deg);
-    }
-
-    .mob-menu {
-      display: none;
-      position: fixed;
-      top: var(--nav-h);
-      left: 0;
-      right: 0;
-      background: #fff;
-      border-bottom: 1px solid var(--border);
-      padding: 16px;
-      z-index: 999;
-      max-height: calc(100vh - var(--nav-h));
-      overflow-y: auto;
-    }
-
-    .mob-menu.open {
-      display: block;
-    }
-
-    .mob-link {
-      display: block;
-      padding: 10px 12px;
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--tp);
-      text-decoration: none;
-      border-radius: 7px;
-    }
-
-    .mob-link:hover {
-      background: var(--tint);
-    }
-
-    .mob-sec {
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--ts);
-      padding: 12px 12px 4px;
-    }
-
-    .mob-hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 8px 0;
-    }
-
-    @media (min-width: 768px) {
-
-      .nav-links,
-      .nav-actions {
-        display: flex;
-        justify-content: center;
-      }
-
-      .hamburger {
-        display: none;
-      }
-    }
-
-    /* ── GLOBALS ── */
-    .wrap {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .btn-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--grad);
-      color: #fff;
-      font-size: 15px;
-      font-weight: 700;
-      font-family: inherit;
-      padding: 13px 28px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: .15s;
-    }
-
-    .btn-cta:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 22px rgba(52, 174, 147, .42);
-    }
-
-    .btn-white {
-      background: #fff;
-      color: var(--primary);
-      font-size: 15px;
-      font-weight: 700;
-      padding: 13px 28px;
-      border-radius: 10px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: .15s;
-    }
-
-    .btn-white:hover {
-      transform: scale(1.02);
-      box-shadow: 0 6px 20px rgba(4, 62, 84, .2);
-    }
-
-    .fi {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity .5s ease, transform .5s ease;
-    }
-
-    .fi.vis {
-      opacity: 1;
-      transform: none;
-    }
-
-    .d1 {
-      transition-delay: .1s
-    }
-
-    .d2 {
-      transition-delay: .2s
-    }
-
-    .d3 {
-      transition-delay: .3s
-    }
-
-    /* ── BREADCRUMB ── */
-    .breadcrumb {
-      padding: 18px 24px 0;
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .bc-item {
-      font-size: 13px;
-      color: var(--ts);
-      text-decoration: none;
-      transition: color .15s;
-    }
-
-    .bc-item:hover {
-      color: var(--primary);
-    }
-
-    .bc-sep {
-      font-size: 13px;
-      color: var(--border);
-    }
-
-    .bc-current {
-      font-size: 13px;
-      color: var(--tp);
-      font-weight: 500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 300px;
-    }
-
-    /* ── HERO ── */
-    .post-hero {
-      padding: 32px 24px 0;
-    }
-
-    .post-hero-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .post-hero-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 20px;
-    }
-
-    .cat-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: var(--tint);
-      border: 1px solid rgba(52, 174, 147, .3);
-      color: var(--teal);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: .15s;
-    }
-
-    .cat-pill:hover {
-      background: rgba(52, 174, 147, .12);
-    }
-
-    .cat-pill::before {
-      content: '';
-      width: 5px;
-      height: 5px;
-      background: var(--teal);
-      border-radius: 50%;
-    }
-
-    .read-time {
-      font-size: 12px;
-      color: var(--ts);
-      font-weight: 500;
-    }
-
-    .post-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(28px, 4.5vw, 52px);
-      font-weight: 400;
-      line-height: 1.1;
-      letter-spacing: -.02em;
-      color: var(--primary);
-      max-width: 860px;
-      margin-bottom: 20px;
-    }
-
-    .post-desc {
-      font-size: clamp(15px, 1.6vw, 17px);
-      color: var(--ts);
-      line-height: 1.75;
-      max-width: 720px;
-      margin-bottom: 28px;
-    }
-
-    /* Author row */
-    .author-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 16px;
-      padding: 18px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 0;
-    }
-
-    .author-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .author-av {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: var(--grad);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 800;
-      color: #fff;
-      flex-shrink: 0;
-    }
-
-    .author-name {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--tp);
-    }
-
-    .author-role {
-      font-size: 12px;
-      color: var(--ts);
-    }
-
-    .post-meta-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .meta-item {
-      font-size: 12px;
-      color: var(--ts);
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .meta-item svg {
-      opacity: .6;
-    }
-
-    /* Share buttons */
-    .share-btns {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .share-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border);
-      background: #fff;
-      cursor: pointer;
-      transition: .15s;
-      text-decoration: none;
-    }
-
-    .share-btn:hover {
-      border-color: var(--teal);
-      background: var(--tint);
-      transform: translateY(-1px);
-    }
-
-    /* ── HERO IMAGE ── */
-    .post-cover {
-      margin: 32px 0 0;
-    }
-
-    .post-cover-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .cover-img {
-      width: 100%;
-      height: clamp(240px, 36vw, 480px);
-      border-radius: 18px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #d4f0e0 0%, #043E54 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .cover-illustration {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .cover-caption {
-      font-size: 12px;
-      color: var(--ts);
-      text-align: center;
-      margin-top: 10px;
-      font-style: italic;
-    }
-
-    /* ── MAIN LAYOUT ── */
-    .post-layout {
-      max-width: 1100px;
-      margin: 48px auto 0;
-      padding: 0 24px 96px;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 48px;
-    }
-
-    @media (min-width: 900px) {
-      .post-layout {
-        grid-template-columns: 1fr 300px;
-      }
-    }
-
-    /* ── ARTICLE BODY ── */
-    .article-content {
-      min-width: 0;
-    }
-
-    /* Progress reading bar */
-    .read-progress {
-      position: fixed;
-      top: var(--nav-h);
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--border);
-      z-index: 999;
-    }
-
-    .read-progress-fill {
-      height: 100%;
-      background: var(--grad);
-      width: 0%;
-      transition: width .1s linear;
-      border-radius: 0 2px 2px 0;
-    }
-
-    /* TOC inline (mobile) */
-    .toc-inline {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px 22px;
-      margin-bottom: 36px;
-      display: block;
-    }
-
-    @media (min-width: 900px) {
-      .toc-inline {
-        display: none;
-      }
-    }
-
-    .toc-title {
-      font-size: 13px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--ts);
-      margin-bottom: 14px;
-    }
-
-    .toc-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .toc-item a {
-      font-size: 13px;
-      color: var(--ts);
-      text-decoration: none;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      line-height: 1.4;
-      transition: color .15s;
-    }
-
-    .toc-item a:hover {
-      color: var(--primary);
-    }
-
-    .toc-item a::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--teal);
-      flex-shrink: 0;
-      margin-top: 6px;
-    }
-
-    .toc-item.h3 a {
-      padding-left: 16px;
-      font-size: 12px;
-    }
-
-    /* Prose */
-    .prose {
-      color: var(--tp);
-    }
-
-    .prose h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(22px, 2.8vw, 30px);
-      font-weight: 400;
-      line-height: 1.2;
-      letter-spacing: -.015em;
-      color: var(--primary);
-      margin: 48px 0 16px;
-      scroll-margin-top: calc(var(--nav-h) + 24px);
-    }
-
-    .prose h3 {
-      font-size: clamp(16px, 1.8vw, 19px);
-      font-weight: 800;
-      color: var(--primary);
-      margin: 32px 0 12px;
-      scroll-margin-top: calc(var(--nav-h) + 24px);
-      line-height: 1.3;
-    }
-
-    .prose p {
-      font-size: clamp(15px, 1.5vw, 16.5px);
-      color: #2a5062;
-      line-height: 1.82;
-      margin-bottom: 20px;
-    }
-
-    .prose p:last-child {
-      margin-bottom: 0;
-    }
-
-    .prose strong {
-      color: var(--primary);
-      font-weight: 700;
-    }
-
-    .prose em {
-      font-style: italic;
-      color: var(--ts);
-    }
-
-    .prose a {
-      color: var(--teal);
-      text-decoration: underline;
-      text-decoration-color: rgba(52, 174, 147, .4);
-      text-underline-offset: 3px;
-      transition: .15s;
-    }
-
-    .prose a:hover {
-      color: var(--primary);
-      text-decoration-color: var(--primary);
-    }
-
-    .prose ul,
-    .prose ol {
-      padding-left: 22px;
-      margin-bottom: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .prose li {
-      font-size: clamp(15px, 1.5vw, 16.5px);
-      color: #2a5062;
-      line-height: 1.75;
-    }
-
-    .prose li::marker {
-      color: var(--teal);
-    }
-
-    .prose hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 40px 0;
-    }
-
-    /* Callout / pull quote */
-    .callout {
-      background: var(--tint);
-      border-left: 3px solid var(--teal);
-      border-radius: 0 10px 10px 0;
-      padding: 16px 20px;
-      margin: 28px 0;
-    }
-
-    .callout p {
-      color: var(--tp) !important;
-      font-weight: 500;
-      margin: 0 !important;
-      font-size: 15px !important;
-      line-height: 1.7 !important;
-    }
-
-    .callout-warning {
-      background: #fef9c3;
-      border-left-color: #f59e0b;
-    }
-
-    .callout-warning p {
-      color: #92400e !important;
-    }
-
-    .callout-danger {
-      background: #fef2f2;
-      border-left-color: #ef4444;
-    }
-
-    .callout-danger p {
-      color: #991b1b !important;
-    }
-
-    /* Pull quote */
-    .pull-quote {
-      margin: 36px 0;
-      padding: 28px 32px;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      position: relative;
-      background: var(--surface);
-    }
-
-    .pull-quote::before {
-      content: '\201C';
-      font-family: 'DM Serif Display', serif;
-      font-size: 80px;
-      line-height: 1;
-      color: var(--mint);
-      position: absolute;
-      top: -8px;
-      left: 20px;
-    }
-
-    .pull-quote p {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(18px, 2.2vw, 24px) !important;
-      font-weight: 400;
-      color: var(--primary) !important;
-      line-height: 1.5 !important;
-      margin: 0 0 10px !important;
-      padding-top: 28px;
-    }
-
-    .pull-quote cite {
-      font-size: 13px;
-      color: var(--ts);
-      font-style: normal;
-      font-weight: 600;
-    }
-
-    /* Stat highlight */
-    .stat-highlight {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin: 28px 0;
-    }
-
-    @media (min-width: 560px) {
-      .stat-highlight {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .sh-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 18px 16px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      box-shadow: var(--s-sm);
-    }
-
-    .sh-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--grad);
-    }
-
-    .sh-v {
-      font-family: 'DM Serif Display', serif;
-      font-size: 32px;
-      color: var(--primary);
-      line-height: 1;
-    }
-
-    .sh-l {
-      font-size: 12px;
-      color: var(--ts);
-      font-weight: 600;
-      margin-top: 5px;
-      line-height: 1.4;
-    }
-
-    /* Inline image / chart placeholder */
-    .post-img {
-      margin: 32px 0;
-    }
-
-    .post-img-inner {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .chart-bars {
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      height: 80px;
-    }
-
-    .chart-bar {
-      border-radius: 4px 4px 0 0;
-      min-width: 18px;
-      flex: 1;
-    }
-
-    .post-img-caption {
-      font-size: 12px;
-      color: var(--ts);
-      text-align: center;
-      font-style: italic;
-    }
-
-    /* Tag list */
-    .post-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 40px;
-      padding-top: 28px;
-      border-top: 1px solid var(--border);
-    }
-
-    .post-tag {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--ts);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 4px 12px;
-      border-radius: 100px;
-      text-decoration: none;
-      transition: .15s;
-    }
-
-    .post-tag:hover {
-      color: var(--teal);
-      border-color: rgba(52, 174, 147, .4);
-      background: var(--tint);
-    }
-
-    /* Author bio card */
-    .author-bio {
-      margin-top: 40px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-      flex-wrap: wrap;
-    }
-
-    .author-bio-av {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: var(--grad);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      font-weight: 900;
-      color: #fff;
-      flex-shrink: 0;
-    }
-
-    .author-bio-body {
-      flex: 1;
-      min-width: 180px;
-    }
-
-    .author-bio-name {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 4px;
-    }
-
-    .author-bio-role {
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--teal);
-      margin-bottom: 8px;
-    }
-
-    .author-bio-text {
-      font-size: 13px;
-      color: var(--ts);
-      line-height: 1.65;
-    }
-
-    /* ── SIDEBAR ── */
-    .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .sidebar-widget {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 20px;
-      box-shadow: var(--s-sm);
-    }
-
-    .sw-title {
-      font-size: 12px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-      color: var(--ts);
-      margin-bottom: 14px;
-    }
-
-    /* Sticky TOC sidebar */
-    .toc-sticky {
-      position: sticky;
-      top: calc(var(--nav-h) + 20px);
-    }
-
-    .toc-sidebar-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .toc-sidebar-item a {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 13px;
-      color: var(--ts);
-      text-decoration: none;
-      padding: 5px 8px;
-      border-radius: 7px;
-      line-height: 1.4;
-      transition: .15s;
-    }
-
-    .toc-sidebar-item a:hover,
-    .toc-sidebar-item.active a {
-      color: var(--primary);
-      background: var(--tint);
-    }
-
-    .toc-sidebar-item.active a {
-      font-weight: 600;
-    }
-
-    .toc-sidebar-item a::before {
-      content: '';
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--border);
-      flex-shrink: 0;
-      margin-top: 7px;
-      transition: background .15s;
-    }
-
-    .toc-sidebar-item.active a::before {
-      background: var(--teal);
-    }
-
-    .toc-sidebar-item.h3 a {
-      padding-left: 20px;
-      font-size: 12px;
-    }
-
-    /* Progress widget */
-    .progress-widget {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .pw-bar-wrap {
-      background: var(--surface);
-      border-radius: 100px;
-      height: 6px;
-      overflow: hidden;
-    }
-
-    .pw-bar {
-      height: 100%;
-      background: var(--grad);
-      border-radius: 100px;
-      width: 0%;
-      transition: width .2s;
-    }
-
-    .pw-pct {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--tp);
-    }
-
-    .pw-label {
-      font-size: 12px;
-      color: var(--ts);
-    }
-
-    /* Related posts widget */
-    .related-post {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .related-post:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .rp-thumb {
-      width: 52px;
-      height: 44px;
-      border-radius: 8px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-    }
-
-    .rp-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--tp);
-      line-height: 1.35;
-      text-decoration: none;
-      transition: color .15s;
-    }
-
-    .rp-title:hover {
-      color: var(--teal);
-    }
-
-    .rp-meta {
-      font-size: 11px;
-      color: var(--ts);
-      margin-top: 3px;
-    }
-
-    /* CTA widget */
-    .cta-widget {
-      background: var(--primary);
-      border: none;
-      text-align: center;
-    }
-
-    .cta-widget .sw-title {
-      color: rgba(255, 255, 255, .6);
-    }
-
-    .cta-widget-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 19px;
-      font-weight: 400;
-      color: #fff;
-      line-height: 1.3;
-      margin-bottom: 10px;
-    }
-
-    .cta-widget-sub {
-      font-size: 13px;
-      color: rgba(255, 255, 255, .7);
-      margin-bottom: 16px;
-      line-height: 1.55;
-    }
-
-    /* Newsletter widget */
-    .nl-input {
-      width: 100%;
-      padding: 10px 13px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-size: 13px;
-      font-family: inherit;
-      outline: none;
-      color: var(--tp);
-      margin-bottom: 8px;
-      transition: .15s;
-    }
-
-    .nl-input:focus {
-      border-color: var(--teal);
-      box-shadow: 0 0 0 3px rgba(52, 174, 147, .12);
-    }
-
-    .nl-btn {
-      width: 100%;
-      padding: 10px;
-      background: var(--grad);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-family: inherit;
-      transition: .15s;
-    }
-
-    .nl-btn:hover {
-      opacity: .9;
-    }
-
-    .nl-note {
-      font-size: 11px;
-      color: var(--ts);
-      text-align: center;
-      margin-top: 7px;
-    }
-
-    /* ── RELATED ARTICLES SECTION ── */
-    #related {
-      padding: 64px 24px 80px;
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-    }
-
-    .related-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .related-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .related-header h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(22px, 2.8vw, 30px);
-      font-weight: 400;
-      color: var(--primary);
-    }
-
-    .related-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    @media (min-width: 560px) {
-      .related-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (min-width: 900px) {
-      .related-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-
-    .rel-card {
-      background: #fff;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: var(--s-sm);
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      transition: .2s;
-    }
-
-    .rel-card:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--s-md);
-      border-color: rgba(52, 174, 147, .3);
-    }
-
-    .rel-thumb {
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .rel-thumb-1 {
-      background: linear-gradient(135deg, #d4f0e0, #89d9a8);
-    }
-
-    .rel-thumb-2 {
-      background: linear-gradient(135deg, #dde8f8, #7ba8e8);
-    }
-
-    .rel-thumb-3 {
-      background: linear-gradient(135deg, #fce8d4, #f4a96a);
-    }
-
-    .rel-thumb-4 {
-      background: linear-gradient(135deg, #f0e8fc, #b07be8);
-    }
-
-    .rel-thumb-5 {
-      background: linear-gradient(135deg, #f8f0d4, #e8c56a);
-    }
-
-    .rel-thumb-icon {
-      width: 44px;
-      height: 44px;
-      background: rgba(255, 255, 255, .4);
-      backdrop-filter: blur(6px);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .rel-body {
-      padding: 18px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .rel-cat {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: var(--tint);
-      border: 1px solid rgba(52, 174, 147, .3);
-      color: var(--teal);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 100px;
-      width: fit-content;
-    }
-
-    .rel-title {
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--primary);
-      line-height: 1.35;
-      letter-spacing: -.01em;
-      flex: 1;
-    }
-
-    .rel-excerpt {
-      font-size: 12px;
-      color: var(--ts);
-      line-height: 1.55;
-    }
-
-    .rel-link {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--teal);
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: auto;
-      transition: gap .15s;
-    }
-
-    .rel-link:hover {
-      gap: 7px;
-    }
-
-    /* CTA Banner */
-    #cta {
-      background: var(--grad);
-      padding: 64px 24px;
-      text-align: center;
-    }
-
-    #cta h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(24px, 3.5vw, 38px);
-      font-weight: 400;
-      color: #fff;
-      margin-bottom: 12px;
-    }
-
-    #cta .sub {
-      font-size: 16px;
-      color: rgba(255, 255, 255, .85);
-      max-width: 540px;
-      margin: 0 auto 28px;
-      line-height: 1.7;
-    }
-
-    /* Footer */
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 52px 24px 0;
-    }
-
-    .foot-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 36px;
-    }
-
-    @media (min-width: 768px) {
-      .foot-inner {
-        grid-template-columns: 2fr 1fr 1fr 1fr;
-      }
-    }
-
-    .ft-col-t {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .07em;
-      color: var(--primary);
-      margin-bottom: 12px;
-    }
-
-    .foot-logo {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .foot-tag {
-      font-size: 14px;
-      color: var(--ts);
-      line-height: 1.6;
-      max-width: 220px;
-    }
-
-    .foot-links {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .foot-link {
-      font-size: 14px;
-      color: var(--ts);
-      text-decoration: none;
-      transition: .12s;
-    }
-
-    .foot-link:hover {
-      color: var(--primary);
-    }
-
-    .foot-bot {
-      max-width: 1200px;
-      margin: 36px auto 0;
-      border-top: 1px solid var(--border);
-      padding: 18px 0;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: space-between;
-    }
-
-    .foot-copy {
-      font-size: 13px;
-      color: var(--ts);
-    }
-
-    .foot-blinks {
-      display: flex;
-      gap: 20px;
-    }
-
-    .foot-blinks a {
-      font-size: 13px;
-      color: var(--ts);
-      text-decoration: none;
-    }
-
-    .foot-blinks a:hover {
-      color: var(--primary);
     }
   </style>
 </head>
@@ -1552,127 +21,133 @@
   </div>
 
   <!-- ── NAV ── -->
-  <nav>
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">
-        <svg width="130" height="38" viewBox="0 0 140 42" fill="none">
-          <defs>
-            <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#8AD8A3" />
-              <stop offset="100%" stop-color="#34AE93" />
-            </linearGradient>
-          </defs>
-          <circle cx="21" cy="21" r="18" fill="url(#lg)" />
-          <text x="21" y="27" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#043E54"
-            text-anchor="middle">db</text>
-          <text x="50" y="27" font-family="Inter,sans-serif" font-size="20" font-weight="700"
-            fill="#043E54">dreabee</text>
-        </svg>
+  <nav class="gnav">
+    <div class="gnav-inner">
+      <a class="gnav-logo" href="index.html">
+        <img src="/assets/logo.webp" alt="Dreabee" style="height:40px;width:auto;display:block">
       </a>
-      <div class="nav-links">
-        <a href="index.html" class="nav-link">Home</a>
-        <div class="nav-dd" id="dd-feat">
-          <button class="nav-dd-btn" onclick="toggleDd('dd-feat')">Features<svg class="chev" viewBox="0 0 12 12"
+      <div class="gnav-links">
+        <a href="index.html" class="gnav-link">Home</a>
+        <div class="gnav-dd" id="gdd-f">
+          <button class="gnav-toggle" onclick="gdrop('gdd-f')">Features<svg class="gnav-chev" viewBox="0 0 12 12"
               fill="none">
-              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
             </svg></button>
-          <div class="dd-menu">
-            <a href="dreabee-influencer-discovery.html" class="dd-item">🔍 Influencer Discovery</a>
-            <a href="dreabee-search-influencer.html" class="dd-item">🔎 Search Influencer</a>
-            <a href="dreabee-influencer-analytics.html" class="dd-item">📊 Influencer Analytics</a>
-            <hr class="dd-sep">
-            <a href="dreabee-campaign-reports.html" class="dd-item">📋 Campaign Reports</a>
-            <a href="dreabee-brand-analysis.html" class="dd-item">🏷️ Brand Analysis</a>
-            <a href="dreabee-brand-comparison.html" class="dd-item">⚖️ Brand Comparison</a>
-            <a href="dreabee-brand-monitoring.html" class="dd-item">📡 Brand Monitoring</a>
+          <div class="gnav-menu">
+            <a href="dreabee-influencer-discovery.html" class="gnav-item">🔍 Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gnav-item">🔎 Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gnav-item">📊 Influencer Analytics</a>
+            <div class="gnav-sep"></div>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-campaign-reports.html" class="gnav-item">📋 Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gnav-item">🏷️ Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gnav-item">⚖️ Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gnav-item">📡 Brand Monitoring</a>
           </div>
         </div>
-        <div class="nav-dd" id="dd-tools">
-          <button class="nav-dd-btn" onclick="toggleDd('dd-tools')">Free Tools<svg class="chev" viewBox="0 0 12 12"
+        <div class="gnav-dd" id="gdd-t">
+          <button class="gnav-toggle" onclick="gdrop('gdd-t')">Free Tools<svg class="gnav-chev" viewBox="0 0 12 12"
               fill="none">
-              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
             </svg></button>
-          <div class="dd-menu">
-            <a href="dreabee-instagram-fake-followers.html" class="dd-item">🛡️ Fake Follower Check</a>
-            <a href="dreabee-instagram-engagement-rate.html" class="dd-item">📸 Instagram ER Calculator</a>
-            <a href="dreabee-youtube-engagement-rate.html" class="dd-item">▶️ YouTube ER Calculator</a>
-            <a href="dreabee-tiktok-engagement-rate.html" class="dd-item">🎵 TikTok ER Calculator</a>
+          <div class="gnav-menu">
+            <a href="dreabee-instagram-fake-followers.html" class="gnav-item">🛡️ Instagram Fake Followers</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gnav-item">📸 Instagram ER Calculator</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gnav-item">▶️ YouTube ER Calculator</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gnav-item">🎵 TikTok ER Calculator</a>
           </div>
         </div>
-        <div class="nav-dd" id="dd-co">
-          <button class="nav-dd-btn" onclick="toggleDd('dd-co')">Company<svg class="chev" viewBox="0 0 12 12"
+        <div class="gnav-dd" id="gdd-c">
+          <button class="gnav-toggle" onclick="gdrop('gdd-c')">Company<svg class="gnav-chev" viewBox="0 0 12 12"
               fill="none">
-              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
             </svg></button>
-          <div class="dd-menu">
-            <a href="dreabee-about.html" class="dd-item">🐝 About Dreabee</a>
-            <a href="dreabee-careers.html" class="dd-item">💼 Careers</a>
-            <a href="dreabee-press.html" class="dd-item">📰 Press</a>
-            <a href="dreabee-case-studies.html" class="dd-item">📈 Case Studies</a>
-            <a href="dreabee-blog.html" class="dd-item">✍️ Blog</a>
-            <a href="dreabee-for-creators.html" class="dd-item">🌟 For Creators</a>
-            <hr class="dd-sep">
-            <a href="dreabee-contact.html" class="dd-item">💬 Contact Us</a>
+          <div class="gnav-menu">
+            <a href="dreabee-about.html" class="gnav-item">🐝 About Dreabee</a>
+            <a href="dreabee-careers.html" class="gnav-item">💼 Careers</a>
+            <a href="dreabee-press.html" class="gnav-item">📰 Press</a>
+            <a href="dreabee-case-studies.html" class="gnav-item">📈 Case Studies</a>
+            <a href="dreabee-blog.html" class="gnav-item">✍️ Blog</a>
+            <a href="dreabee-for-creators.html" class="gnav-item">🌟 For Creators</a>
+            <div class="gnav-sep"></div>
+            <a href="dreabee-faq.html" class="gnav-item">❓ FAQ</a>
+            <a href="dreabee-contact.html" class="gnav-item">💬 Contact Us</a>
           </div>
         </div>
-        <div class="nav-dd" id="dd-dev">
-          <button class="nav-dd-btn" onclick="toggleDd('dd-dev')">Developers<svg class="chev" viewBox="0 0 12 12"
+        <div class="gnav-dd" id="gdd-d">
+          <button class="gnav-toggle" onclick="gdrop('gdd-d')">Developers<svg class="gnav-chev" viewBox="0 0 12 12"
               fill="none">
-              <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+              <path d="M2 4l4 4 4-4" stroke="#4A7A84" stroke-width="1.5" stroke-linecap="round" />
             </svg></button>
-          <div class="dd-menu">
-            <a href="dreabee-developers.html" class="dd-item">🛠️ Developer Hub</a>
-            <a href="dreabee-api-docs.html" class="dd-item">📖 API Docs</a>
-            <a href="dreabee-api-docs-authentication.html" class="dd-item">🔑 Authentication</a>
-            <a href="dreabee-get-api-key.html" class="dd-item">⚡ Get API Key</a>
-            <a href="dreabee-changelog.html" class="dd-item">📋 Changelog</a>
+          <div class="gnav-menu">
+            <a href="dreabee-developers.html" class="gnav-item">🛠️ Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gnav-item">📖 API Docs</a>
+            <a href="dreabee-api-docs-authentication.html" class="gnav-item">🔑 Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gnav-item">⚡ Get API Key</a>
+            <a href="dreabee-changelog.html" class="gnav-item">📋 Changelog</a>
           </div>
         </div>
-        <a href="dreabee-pricing.html" class="nav-link">Pricing</a>
+        <a href="dreabee-pricing.html" class="gnav-link">Pricing</a>
       </div>
-      <div class="nav-actions">
-        <a href="dreabee-login.html" class="btn-ghost">Login</a>
-        <a href="dreabee-register.html" class="btn-pill">Get Started →</a>
+      <div class="gnav-actions">
+        <a href="dreabee-login.html" class="gnav-ghost">Login</a>
+        <a href="dreabee-register.html" class="gnav-cta">Get Started →</a>
       </div>
-      <button class="mob-btn" id="mob-btn" onclick="toggleMob()" aria-label="Menu">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="gnav-ham" id="gnav-ham" onclick="gmob()"
+        aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </nav>
-  </div>
-
-  <!-- MOBILE MENU -->
-  <div class="mob-menu" id="mob-menu">
-    <a href="index.html" class="mob-link">Home</a>
-    <p class="mob-sec">Features</p>
-    <a href="dreabee-influencer-discovery.html" class="mob-link">Influencer Discovery</a>
-    <a href="dreabee-search-influencer.html" class="mob-link">Search Influencer</a>
-    <a href="dreabee-influencer-analytics.html" class="mob-link">Influencer Analytics</a>
-    <a href="dreabee-campaign-reports.html" class="mob-link">Campaign Reports</a>
-    <hr class="mob-hr">
-    <p class="mob-sec">Free Tools</p>
-    <a href="dreabee-instagram-fake-followers.html" class="mob-link">Instagram Fake Followers</a>
-    <a href="dreabee-youtube-engagement-rate.html" class="mob-link">YouTube Engagement Rate</a>
-    <a href="dreabee-instagram-engagement-rate.html" class="mob-link">Instagram Engagement Rate</a>
-    <hr class="mob-hr">
-    <a href="dreabee-pricing.html" class="mob-link">Pricing</a>
-    <a href="dreabee-blog.html" class="mob-link" style="color:var(--primary);font-weight:600;">Blog</a>
-    <a href="dreabee-login.html" class="mob-link">Login</a>
-    <div style="padding:12px 0;"><a href="dreabee-register.html" class="btn-pill"
-        style="width:100%;justify-content:center;border-radius:9px;padding:12px;">Get Started →</a></div>
+  <div class="gnav-mob" id="gnav-mob">
+    <a href="index.html" class="gnav-mlink">Home</a>
+    <span class="gnav-msec">Features</span>
+    <a href="dreabee-influencer-discovery.html" class="gnav-mlink">Influencer Discovery</a>
+    <a href="dreabee-search-influencer.html" class="gnav-mlink">Search Influencer</a>
+    <a href="dreabee-influencer-analytics.html" class="gnav-mlink">Influencer Analytics</a>
+    <a href="dreabee-campaign-reports.html" class="gnav-mlink">Campaign Reports</a>
+    <a href="dreabee-brand-analysis.html" class="gnav-mlink">Brand Analysis</a>
+    <a href="dreabee-brand-comparison.html" class="gnav-mlink">Brand Comparison</a>
+    <a href="dreabee-brand-monitoring.html" class="gnav-mlink">Brand Monitoring</a>
+    <span class="gnav-msec">Free Tools</span>
+    <a href="dreabee-instagram-fake-followers.html" class="gnav-mlink">Instagram Fake Followers</a>
+    <a href="dreabee-instagram-engagement-rate.html" class="gnav-mlink">Instagram ER Calculator</a>
+    <a href="dreabee-youtube-engagement-rate.html" class="gnav-mlink">YouTube ER Calculator</a>
+    <a href="dreabee-tiktok-engagement-rate.html" class="gnav-mlink">TikTok ER Calculator</a>
+    <span class="gnav-msec">Company</span>
+    <a href="dreabee-about.html" class="gnav-mlink">About</a>
+    <a href="dreabee-careers.html" class="gnav-mlink">Careers</a>
+    <a href="dreabee-faq.html" class="gnav-mlink">FAQ</a>
+    <a href="dreabee-press.html" class="gnav-mlink">Press</a>
+    <a href="dreabee-case-studies.html" class="gnav-mlink">Case Studies</a>
+    <a href="dreabee-blog.html" class="gnav-mlink">Blog</a>
+    <a href="dreabee-for-creators.html" class="gnav-mlink">For Creators</a>
+    <a href="dreabee-contact.html" class="gnav-mlink">Contact</a>
+    <span class="gnav-msec">Developers</span>
+    <a href="dreabee-developers.html" class="gnav-mlink">Developer Hub</a>
+    <a href="dreabee-api-docs.html" class="gnav-mlink">API Docs</a>
+    <a href="dreabee-api-docs-authentication.html" class="gnav-mlink">Authentication</a>
+    <a href="dreabee-get-api-key.html" class="gnav-mlink">Get API Key</a>
+    <a href="dreabee-changelog.html" class="gnav-mlink">Changelog</a>
+    <span class="gnav-msec">More</span>
+    <a href="dreabee-pricing.html" class="gnav-mlink">Pricing</a>
+    <a href="dreabee-login.html" class="gnav-mlink">Login</a>
+    <div style="padding:16px 0 0"><a href="dreabee-register.html" class="gnav-cta"
+        style="width:100%;justify-content:center;display:flex;border-radius:9px;padding:12px;">Get Started →</a></div>
   </div>
 
   <!-- ── BREADCRUMB ── -->
-  <div class="breadcrumb">
-    <a href="index.html" class="bc-item">Home</a>
-    <span class="bc-sep">›</span>
-    <a href="dreabee-blog.html" class="bc-item">Blog</a>
-    <span class="bc-sep">›</span>
-    <span class="bc-current">Minimum View Guarantees in Influencer Marketing</span>
+  <div class="padd-x-res">
+    <div class="breadcrumb-blog-post">
+      <a href="index.html" class="bc-item">Home</a>
+      <span class="bc-sep">›</span>
+      <a href="dreabee-blog.html" class="bc-item">Blog</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">Minimum View Guarantees in Influencer Marketing</span>
+    </div>
   </div>
 
   <!-- ── POST HERO ── -->
-  <section class="post-hero">
+   <section class="padd-x-res">
+  <div class="post-hero">
     <div class="post-hero-inner fi">
       <div class="post-hero-top">
         <a href="dreabee-blog?cat=Influencer+Marketing.html" class="cat-pill">Influencer Marketing</a>
@@ -1711,7 +186,7 @@
             4,120 reads
           </span>
           <div class="share-btns">
-            <a href="#" class="share-btn" title="Share on LinkedIn">
+            <a href="#" class="share-btn-bl-post" title="Share on LinkedIn">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ts)" stroke-width="2"
                 stroke-linecap="round">
                 <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
@@ -1719,13 +194,13 @@
                 <circle cx="4" cy="4" r="2" />
               </svg>
             </a>
-            <a href="#" class="share-btn" title="Share on X">
+            <a href="#" class="share-btn-bl-post" title="Share on X">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ts)" stroke-width="2"
                 stroke-linecap="round">
                 <path d="M4 4l16 16M20 4 4 20" />
               </svg>
             </a>
-            <a href="#" class="share-btn" title="Copy link" onclick="copyLink(event)">
+            <a href="#" class="share-btn-bl-post" title="Copy link" onclick="copyLink(event)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--ts)" stroke-width="2"
                 stroke-linecap="round">
                 <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
@@ -1736,7 +211,8 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- ── COVER IMAGE ── -->
   <div class="post-cover">
@@ -1790,6 +266,7 @@
   </div>
 
   <!-- ── MAIN LAYOUT ── -->
+   <section class="padd-x-res">
   <div class="post-layout wrap">
 
     <!-- ═══════════════════ ARTICLE ═══════════════════ -->
@@ -2096,7 +573,7 @@
     </article>
 
     <!-- ═══════════════════ SIDEBAR ═══════════════════ -->
-    <aside class="sidebar">
+    <aside class="sidebar-bl-post">
 
       <!-- Reading progress -->
       <div class="sidebar-widget">
@@ -2184,10 +661,13 @@
 
     </aside>
 
-  </div><!-- /post-layout -->
+  </div>
+</section>
+  <!-- /post-layout -->
 
   <!-- ── RELATED ARTICLES ── -->
-  <section id="related">
+   <section class="padd-x-res">
+  <div id="related">
     <div class="related-inner">
       <div class="related-header fi">
         <h2>More from the Blog</h2>
@@ -2307,7 +787,8 @@
 
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- ── CTA ── -->
   <section id="cta">
@@ -2323,58 +804,149 @@
   </section>
 
   <!-- ── FOOTER ── -->
-  <footer>
-    <div class="foot-inner">
-      <div class="foot-logo">
-        <a href="index.html" style="text-decoration:none;">
-          <svg width="120" height="34" viewBox="0 0 140 42" fill="none">
-            <defs>
-              <linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#8AD8A3" />
-                <stop offset="100%" stop-color="#34AE93" />
-              </linearGradient>
-            </defs>
-            <circle cx="21" cy="21" r="18" fill="url(#lg2)" />
-            <text x="21" y="27" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#043E54"
-              text-anchor="middle">db</text>
-            <text x="50" y="27" font-family="Inter,sans-serif" font-size="20" font-weight="700"
-              fill="#043E54">dreabee</text>
-          </svg>
-        </a>
-        <p class="foot-tag">Reimagining influencer marketing from the ground up.</p>
-      </div>
-      <div>
-        <p class="ft-col-t">Product</p>
-        <div class="foot-links">
-          <a href="dreabee-influencer-discovery.html" class="foot-link">Influencer Discovery</a>
-          <a href="dreabee-search-influencer.html" class="foot-link">Search Influencer</a>
-          <a href="dreabee-influencer-analytics.html" class="foot-link">Influencer Analytics</a>
-          <a href="dreabee-campaign-reports.html" class="foot-link">Campaign Reports</a>
+  <footer class="gfoot">
+    <div class="gfoot-inner">
+      <div class="gfoot-top">
+
+        <!-- Brand column -->
+        <div class="gfoot-brand">
+          <a class="gfoot-brand-logo" href="index.html">
+            <img src="/assets/logo.webp" alt="Dreabee" style="height:40px;width:auto;display:block">
+          </a>
+          <p class="gfoot-tagline">Reimagining influencer marketing — smarter discovery, honest analytics, real results.
+          </p>
+          <div class="gfoot-social">
+            <a class="gfoot-soc" href="#" aria-label="Twitter / X" title="Twitter / X"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#000" />
+                <path
+                  d="M13.18 10.64L18.9 4h-1.36l-4.98 5.88L8.44 4H4l6.01 8.9L4 20h1.36l5.25-6.19L15.56 20H20l-6.82-9.36zm-1.86 2.19l-.61-.89L5.88 5.1h2.09l3.91 5.74.61.89 5.1 7.17h-2.09l-4.18-5.87z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="LinkedIn" title="LinkedIn"
+              style="padding:4px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <rect width="24" height="24" rx="4" fill="#0A66C2" />
+                <path
+                  d="M7.2 9.6H4.8V19.2H7.2V9.6zM6 8.4a1.4 1.4 0 110-2.8 1.4 1.4 0 010 2.8zM19.2 19.2h-2.4v-4.8c0-1.1-.9-2-2-2s-2 .9-2 2v4.8H10.4V9.6h2.4v1.2a3.6 3.6 0 013.2-1.6c2 0 3.2 1.6 3.2 3.6v6.4z"
+                  fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="Instagram" title="Instagram"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <defs>
+                  <radialGradient id="ig-g1" cx="30%" cy="107%" r="150%">
+                    <stop offset="0%" stop-color="#fdf497" />
+                    <stop offset="5%" stop-color="#fdf497" />
+                    <stop offset="45%" stop-color="#fd5949" />
+                    <stop offset="60%" stop-color="#d6249f" />
+                    <stop offset="90%" stop-color="#285AEB" />
+                  </radialGradient>
+                </defs>
+                <rect width="24" height="24" rx="5.5" fill="url(#ig-g1)" />
+                <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8" fill="none" />
+                <circle cx="17.5" cy="6.5" r="1.2" fill="white" />
+              </svg>
+            </a>
+            <a class="gfoot-soc" href="#" aria-label="YouTube" title="YouTube"
+              style="padding:3px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path
+                  d="M23 7s-.3-2-1.2-2.8C20.7 3.1 19.5 3 19 3c-3.2-.2-7-.2-7-.2s-3.8 0-7 .2C4.4 3.1 3.3 3.1 2.2 4 1.3 4.8 1 7 1 7S.8 9.3.8 11.6v2.2c0 2.3.2 4.6.2 4.6s.3 2 1.2 2.8C3.4 22.1 5 22 5.6 22.1c2 .2 8 .2 8 .2s3.8 0 7-.2c.5-.1 1.7-.1 2.8-1.1.9-.8 1.2-2.8 1.2-2.8S25 16 25 13.8v-2.2C24.4 9.3 23 7 23 7z"
+                  fill="#FF0000" />
+                <polygon points="9.5,7.5 9.5,16.5 16.5,12" fill="white" />
+              </svg>
+            </a>
+          </div>
         </div>
-      </div>
-      <div>
-        <p class="ft-col-t">Free Tools</p>
-        <div class="foot-links">
-          <a href="dreabee-instagram-fake-followers.html" class="foot-link">Instagram Fake Followers</a>
-          <a href="dreabee-youtube-engagement-rate.html" class="foot-link">YouTube ER Tool</a>
-          <a href="dreabee-instagram-engagement-rate.html" class="foot-link">Instagram ER Tool</a>
-          <a href="dreabee-tiktok-engagement-rate.html" class="foot-link">TikTok ER Tool</a>
+
+        <!-- Product -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Product</span>
+          <div class="gfoot-links">
+            <a href="dreabee-influencer-discovery.html" class="gfoot-link">Influencer Discovery</a>
+            <a href="dreabee-search-influencer.html" class="gfoot-link">Search Influencer</a>
+            <a href="dreabee-influencer-analytics.html" class="gfoot-link">Influencer Analytics</a>
+            <a href="dreabee-campaign-reports.html" class="gfoot-link">Campaign Reports</a>
+            <a href="dreabee-brand-analysis.html" class="gfoot-link">Brand Analysis</a>
+            <a href="dreabee-brand-comparison.html" class="gfoot-link">Brand Comparison</a>
+            <a href="dreabee-brand-monitoring.html" class="gfoot-link">Brand Monitoring</a>
+            <a href="dreabee-pricing.html" class="gfoot-link">Pricing</a>
+          </div>
         </div>
-      </div>
-      <div>
-        <p class="ft-col-t">Company</p>
-        <div class="foot-links">
-          <a href="dreabee-pricing.html" class="foot-link">Pricing</a>
-          <a href="dreabee-blog.html" class="foot-link" style="color:var(--primary);font-weight:600;">Blog</a>
-          <a href="dreabee-login.html" class="foot-link">Login</a>
-          <a href="dreabee-register.html" class="foot-link">Sign Up Free</a>
+
+        <!-- Free Tools -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Free Tools</span>
+          <div class="gfoot-links">
+            <a href="dreabee-instagram-fake-followers.html" class="gfoot-link">🛡️ Fake Follower Check</a>
+            <a href="dreabee-instagram-engagement-rate.html" class="gfoot-link">📸 Instagram ER Tool</a>
+            <a href="dreabee-youtube-engagement-rate.html" class="gfoot-link">▶️ YouTube ER Tool</a>
+            <a href="dreabee-tiktok-engagement-rate.html" class="gfoot-link">🎵 TikTok ER Tool</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Company</span>
+          <div class="gfoot-links">
+            <a href="dreabee-about.html" class="gfoot-link">About Us</a>
+            <a href="dreabee-careers.html" class="gfoot-link">Careers <span class="gfoot-link-new">Hiring</span></a>
+            <a href="dreabee-press.html" class="gfoot-link">Press</a>
+            <a href="dreabee-blog.html" class="gfoot-link">Blog</a>
+            <a href="dreabee-contact.html" class="gfoot-link">Contact</a>
+          </div>
         </div>
+
+        <!-- Developers -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Developers</span>
+          <div class="gfoot-links">
+            <a href="dreabee-developers.html" class="gfoot-link">Developer Hub</a>
+            <a href="dreabee-api-docs.html" class="gfoot-link">API Reference</a>
+            <a href="dreabee-api-docs-authentication.html" class="gfoot-link">Authentication</a>
+            <a href="dreabee-get-api-key.html" class="gfoot-link">Get API Key</a>
+            <a href="dreabee-changelog.html" class="gfoot-link">Changelog</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Resources</span>
+          <div class="gfoot-links">
+            <a href="dreabee-case-studies.html" class="gfoot-link">Case Studies</a>
+            <a href="dreabee-for-creators.html" class="gfoot-link">For Creators</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+            <a href="dreabee-compare.html" class="gfoot-link">Compare Platforms</a>
+            <a href="dreabee-faq.html" class="gfoot-link">FAQ</a>
+            <a href="dreabee-sitemap.html" class="gfoot-link">Sitemap</a>
+          </div>
+        </div>
+
+        <!-- Account -->
+        <div class="gfoot-col">
+          <span class="gfoot-col-title">Account</span>
+          <div class="gfoot-links">
+            <a href="dreabee-login.html" class="gfoot-link">Login</a>
+            <a href="dreabee-register.html" class="gfoot-link">Get Started Free</a>
+            <a href="dreabee-book-a-demo.html" class="gfoot-link">Book a Demo</a>
+          </div>
+          <span class="gfoot-col-title" style="margin-top:20px">Legal</span>
+          <div class="gfoot-links">
+            <a href="dreabee-terms.html" class="gfoot-link">Terms of Use</a>
+            <a href="dreabee-privacy-policy.html" class="gfoot-link">Privacy Policy</a>
+            <a href="dreabee-cookie-policy.html" class="gfoot-link">Cookie Policy</a>
+          </div>
+        </div>
+
+      </div><!-- /gfoot-top -->
+    </div><!-- /gfoot-inner -->
+
+    <hr class="gfoot-divider">
+
+    <div class="gfoot-bot">
+      <span class="gfoot-copy">© 2026 <strong>Dreabee</strong>. All rights reserved. Built for brands that mean
+        business.</span>
+      <div class="gfoot-legal">
+        <a href="dreabee-terms.html">Terms</a>
+        <a href="dreabee-privacy-policy.html">Privacy</a>
+        <a href="dreabee-cookie-policy.html">Cookies</a>
       </div>
-    </div>
-    <div class="foot-bot">
-      <span class="foot-copy">© 2025 Dreabee. All rights reserved.</span>
-      <div class="foot-blinks"><a href="dreabee-pricing.html">Pricing</a><a href="dreabee-blog.html">Blog</a><a
-          href="dreabee-login.html">Login</a></div>
     </div>
   </footer>
 
@@ -2450,20 +1022,8 @@
       document.getElementById('sidebar-email').value = '';
     }
   </script>
-  <script>
-    function toggleDd(id) {
-      var el = document.getElementById(id);
-      var open = el.classList.contains('open');
-      document.querySelectorAll('.nav-dd.open').forEach(function (d) { d.classList.remove('open') });
-      if (!open) el.classList.add('open');
-    }
-    document.addEventListener('click', function (e) {
-      if (!e.target.closest('.nav-dd')) document.querySelectorAll('.nav-dd.open').forEach(function (d) { d.classList.remove('open') });
-    });
-    function toggleMob() {
-      document.getElementById('mob-btn').classList.toggle('open');
-      document.getElementById('mob-menu').classList.toggle('open');
-    }
+  <script src="/js/navbar.js">
+
   </script>
 </body>
 
