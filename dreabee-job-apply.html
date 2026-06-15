@@ -188,34 +188,34 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">First name <span class="req">*</span></label>
-              <input class="form-input" id="fname" type="text" placeholder="Aryan" />
+              <input class="form-input-job" id="fname" type="text" placeholder="Aryan" />
               <div class="error-msg">Please enter your first name</div>
             </div>
             <div class="form-group">
               <label class="form-label">Last name <span class="req">*</span></label>
-              <input class="form-input" id="lname" type="text" placeholder="Kapoor" />
+              <input class="form-input-job" id="lname" type="text" placeholder="Kapoor" />
               <div class="error-msg">Please enter your last name</div>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label">Email address <span class="req">*</span></label>
-            <input class="form-input" id="email" type="email" placeholder="aryan@example.com" />
+            <input class="form-input-job" id="email" type="email" placeholder="aryan@example.com" />
             <div class="error-msg">Please enter a valid email address</div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">Phone <span class="opt">(optional)</span></label>
-              <input class="form-input" type="tel" placeholder="+44 7700 900000" />
+              <input class="form-input-job" type="tel" placeholder="+44 7700 900000" />
             </div>
             <div class="form-group">
               <label class="form-label">Location <span class="req">*</span></label>
-              <input class="form-input" id="location" type="text" placeholder="London, UK" />
+              <input class="form-input-job" id="location" type="text" placeholder="London, UK" />
               <div class="error-msg">Please enter your location</div>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label">Current / most recent job title <span class="opt">(optional)</span></label>
-            <input class="form-input" type="text" placeholder="Senior Software Engineer at Acme Corp" />
+            <input class="form-input-job" type="text" placeholder="Senior Software Engineer at Acme Corp" />
           </div>
 
           <div class="section-label" style="margin-top:24px">CV / Résumé</div>
@@ -232,20 +232,20 @@
             <div class="form-group link-input-wrap">
               <label class="form-label">LinkedIn <span class="opt">(optional)</span></label>
               <span class="link-prefix">in/</span>
-              <input class="form-input" type="text" placeholder="yourprofile" />
+              <input class="form-input-job" type="text" placeholder="yourprofile" />
             </div>
             <div class="form-group link-input-wrap">
               <label class="form-label">GitHub <span class="opt">(optional)</span></label>
               <span class="link-prefix">gh/</span>
-              <input class="form-input" type="text" placeholder="yourusername" />
+              <input class="form-input-job" type="text" placeholder="yourusername" />
             </div>
             <div class="form-group">
               <label class="form-label">Portfolio / website <span class="opt">(optional)</span></label>
-              <input class="form-input" type="url" placeholder="https://yoursite.com" />
+              <input class="form-input-job" type="url" placeholder="https://yoursite.com" />
             </div>
             <div class="form-group">
               <label class="form-label">How did you hear about this role?</label>
-              <select class="form-select">
+              <select class="form-select-job">
                 <option value="">Select one…</option>
                 <option>Dreabee careers page</option>
                 <option>LinkedIn</option>
@@ -280,7 +280,7 @@
           <div class="section-label">Work history</div>
           <div class="form-group">
             <label class="form-label">Years of professional backend experience <span class="req">*</span></label>
-            <select class="form-select" id="years-exp">
+            <select class="form-select-job" id="years-exp">
               <option value="">Select…</option>
               <option>1–2 years</option>
               <option>3–4 years</option>
@@ -292,11 +292,11 @@
           </div>
           <div class="form-group">
             <label class="form-label">Most relevant previous role <span class="opt">(optional)</span></label>
-            <input class="form-input" type="text" placeholder="e.g. Senior Engineer at Spotify, 2021–2024" />
+            <input class="form-input-job" type="text" placeholder="e.g. Senior Engineer at Spotify, 2021–2024" />
           </div>
           <div class="form-group">
             <label class="form-label">Primary tech stack <span class="req">*</span></label>
-            <input class="form-input" id="stack" type="text"
+            <input class="form-input-job" id="stack" type="text"
               placeholder="e.g. Python, PostgreSQL, Kafka, AWS, Kubernetes" />
             <div class="error-msg">Please describe your primary stack</div>
           </div>
@@ -305,7 +305,7 @@
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">Preferred work arrangement <span class="req">*</span></label>
-              <select class="form-select">
+              <select class="form-select-job">
                 <option value="">Select…</option>
                 <option>Fully remote</option>
                 <option>Remote with occasional London visits</option>
@@ -315,13 +315,13 @@
             </div>
             <div class="form-group">
               <label class="form-label">Earliest start date <span class="req">*</span></label>
-              <input class="form-input" type="date" />
+              <input class="form-input-job" type="date" />
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label class="form-label">Right to work in UK? <span class="req">*</span></label>
-              <select class="form-select">
+              <select class="form-select-job">
                 <option value="">Select…</option>
                 <option>Yes — UK citizen / settled status</option>
                 <option>Yes — valid work visa</option>
@@ -331,7 +331,7 @@
             </div>
             <div class="form-group">
               <label class="form-label">Salary expectation <span class="opt">(optional)</span></label>
-              <input class="form-input" type="text" placeholder="e.g. £95,000" />
+              <input class="form-input-job" type="text" placeholder="e.g. £95,000" />
             </div>
           </div>
 
@@ -357,7 +357,7 @@
             <label class="form-label">Tell us about a time you improved the reliability or performance of a data system.
               What was the problem, what did you do, and what was the outcome? <span class="req">*</span></label>
             <div class="char-wrap">
-              <textarea class="form-textarea" id="q1" rows="5" maxlength="1000"
+              <textarea class="form-textarea-job" id="q1" rows="5" maxlength="1000"
                 placeholder="Share a specific example — ideally with numbers. We care more about your thinking than the scale of the company."
                 oninput="updateCount(this,'q1c')"></textarea>
               <div class="char-count"><span id="q1c">0</span>/1000</div>
@@ -368,7 +368,7 @@
             <label class="form-label">What draws you to Dreabee specifically — not just a backend role in general? <span
                 class="req">*</span></label>
             <div class="char-wrap">
-              <textarea class="form-textarea" id="q2" rows="4" maxlength="600"
+              <textarea class="form-textarea-job" id="q2" rows="4" maxlength="600"
                 placeholder="Be specific. If you've used the product or read about the technical challenges we're working on, this is a good place to mention it."
                 oninput="updateCount(this,'q2c')"></textarea>
               <div class="char-count"><span id="q2c">0</span>/600</div>
@@ -378,7 +378,7 @@
           <div class="form-group">
             <label class="form-label">Is there anything important about your situation or application we should know?
               <span class="opt">(optional)</span></label>
-            <textarea class="form-textarea" rows="3"
+            <textarea class="form-textarea-job" rows="3"
               placeholder="e.g. gaps in your CV, part-time availability for first 3 months, a project you're finishing up, or anything else relevant."></textarea>
           </div>
           <div class="section-label" style="margin-top:24px">Additional materials</div>
@@ -467,35 +467,35 @@
       <div class="timeline-card">
         <div class="sc-title">What happens next</div>
         <div class="tl-step">
-          <div class="tl-dot active">1</div>
+          <div class="tl-dot-job active">1</div>
           <div class="tl-content">
             <div class="tl-label">Application review</div>
             <div class="tl-sub">We read every application. Response within 5 business days.</div>
           </div>
         </div>
         <div class="tl-step">
-          <div class="tl-dot todo">2</div>
+          <div class="tl-dot-job todo">2</div>
           <div class="tl-content">
             <div class="tl-label">Intro call (30 min)</div>
             <div class="tl-sub">Chat with our recruiter. Fully remote, no prep needed.</div>
           </div>
         </div>
         <div class="tl-step">
-          <div class="tl-dot todo">3</div>
+          <div class="tl-dot-job todo">3</div>
           <div class="tl-content">
             <div class="tl-label">Technical screen</div>
             <div class="tl-sub">Async take-home task or live session — your choice.</div>
           </div>
         </div>
         <div class="tl-step">
-          <div class="tl-dot todo">4</div>
+          <div class="tl-dot-job todo">4</div>
           <div class="tl-content">
             <div class="tl-label">Team interviews (×2)</div>
             <div class="tl-sub">Meet your future colleagues. Values + technical depth.</div>
           </div>
         </div>
         <div class="tl-step" style="margin-bottom:0">
-          <div class="tl-dot todo">5</div>
+          <div class="tl-dot-job todo">5</div>
           <div class="tl-content">
             <div class="tl-label">Offer</div>
             <div class="tl-sub">Written offer within 48 hrs of final round.</div>

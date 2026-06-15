@@ -130,7 +130,7 @@
   </div>
 
   <!-- ═══════ HERO ═══════ -->
-  <section id="hero">
+  <section id="hero" class="fake-followers-hero">
     <div class="hero-grid"></div>
     <div class="wrap fi">
       <div class="badge-pill" style="margin-bottom:18px;">Free Tool — No Sign-Up Required</div>
@@ -163,10 +163,10 @@
         <div class="spinner"></div>
         <div class="load-txt" id="load-txt">Fetching profile data…</div>
         <div class="load-steps">
-          <div class="step-row"><span class="step-dot" id="sd0"></span>Looking up Instagram profile</div>
-          <div class="step-row"><span class="step-dot" id="sd1"></span>Analysing follower authenticity</div>
-          <div class="step-row"><span class="step-dot" id="sd2"></span>Calculating audience quality score</div>
-          <div class="step-row"><span class="step-dot" id="sd3"></span>Generating full report</div>
+          <div class="step-row"><span class="step-dot-fake-followers" id="sd0"></span>Looking up Instagram profile</div>
+          <div class="step-row"><span class="step-dot-fake-followers" id="sd1"></span>Analysing follower authenticity</div>
+          <div class="step-row"><span class="step-dot-fake-followers" id="sd2"></span>Calculating audience quality score</div>
+          <div class="step-row"><span class="step-dot-fake-followers" id="sd3"></span>Generating full report</div>
         </div>
       </div>
 
@@ -798,7 +798,7 @@
     </div>
   </div>
 
-  <div class="rc-body">
+  <div class="rc-body-fake-followers">
 
     <!-- KPIs -->
     <div class="kpi-grid">
@@ -935,7 +935,7 @@
 
       // Reset dots
       ['sd0', 'sd1', 'sd2', 'sd3'].forEach(id => {
-        document.getElementById(id).className = 'step-dot';
+        document.getElementById(id).className = 'step-dot-fake-followers';
       });
 
       // Show loading
@@ -957,14 +957,14 @@
       steps.forEach(({ t, msg, dot }) => {
         searchTimer = setTimeout(() => {
           loadTxt.textContent = msg;
-          if (dot > 0) document.getElementById('sd' + (dot - 1)).className = 'step-dot done';
-          document.getElementById('sd' + dot).className = 'step-dot pulse';
+          if (dot > 0) document.getElementById('sd' + (dot - 1)).className = 'step-dot-fake-followers done';
+          document.getElementById('sd' + dot).className = 'step-dot-fake-followers pulse';
         }, t);
       });
 
       // Finish
       searchTimer = setTimeout(() => {
-        document.getElementById('sd3').className = 'step-dot done';
+        document.getElementById('sd3').className = 'step-dot-fake-followers done';
         loadBox.classList.remove('show');
         const profile = makeProfile(handle);
         showCard(profile);
