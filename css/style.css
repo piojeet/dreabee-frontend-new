@@ -827,7 +827,7 @@ h1 {
 
 h2 {
   font-family: "Sora", sans-serif;
-  font-size: clamp(30px, 4.2vw, 40px);
+  font-size: clamp(30px, 4.2vw, 52px);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.025em;
@@ -4117,11 +4117,11 @@ CTA BANNER
 #hero h1 {
   margin: 0 auto 14px;
   font-family: "DM Serif Display", Georgia, serif;
-  font-size: clamp(34px, 5.5vw, 64px);
+  font-size: clamp(34px, 5.5vw, 52px);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.02em;
-  /* max-width: 860px; */
+  max-width: 860px;
   margin: 0 auto 20px;
 }
 
@@ -4131,6 +4131,15 @@ CTA BANNER
   font-weight: 800 !important;
   line-height: 1.04 !important;
   letter-spacing: -0.03em !important;
+}
+
+.heading-dm-sns {
+  font-family: 'DM Serif Display', Georgia, serif;
+    font-size: clamp(28px, 3.8vw, 44px);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -.01em;
+    color: var(--primary);
 }
 
 #hero .sub {
@@ -15142,7 +15151,7 @@ CTA BANNER
 }
 
 .hero-text {
-  padding-bottom: 72px;
+  padding-bottom: 40px;
 }
 
 .hero-eyebrow {
@@ -18090,7 +18099,7 @@ h1.hero-title span {
   pointer-events: none;
 }
 
-.hero-meta {
+.hero-meta-cst-purp {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -27696,6 +27705,21 @@ code {
   color: var(--ts);
   line-height: 1.7;
   margin-bottom: 32px;
+}
+
+.field-row-login {
+  display: flex;
+  justify-content: space-between;
+}
+
+.forgot-link:hover {
+  color: #1e8a6e;
+  border-bottom-color: #1e8a6e;
+  border-bottom-style: solid;
+}
+
+.insta-eg-rt {
+  text-align: center;
 }
 
 /* Responsive */
